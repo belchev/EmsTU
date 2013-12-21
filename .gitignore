@@ -1,20 +1,30 @@
 packages/*
 packages/**/*
 
-Ems.Db/bin/*
-Ems.Db/bin/**/*
-Ems.Db/obj/*
-Ems.Db/obj/**/*
-Ems.Db/CreateAll.log
+EmsTU.Common/bin/*
+EmsTU.Common/bin/**/*
+EmsTU.Common/obj/*
+EmsTU.Common/obj/**/*
 
-Ems.Web/bin/*
-Ems.Web/bin/**/*
-Ems.Web/obj/*
-Ems.Web/obj/**/*
-Ems.Web/Properties/PublishProfiles/**/*
-Ems.Web/App/node_modules/**/*
-Ems.Web/App/build/**/*
-Ems.Web/App/npm-debug.log
+EmsTU.Model/bin/*
+EmsTU.Model/bin/**/*
+EmsTU.Model/obj/*
+EmsTU.Model/obj/**/*
+
+EmsTU.Db/bin/*
+EmsTU.Db/bin/**/*
+EmsTU.Db/obj/*
+EmsTU.Db/obj/**/*
+EmsTU.Db/CreateAll.log
+
+EmsTU.Web/bin/*
+EmsTU.Web/bin/**/*
+EmsTU.Web/obj/*
+EmsTU.Web/obj/**/*
+EmsTU.Web/Properties/PublishProfiles/**/*
+EmsTU.Web/App/node_modules/**/*
+EmsTU.Web/App/build/**/*
+EmsTU.Web/App/npm-debug.log
 
 *.tmp
 *.suo
