@@ -2,7 +2,7 @@
 GO 
 
 CREATE TABLE [dbo].[AlbumPhotos](
-	[PhotoId] [int] IDENTITY(1,1) NOT NULL,
+	[AlbumPhotoId] [int] IDENTITY(1,1) NOT NULL,
 	[AlbumId] [int] NOT NULL,
 	[Image] [image] NOT NULL,
 	[ImageThumb] [image] NOT NULL,
