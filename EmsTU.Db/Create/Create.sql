@@ -60,6 +60,7 @@ GO
 :r "Create\Tables\Comments.sql"
 :r "Create\Tables\Albums.sql"
 :r "Create\Tables\AlbumPhotos.sql"
+:r "Create\Tables\BuildingRequests.sql"
 
 
 ---------------------------------------------------------------
