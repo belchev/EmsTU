@@ -83,6 +83,7 @@
     <Compile Include="Models\BuildingType.cs" />
     <Compile Include="Models\BuildingUserRole.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\BuildingRequest.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Visitor.cs" />
     <Compile Include="Models\RolesPermission.cs" />

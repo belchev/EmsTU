@@ -26,6 +26,7 @@ namespace EmsTU.Model.Models
         public DbSet<BuildingMusicType> BuildingMusicTypes { get; set; }
         public DbSet<BuildingOccasionType> BuildingOccasionTypes { get; set; }
         public DbSet<BuildingPaymentType> BuildingPaymentTypes { get; set; }
+        public DbSet<BuildingRequest> BuildingRequests { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<BuildingType> BuildingTypes { get; set; }
         public DbSet<BuildingUserRole> BuildingUserRoles { get; set; }
@@ -65,6 +66,7 @@ namespace EmsTU.Model.Models
             modelBuilder.Configurations.Add(new BuildingMap());
             modelBuilder.Configurations.Add(new BuildingTypeMap());
             modelBuilder.Configurations.Add(new BuildingUserRoleMap());
+            modelBuilder.Configurations.Add(new BuildingRequestMap());
             modelBuilder.Configurations.Add(new CommentMap());
             modelBuilder.Configurations.Add(new CountryMap());
             modelBuilder.Configurations.Add(new DistrictMap());

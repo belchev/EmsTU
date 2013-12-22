@@ -82,6 +82,7 @@
     <Content Include="Create\Tables\BuildingPaymentTypes.sql" />
     <Content Include="Create\Tables\Albums.sql" />
     <Content Include="Create\Tables\AlbumPhotos.sql" />
+    <Content Include="Create\Tables\BuildingRequests.sql" />
     <Content Include="Create\Tables\Events.sql" />
     <Content Include="Create\Tables\MenuCategories.sql" />
     <Content Include="Create\Tables\Menus.sql" />
