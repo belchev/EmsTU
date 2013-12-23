@@ -56,8 +56,8 @@ namespace EmsTU.Model.Infrastructure
 
             string userData =
                 this.httpContext.Server.UrlEncode(fullname) + "," +
-                "1," + //(userContext.HasPassword ? "1" : "0") + "," +
-                string.Join(",", userContext.Permissions);
+                "1," ;//+ (userContext.HasPassword ? "1" : "0") + "," +
+                //string.Join(",", userContext.Permissions);
 
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
               2,

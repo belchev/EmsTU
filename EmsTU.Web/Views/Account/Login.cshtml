@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ems</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="@Url.Content("~/App/css/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/App/css/style.css")" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container page-container">
+        <div class="span12">
+            <form class="row well offset3 span6 form-horizontal" action="@Url.Content("~/login")" method="post">
+                <div class="row">
+                    <h3 class="offset2 span4">Вход в системата</h3>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Потребителско име</label>
+                    <div class="controls">
+                        <input name="username" type="text" id="inputEmail" placeholder="Потребителско име" autofocus="autofocus">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputPassword">Парола</label>
+                    <div class="controls">
+                        <input name="password" type="password" id="inputPassword" placeholder="Парола">
+                    </div>
+                </div>
+                <div class="control-group error @(ViewBag.ErrorMessage != null ? "" : "hide")">
+                    <div class="controls">
+                        @ViewBag.ErrorMessage
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-info">Вход</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

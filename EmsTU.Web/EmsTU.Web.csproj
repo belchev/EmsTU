@@ -132,15 +132,24 @@
     <Compile Include="Common\LogFilters\ActionErrorLogFilter.cs" />
     <Compile Include="Common\LogFilters\ActionLogFilter.cs" />
     <Compile Include="Common\Statics.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\HtmlHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App\css\bootstrap-chosen.css" />
+    <Content Include="App\css\bootstrap.css" />
+    <Content Include="App\css\datepicker.css" />
+    <Content Include="App\css\jquery.fileupload-ui.css" />
+    <Content Include="App\css\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -153,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +176,12 @@
       <Project>{d8dbbc45-4b80-4232-90f0-612a199568e6}</Project>
       <Name>EmsTU.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

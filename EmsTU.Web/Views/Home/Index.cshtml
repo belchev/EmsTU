@@ -1,0 +1,100 @@
+﻿@using EmsTU.Web.Tools
+@model dynamic
+@{
+  Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ems</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="version" content="@Model.Version">
+
+  <style type="text/css">
+        #initial-loader
+        {
+            margin-top: 100px;
+        }
+
+        #initial-loader > h4
+        {
+            margin: 8px 0;
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: bold;
+            line-height: 16px;
+            color: inherit;
+            vertical-align: middle;
+            text-align: center;
+            text-rendering: optimizelegibility;
+        }
+
+        #initial-loader > i
+        {
+            display: block;
+            background-image: url("@(Url.Content("~/app/img/initial-loader.gif"))");
+            background-repeat: no-repeat;
+            background-position:center;
+            height: 32px;
+            margin: 5px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+  <noscript>
+    <h2 style="text-align: center;">Страницата не може да бъде показана, ако сте спрели изпълнението на JavaScript</h2>
+  </noscript>
+  <div id="initial-loader">
+    <h4>Моля изчакайте...</h4>
+    <i></i>
+  </div>
+  <div id="root" data-bind="view: rootView"></div>
+  <div id="dialog" style="display: none;" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 data-bind="text: header"></h3>
+    </div>
+    <div class="modal-body" style="height: 250px;" data-bind="view: view">
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true"
+        data-bind="text: cancelText, visible: cancelText">
+      </button>
+      <button class="btn btn-primary"
+        data-bind="text: acceptText, visible: acceptText, click: accept, disable: acceptDisabled">
+      </button>
+    </div>
+  </div>
+
+  <div id="template-container" style="display: none;">
+    <@*script type="text/html" id="templates:root.html">@Html.RawFile("~/app/templates/root.html")</script>
+    <script type="text/html" id="templates:page.html">@Html.RawFile("~/app/templates/page.html")</script>
+    <script type="text/html" id="templates:navigation.html">@Html.RawFile("~/app/templates/navigation.html")</script>
+    <script type="text/html" id="templates:left_navigation.html">@Html.RawFile("~/app/templates/left_navigation.html")</script>
+    <script type="text/html" id="templates:unknown.html">@Html.RawFile("~/app/templates/unknown.html")</script>
+    <script type="text/html" id="templates:users.html">@Html.RawFile("~/app/templates/users.html")</script>
+    <script type="text/html" id="templates:edit_user.html">@Html.RawFile("~/app/templates/edit_user.html")</script>
+    <script type="text/html" id="templates:user_change_pass.html">@Html.RawFile("~/app/templates/user_change_pass.html")</script>*@
+
+
+    @*MORE*@
+  </div>
+
+
+
+  <link href="@(Url.Content("~/app/css/bootstrap.css"))" rel="stylesheet">
+  <link href="@(Url.Content("~/app/css/bootstrap-chosen.css"))" rel="stylesheet">
+  <link href="@(Url.Content("~/app/css/datepicker.css"))" rel="stylesheet">
+  <link href="@(Url.Content("~/app/css/style.css"))" rel="stylesheet">
+  <link href="@(Url.Content("~/app/css/jquery.fileupload-ui.css"))" rel="stylesheet">
+
+ @* <script type="text/javascript">
+    window.ems = {};
+    window.ems.config = @(Html.Raw(Model.Config));
+      window.ems.rootUrl = "@(Url.Content("~/"))";
+  </script>*@
+
+
+</body>
+</html>

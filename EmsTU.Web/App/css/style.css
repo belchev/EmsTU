@@ -1,0 +1,707 @@
+/* BOOTSTRAP EXTRA */
+.btn-campfire-1 {
+    text-shadow: 0px -1px 0px #6c8c94;
+    color: #ffffff;
+    background-color: #8AAAB2;
+    background-image: -moz-linear-gradient(top, #a8c8d0, #6c8c94);
+    background-image: -ms-linear-gradient(top, #a8c8d0, #6c8c94);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#a8c8d0), to(#6c8c94));
+    background-image: -webkit-linear-gradient(top, #a8c8d0, #6c8c94);
+    background-image: -o-linear-gradient(top, #a8c8d0, #6c8c94);
+    background-image: linear-gradient(top, #a8c8d0, #6c8c94);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a8c8d0', endColorstr='#6c8c94', GradientType=0);
+    border-color: #8AAAB2 #6c8c94 #6c8c94 #8AAAB2;
+    border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25);
+}
+
+    .btn-campfire-1:hover, .btn-campfire-1:active, .btn-campfire-1.active, .btn-campfire-1.disabled, .btn-campfire-1[disabled] {
+        background-color: #6c8c94;
+    }
+
+    .btn-campfire-1:hover {
+        color: #ffffff;
+        text-shadow: 0px -1px 0px #4e6e76;
+    }
+
+    .btn-campfire-1:focus {
+        color: #eeffff;
+        -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+        border-color: #8AAAB2 #6c8c94 #6c8c94 #8AAAB2;
+        border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-campfire-1.active, .btn-campfire-1:active {
+        background-image: none;
+        -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+        color: #eeffff;
+    }
+/* BOOTSTRAP EXTRA */
+
+/* BOOTSTRAP OVERRIDES */
+label.control-label {
+    cursor: auto;
+}
+
+label {
+    margin-bottom: 0px;
+}
+
+.navbar .nav .dropdown-toggle .caret {
+    margin-top: 6px;
+}
+
+.input-append.iconbtn-append .btn {
+    padding: 4px 5px;
+}
+
+/*iconbtn-append elements with 25px less width*/
+.iconbtn-append .span13 {
+    width: 923px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span12 {
+    width: 849px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span11 {
+    width: 775px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span10 {
+    width: 701px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span9 {
+    width: 627px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span8 {
+    width: 553px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span7 {
+    width: 479px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span6 {
+    width: 405px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span5 {
+    width: 331px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span4 {
+    width: 257px;
+}
+
+.iconbtn-append .span3 {
+    width: 183px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span2 {
+    width: 109px;
+    margin-left: 0;
+}
+
+.iconbtn-append .span1 {
+    width: 35px;
+    margin-left: 0;
+}
+
+/*input-box should be with 10 less than iconbtn-append*/
+.iconbtn-append .input-box.span13 {
+    width: 913px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span12 {
+    width: 839px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span11 {
+    width: 765px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span10 {
+    width: 691px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span9 {
+    width: 617px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span8 {
+    width: 543px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span7 {
+    width: 469px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span6 {
+    width: 395px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span5 {
+    width: 321px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span4 {
+    width: 247px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span3 {
+    width: 173px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span2 {
+    width: 99px;
+    margin-left: 0;
+}
+
+.iconbtn-append .input-box.span1 {
+    width: 25px;
+    margin-left: 0;
+}
+
+.iconbtn-append input.span13, .iconbtn-append textarea.span13, .iconbtn-append .uneditable-input.span13 {
+    width: 909px;
+}
+
+.iconbtn-append input.span12, .iconbtn-append textarea.span12, .iconbtn-append .uneditable-input.span12 {
+    width: 835px;
+}
+
+.iconbtn-append input.span11, .iconbtn-append textarea.span11, .iconbtn-append .uneditable-input.span11 {
+    width: 761px;
+}
+
+.iconbtn-append input.span10, .iconbtn-append textarea.span10, .iconbtn-append .uneditable-input.span10 {
+    width: 687px;
+}
+
+.iconbtn-append input.span9, .iconbtn-append textarea.span9, .iconbtn-append .uneditable-input.span9 {
+    width: 613px;
+}
+
+.iconbtn-append input.span8, .iconbtn-append textarea.span8, .iconbtn-append .uneditable-input.span8 {
+    width: 539px;
+}
+
+.iconbtn-append input.span7, .iconbtn-append textarea.span7, .iconbtn-append .uneditable-input.span7 {
+    width: 465px;
+}
+
+.iconbtn-append input.span6, .iconbtn-append textarea.span6, .iconbtn-append .uneditable-input.span6 {
+    width: 391px;
+}
+
+.iconbtn-append input.span5, .iconbtn-append textarea.span5, .iconbtn-append .uneditable-input.span5 {
+    width: 317px;
+}
+
+.iconbtn-append input.span4, .iconbtn-append textarea.span4, .iconbtn-append .uneditable-input.span4 {
+    width: 243px;
+}
+
+.iconbtn-append input.span3, .iconbtn-append textarea.span3, .iconbtn-append .uneditable-input.span3 {
+    width: 169px;
+}
+
+.iconbtn-append input.span2, .iconbtn-append textarea.span2, .iconbtn-append .uneditable-input.span2 {
+    width: 95px;
+}
+
+.iconbtn-append input.span1, .iconbtn-append textarea.span1, .iconbtn-append .uneditable-input.span1 {
+    width: 21px;
+}
+/******/
+
+.page-view-Z {
+    width: 100%;
+}
+
+.page-view-CT {
+    width: 100%;
+    margin-top: 27px;
+}
+
+.page-view {
+    width: 100%;
+}
+
+.nav-container {
+    width: 958px;
+}
+
+.page-content {
+    width: 958px;
+}
+
+.info-page-content {
+    width: 958px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.sections-breadcrumb {
+    margin-bottom: 9px;
+}
+
+.search-input {
+    width: 194px;
+}
+
+.search-datepicker-input {
+    width: 84px;
+}
+
+.span-small {
+    width: 104px;
+}
+
+/* ICONS */
+/* Bootstrap applies styling to "icon-" classes so we need to avoid those by naming these "app-icon-"*/
+.app-icon-fall {
+    background-image: url("../img/pictograms-nps-misc-stay_back_from_edge.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 128px;
+    margin: 30px;
+    padding: 0;
+}
+
+.app-icon-loading {
+    background-image: url("../img/loading.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 128px;
+    margin: 30px;
+    padding: 0;
+}
+/*///ICONS///*/
+
+/* SUBSECTIONS */
+.subsection-well {
+    min-height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    background-color: #C5C5C5;
+    border: 1px solid #9E9E9E;
+    margin-bottom: 4px;
+    margin-left: -5px;
+    margin-right: -5px;
+    padding: 4px;
+}
+
+    .subsection-well span {
+        font-weight: bold;
+    }
+
+    .subsection-well .btn-toolbar {
+        margin: 0;
+    }
+
+    .subsection-well .header-btn-group button {
+        width: 79px;
+    }
+
+    .subsection-well .draft-header {
+        font-style: italic;
+        margin-left: 20px;
+    }
+/*///SUBSECTIONS///*/
+
+/* FORMS */
+.form-well {
+    min-height: 16px;
+    line-height: 16px;
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-left: -5px;
+    margin-right: -5px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+}
+
+    .form-well .header-btn-group {
+        margin-top: -1px;
+    }
+
+        .form-well .header-btn-group button {
+            width: 68px;
+        }
+
+    .form-well .header span {
+        font-weight: bold;
+    }
+
+    .form-well .header {
+        margin-bottom: 4px;
+    }
+
+    .form-well .well-bottom {
+        margin-top: 4px;
+        border-top: 1px solid #E3E3E3;
+        border-bottom: 0px;
+        border-left: 0px;
+        border-right: 0px;
+        margin-left: -5px;
+        margin-right: -5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 4px;
+        padding-bottom: 0px;
+    }
+
+    .form-well .form-row {
+        margin-bottom: 4px;
+    }
+
+    .form-well form {
+        margin: 0px;
+    }
+
+    .form-well .control-group {
+        margin-bottom: 0px;
+    }
+
+    .form-well label {
+        margin-bottom: 0px;
+    }
+
+    .form-well table {
+        width: 874px;
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+/*///FORMS///*/
+
+/* MODALS */
+.modal-body .form-row {
+    margin-bottom: 4px;
+}
+
+.modal-body form {
+    margin: 0px;
+}
+
+.modal-body .control-group {
+    margin-bottom: 0px;
+}
+
+.modal-body label {
+    margin-bottom: 0px;
+}
+
+.modal-body table {
+    /*width: 874px;*/
+    /*width: 800px;*/ /*fixed chrome modal-dialog width*/
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+
+.modal-body .span-modal {
+    width: 530px;
+}
+
+.modal-body input.span-modal,
+.modal-body textarea.span-modal {
+    width: 516px;
+}
+/*///MODALS///*/
+
+.header-btn-group {
+    font-size: 0;
+    float: right;
+}
+
+td.dropdown-cell {
+    padding: 0;
+    position: relative;
+}
+
+    td.dropdown-cell > * {
+        margin: 0;
+    }
+
+td.nomenclature-cell {
+}
+
+.dropdown-container {
+    margin-left: 0;
+    position: relative;
+}
+
+    .dropdown-container i,
+    td.dropdown-cell i,
+    td.nomenclature-cell i {
+        background-image: url("../img/chosen-loader.gif");
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 16px;
+        width: 16px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .dropdown-container i,
+    td.dropdown-cell i {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+    }
+
+td.nomenclature-cell i {
+    float: right;
+}
+
+.dropdown-container.disabled i {
+    right: 10px;
+}
+
+.coordinates-field input {
+    width: 93px;
+}
+
+.coordinates-field .add-on span {
+    font-weight: bold;
+}
+
+.map-links {
+    display: inline-block;
+}
+
+    .map-links a {
+        margin-left: 10px;
+    }
+
+.input-append.date .add-on.datepicker-button,
+.input-append.date .add-on.datepicker-button i {
+    cursor: pointer;
+}
+
+.input-append.date.disabled .add-on.datepicker-button,
+.input-append.date.disabled .add-on.datepicker-button i {
+    cursor: auto;
+}
+
+.error {
+    color: red;
+}
+
+    .error input, .error textarea {
+        background: #f6dddd;
+    }
+
+.input-box {
+    background-color: #ffffff;
+    background-color: #f8f8f8;
+    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eeeeee));
+    background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    color: #555555;
+    height: 24px;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 0 0 0 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.error .input-box {
+    border-color: #b94a48;
+    background: #f2dede;
+}
+
+/* LOGIN */
+
+.form-horizontal.span6 .control-label {
+    width: 130px;
+}
+
+.form-horizontal.span6 .controls {
+    margin-left: 150px;
+}
+
+/*///LOGIN///*/
+
+/*
+table.table-docs td {
+    text-align: left;
+    vertical-align: middle;
+}
+*/
+
+table.table-docs th {
+    font-size: 12px;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+table.table-docs tr.header {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+table.table-docs tr.docs {
+    font-size: 12px;
+}
+
+.rotate {
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    /* IE9 */
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+/*///LOGIN///*/
+.docs-sidebar.affix {
+    top: 50px;
+}
+
+/*****TREE*******/
+ul.tree {
+    list-style: none outside none;
+    margin: 0;
+}
+
+    ul.tree > li {
+        line-height: 18px;
+        padding-left: 17px;
+    }
+
+    ul.tree.tree-root > li {
+        padding-left: 0px;
+    }
+
+    ul.tree > li > i {
+        vertical-align: text-top;
+        line-height: 14px;
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+    }
+
+        ul.tree > li > i.opened {
+            background: url("../img/tree-minus.png") no-repeat;
+            background-position: 0 1px;
+        }
+
+        ul.tree > li > i.closed {
+            background: url("../img/tree-plus.png") no-repeat;
+            background-position: 0 1px;
+        }
+/****************/
+
+/*******custom small classes*/
+
+.bolded {
+    font-weight: bold;
+}
+
+.btn-large-fast {
+    padding: 11px 19px;
+    font-size: 15px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    width: 186px;
+}
+
+
+/** New **/
+
+.tab-content {
+    background-color: #FFFFFF;
+    padding: 15px 10px;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.nav-tabs {
+    margin-bottom: 0px;
+}
+
+    .nav-tabs > li > a {
+        cursor: pointer;
+    }
+
+.control-label-status {
+    float: right;
+    margin: 0px 0px 10px 5px;
+    padding: 5px 10px;
+    background-color: #E9E9E9;
+}
+
+.control-label-bg {
+    padding: 7px 10px;
+    background-color: #E9E9E9;
+    display: block;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.btn-text {
+    border: 0;
+    background: none !important;
+    box-shadow: none;
+    margin-top: 8px !important;
+    color: #777;
+}
+
+.btn-text:active {
+    background: none !important;
+    box-shadow: none;
+}
+
+/*.alert {
+    border-color: #CCCCCC;
+    color: #000000;
+    background-color: #FFF7C4;
+}*/

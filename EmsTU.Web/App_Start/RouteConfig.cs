@@ -13,11 +13,30 @@ namespace EmsTU.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //  name: null,
+            //  url: "config",
+            //  defaults: new { controller = "Home", action = "Config" });
+
+            routes.MapRoute(
+               name: null,
+               url: "login",
+               defaults: new { controller = "Account", action = "Login" });
+
+            routes.MapRoute(
+               name: null,
+               url: "logout",
+               defaults: new { controller = "Account", action = "Logout" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+               name: "All",
+               url: "{*all}",
+               defaults: new { controller = "Home", action = "Index" });
         }
     }
 }

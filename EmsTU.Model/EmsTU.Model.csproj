@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\EmsTUUnitOfWork.cs" />
+    <Compile Include="Data\RepositoryExtensions\UserRepositoryExtensions.cs" />
     <Compile Include="EmsTUContext.cs" />
     <Compile Include="EmsTUModelModule.cs" />
     <Compile Include="Infrastructure\IUserContextProvider.cs" />
@@ -112,7 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataObjects\" />
-    <Folder Include="Data\RepositoryExtensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmsTU.Common\EmsTU.Common.csproj">
