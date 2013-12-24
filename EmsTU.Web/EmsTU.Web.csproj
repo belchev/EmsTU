@@ -150,6 +150,79 @@
     <Content Include="App\css\datepicker.css" />
     <Content Include="App\css\jquery.fileupload-ui.css" />
     <Content Include="App\css\style.css" />
+    <Content Include="App\gruntfile.js" />
+    <Content Include="App\img\chosen-loader.gif" />
+    <Content Include="App\img\chosen-sprite.png" />
+    <Content Include="App\img\glyphicons-halflings-white.png" />
+    <Content Include="App\img\glyphicons-halflings.png" />
+    <Content Include="App\img\initial-loader.gif" />
+    <Content Include="App\img\loading.gif" />
+    <Content Include="App\img\pictograms-nps-misc-stay_back_from_edge.png" />
+    <Content Include="App\img\tree-minus.png" />
+    <Content Include="App\img\tree-plus.png" />
+    <Content Include="App\js\framework\async_queue.js" />
+    <Content Include="App\js\framework\class.js" />
+    <Content Include="App\js\framework\controller.js" />
+    <Content Include="App\js\framework\controller_coordinator.js" />
+    <Content Include="App\js\framework\corium.js" />
+    <Content Include="App\js\framework\corium_instance.js" />
+    <Content Include="App\js\framework\dialog_service.js" />
+    <Content Include="App\js\framework\list_view.js" />
+    <Content Include="App\js\framework\navigation_service.js" />
+    <Content Include="App\js\framework\navigator.js" />
+    <Content Include="App\js\framework\repository.js" />
+    <Content Include="App\js\framework\router.js" />
+    <Content Include="App\js\framework\view.js" />
+    <Content Include="App\js\framework\view_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\bootstrap_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\chosen_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\converted_binding_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\date_picker_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\element_handler_factory.js" />
+    <Content Include="App\js\knockout_binding_handlers\jqeury_ui_widget_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\promised_click_handler.js" />
+    <Content Include="App\js\knockout_binding_handlers\read_only_handler.js" />
+    <Content Include="App\js\lib\bootstrap-datepicker.bg.js" />
+    <Content Include="App\js\lib\bootstrap-datepicker.js" />
+    <Content Include="App\js\lib\bootstrap.js" />
+    <Content Include="App\js\lib\chosen.jquery.js" />
+    <Content Include="App\js\lib\crossroads.js" />
+    <Content Include="App\js\lib\es5-shim.js" />
+    <Content Include="App\js\lib\hasher.js" />
+    <Content Include="App\js\lib\jquery-1.9.1.js" />
+    <Content Include="App\js\lib\jquery.fileupload.js" />
+    <Content Include="App\js\lib\jquery.iframe-transport.js" />
+    <Content Include="App\js\lib\jquery.ui.widget.js" />
+    <Content Include="App\js\lib\knockout-2.2.1.debug.js" />
+    <Content Include="App\js\lib\knockout_plugins\knockout.mapping-2.4.1.debug.js" />
+    <Content Include="App\js\lib\lodash.compat.js" />
+    <Content Include="App\js\lib\moment.js" />
+    <Content Include="App\js\lib\q.js" />
+    <Content Include="App\js\lib\require.js" />
+    <Content Include="App\js\lib\require_plugins\domReady.js" />
+    <Content Include="App\js\lib\require_plugins\text.js" />
+    <Content Include="App\js\lib\signals.js" />
+    <Content Include="App\js\lib\spin.js" />
+    <Content Include="App\js\main.js" />
+    <Content Include="App\js\src\controllers\app_controller.js" />
+    <Content Include="App\js\src\controllers\building_controller.js" />
+    <Content Include="App\js\src\ko_utils.js" />
+    <Content Include="App\js\src\nomenclature_cache_service.js" />
+    <Content Include="App\js\src\nomenclature_context.js" />
+    <Content Include="App\js\src\nomenclature_context_handler.js" />
+    <Content Include="App\js\src\tab_cache_service.js" />
+    <Content Include="App\js\src\utils.js" />
+    <Content Include="App\js\src\validation_extenders.js" />
+    <Content Include="App\js\src\validation_utils.js" />
+    <Content Include="App\js\src\view_models\home_vm.js" />
+    <Content Include="App\js\src\view_models\left_navigation_vm.js" />
+    <Content Include="App\js\src\view_models\navigation_vm.js" />
+    <Content Include="App\templates\home.html" />
+    <Content Include="App\templates\left_navigation.html" />
+    <Content Include="App\templates\navigation.html" />
+    <Content Include="App\templates\page.html" />
+    <Content Include="App\templates\root.html" />
+    <Content Include="App\templates\unknown.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -161,6 +234,8 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\build\debug\js\" />
+    <Folder Include="App\js\src\repositories\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -182,6 +257,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App\package.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

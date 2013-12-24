@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace EmsTU.Web
 {
@@ -24,9 +26,10 @@ namespace EmsTU.Web
         public static void RegisterRoutes(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: null,
+                routeTemplate: "api/noms/yesNoOptions",
+                defaults: new { controller = "Nom", action = "GetYesNoOptions" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
         }
     }

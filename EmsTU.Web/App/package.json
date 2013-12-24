@@ -1,0 +1,11 @@
+{
+    "name": "EmsTU",
+    "version": "0.0.1",
+    "fullVersion": "0.0.1",
+    "devDependencies": {
+        "grunt": "0.4.x",
+        "grunt-contrib-requirejs": "0.x.x",
+        "grunt-contrib-jshint": "0.x.x",
+        "lodash": "~1.3.1"
+    }
+}

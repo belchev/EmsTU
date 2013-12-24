@@ -1,0 +1,40 @@
+﻿<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container nav-container" style="position: relative;">
+            <ul class="nav" data-bind="foreach: _items">
+                <li data-bind="css: { 'active': active, 'dropdown': items.length > 0 }">
+                    <a data-bind="bootstrap: items.length > 0 ? { plugin: 'dropdown' } : {}, 'click': click, attr: { 'href': href, 'target': newTab ? '_blank' : '_self', 'data-toggle': items.length > 0 ? 'dropdown' : '' }, css: { 'dropdown-toggle': items.length > 0 }">
+                        <!-- ko if: icon -->
+                        <i data-bind="attr: { 'class': icon }"></i>
+                        <!-- /ko -->
+                        <span data-bind="text: text"></span>
+                        <!-- ko if: items.length > 0 -->
+                        <b class="caret"></b>
+                        <!-- /ko -->
+                    </a>
+                    <ul class="dropdown-menu" data-bind="foreach: items">
+                        <li>
+                            <a data-bind="'click': click, attr: { 'href': href, 'target': newTab ? '_blank' : '_self' }">
+                                <!-- ko if: icon -->
+                                <i data-bind="attr: { 'class': icon }"></i>
+                                <!-- /ko -->
+                                <span data-bind="text: text"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div style="position: absolute; margin-top: 0px; right: 0px;">
+                <div style="float: right">
+                    <span style="font-weight: bold" data-bind="text: _userFullName"></span>
+                    <!--<span style="font-weight: bold" data-bind="visible: _userUnitPosition, text: ' (' + _userUnitPosition + ')'"></span>-->
+                </div>
+                <div style="float: right; clear: both; margin-top: 10px;">
+                    <a data-bind="click: changePassword" style="margin-right: 4px; font-size: 12px">Смяна на паролата </a>
+                    <a style="font-size: 12px;" href="logout">Изход</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

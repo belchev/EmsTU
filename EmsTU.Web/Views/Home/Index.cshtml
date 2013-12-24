@@ -68,12 +68,12 @@
   </div>
 
   <div id="template-container" style="display: none;">
-    <@*script type="text/html" id="templates:root.html">@Html.RawFile("~/app/templates/root.html")</script>
+    <script type="text/html" id="templates:root.html">@Html.RawFile("~/app/templates/root.html")</script>
     <script type="text/html" id="templates:page.html">@Html.RawFile("~/app/templates/page.html")</script>
     <script type="text/html" id="templates:navigation.html">@Html.RawFile("~/app/templates/navigation.html")</script>
     <script type="text/html" id="templates:left_navigation.html">@Html.RawFile("~/app/templates/left_navigation.html")</script>
     <script type="text/html" id="templates:unknown.html">@Html.RawFile("~/app/templates/unknown.html")</script>
-    <script type="text/html" id="templates:users.html">@Html.RawFile("~/app/templates/users.html")</script>
+    @*  <script type="text/html" id="templates:users.html">@Html.RawFile("~/app/templates/users.html")</script>
     <script type="text/html" id="templates:edit_user.html">@Html.RawFile("~/app/templates/edit_user.html")</script>
     <script type="text/html" id="templates:user_change_pass.html">@Html.RawFile("~/app/templates/user_change_pass.html")</script>*@
 
@@ -89,12 +89,13 @@
   <link href="@(Url.Content("~/app/css/style.css"))" rel="stylesheet">
   <link href="@(Url.Content("~/app/css/jquery.fileupload-ui.css"))" rel="stylesheet">
 
- @* <script type="text/javascript">
+  <script type="text/javascript">
     window.ems = {};
     window.ems.config = @(Html.Raw(Model.Config));
-      window.ems.rootUrl = "@(Url.Content("~/"))";
-  </script>*@
+    window.ems.rootUrl = "@(Url.Content("~/"))";
+  </script>
 
+  <script data-main="@(Url.Content("~/app/build/debug/js/main"))" src="@(Url.Content("~/app/js/lib/require.js"))"></script>
 
 </body>
 </html>

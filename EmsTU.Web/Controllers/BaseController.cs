@@ -23,7 +23,6 @@ namespace EmsTU.Web.Controllers
         /// </summary>
         /// <param name="unitOfWork">Базов интерфейс за достъп до базата данни</param>
         /// <param name="userContextProvider">Интерфейс за достъп до потребителските данни</param>
-        /// <param name="documentSerializer">Интерфейс за Xml сериализация на документи</param>
         public BaseController(IUnitOfWork unitOfWork, IUserContextProvider userContextProvider)
         {
             this.unitOfWork = unitOfWork;
