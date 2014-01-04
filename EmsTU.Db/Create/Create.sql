@@ -31,14 +31,13 @@ GO
 :r "Create\Tables\AddressData\Settlements.sql"
 
 --Users
-:r "Create\Tables\Users.sql"
 :r "Create\Tables\Roles.sql"
-:r "Create\Tables\Permissions.sql"
-:r "Create\Tables\RolesPermissions.sql"
+:r "Create\Tables\Users.sql"
+:r "Create\Tables\UserRoles.sql"
 
 --
 :r "Create\Tables\Buildings.sql"
-:r "Create\Tables\BuildingUserRoles.sql"
+:r "Create\Tables\BuildingUsers.sql"
 :r "Create\Tables\BuildingTypes.sql"
 :r "Create\Tables\Extras.sql"
 :r "Create\Tables\KitchenTypes.sql"

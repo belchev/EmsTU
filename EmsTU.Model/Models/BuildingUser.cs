@@ -4,24 +4,22 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace EmsTU.Model.Models
 {
-    public partial class BuildingUserRole
+    public partial class BuildingUser
     {
-        public int BuildingUserRoleId { get; set; }
+        public int BuildingUserId { get; set; }
         public int BuildingId { get; set; }
         public int UserId { get; set; }
-        public int RoleId { get; set; }
         public byte[] Version { get; set; }
         public virtual Building Building { get; set; }
-        public virtual Role Role { get; set; }
         public virtual User User { get; set; }
     }
 
-    public class BuildingUserRoleMap : EntityTypeConfiguration<BuildingUserRole>
+    public class BuildingUserMap : EntityTypeConfiguration<BuildingUser>
     {
-        public BuildingUserRoleMap()
+        public BuildingUserMap()
         {
             // Primary Key
-            this.HasKey(t => t.BuildingUserRoleId);
+            this.HasKey(t => t.BuildingUserId);
 
             // Properties
             this.Property(t => t.Version)
@@ -31,22 +29,18 @@ namespace EmsTU.Model.Models
                 .IsRowVersion();
 
             // Table & Column Mappings
-            this.ToTable("BuildingUserRoles");
-            this.Property(t => t.BuildingUserRoleId).HasColumnName("BuildingUserRoleId");
+            this.ToTable("BuildingUsers");
+            this.Property(t => t.BuildingUserId).HasColumnName("BuildingUserId");
             this.Property(t => t.BuildingId).HasColumnName("BuildingId");
             this.Property(t => t.UserId).HasColumnName("UserId");
-            this.Property(t => t.RoleId).HasColumnName("RoleId");
             this.Property(t => t.Version).HasColumnName("Version");
 
             // Relationships
             this.HasRequired(t => t.Building)
-                .WithMany(t => t.BuildingUserRoles)
+                .WithMany(t => t.BuildingUsers)
                 .HasForeignKey(d => d.BuildingId);
-            this.HasRequired(t => t.Role)
-                .WithMany(t => t.BuildingUserRoles)
-                .HasForeignKey(d => d.RoleId);
             this.HasRequired(t => t.User)
-                .WithMany(t => t.BuildingUserRoles)
+                .WithMany(t => t.BuildingUsers)
                 .HasForeignKey(d => d.UserId);
 
         }

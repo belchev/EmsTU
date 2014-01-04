@@ -15,7 +15,7 @@ namespace EmsTU.Model.Models
             this.BuildingMusicTypes = new List<BuildingMusicType>();
             this.BuildingOccasionTypes = new List<BuildingOccasionType>();
             this.BuildingPaymentTypes = new List<BuildingPaymentType>();
-            this.BuildingUserRoles = new List<BuildingUserRole>();
+            this.BuildingUsers = new List<BuildingUser>();
             this.Comments = new List<Comment>();
             this.Events = new List<Event>();
             this.MenuCategories = new List<MenuCategory>();
@@ -54,7 +54,7 @@ namespace EmsTU.Model.Models
         public virtual Municipality Municipality { get; set; }
         public virtual Settlement Settlement { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<BuildingUserRole> BuildingUserRoles { get; set; }
+        public virtual ICollection<BuildingUser> BuildingUsers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<MenuCategory> MenuCategories { get; set; }

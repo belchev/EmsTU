@@ -8,16 +8,15 @@ namespace EmsTU.Model.Models
     {
         public Role()
         {
-            this.BuildingUserRoles = new List<BuildingUserRole>();
-            this.RolesPermissions = new List<RolesPermission>();
+            this.Users = new List<User>();
         }
 
         public int RoleId { get; set; }
         public string Name { get; set; }
+        public string Permissions { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingUserRole> BuildingUserRoles { get; set; }
-        public virtual ICollection<RolesPermission> RolesPermissions { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 
     public class RoleMap : EntityTypeConfiguration<Role>
@@ -32,6 +31,9 @@ namespace EmsTU.Model.Models
                 .IsRequired()
                 .HasMaxLength(200);
 
+            this.Property(t => t.Permissions)
+                .HasMaxLength(1000);
+
             this.Property(t => t.Version)
                 .IsRequired()
                 .IsFixedLength()
@@ -42,8 +44,21 @@ namespace EmsTU.Model.Models
             this.ToTable("Roles");
             this.Property(t => t.RoleId).HasColumnName("RoleId");
             this.Property(t => t.Name).HasColumnName("Name");
+            this.Property(t => t.Permissions).HasColumnName("Permissions");
             this.Property(t => t.IsActive).HasColumnName("IsActive");
             this.Property(t => t.Version).HasColumnName("Version");
+
+            // Relationships
+            this.HasMany(t => t.Users)
+                .WithMany(t => t.Roles)
+                .Map(m =>
+                {
+                    m.ToTable("UserRoles");
+                    m.MapLeftKey("RoleId");
+                    m.MapRightKey("UserId");
+                });
+
+
         }
     }
 }

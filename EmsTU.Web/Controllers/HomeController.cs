@@ -40,7 +40,6 @@ namespace EmsTU.Web.Controllers
         {
             UserContext userContext = this.userContextProvider.GetCurrentUserContext();
             User user = this.unitOfWork.Repo<User>().Query()
-                //.Include(e => e.Unit)
                 .SingleOrDefault(e => e.UserId == userContext.UserId);
 
 
@@ -53,10 +52,8 @@ namespace EmsTU.Web.Controllers
                     App = "EmsTU",
                     UserId = userContext.UserId,
                     UserFullName = userContext.FullName,
-                    //UserUnitName = user.Unit.Name,
-                    //UserUnitPosition = userUnitPosition,
                     UserHasPassword = true,
-                    //Permissions = userContext.Permissions,
+                    Permissions = userContext.Permissions,
                 },
 
                 System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings);

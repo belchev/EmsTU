@@ -10,7 +10,8 @@ namespace EmsTU.Model.Models
         public User()
         {
             this.Buildings = new List<Building>();
-            this.BuildingUserRoles = new List<BuildingUserRole>();
+            this.BuildingUsers = new List<BuildingUser>();
+            this.Roles = new List<Role>();
         }
 
         public int UserId { get; set; }
@@ -23,7 +24,8 @@ namespace EmsTU.Model.Models
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
         public virtual ICollection<Building> Buildings { get; set; }
-        public virtual ICollection<BuildingUserRole> BuildingUserRoles { get; set; }
+        public virtual ICollection<BuildingUser> BuildingUsers { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
 
         //client only
         public string Password { get; set; }

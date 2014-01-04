@@ -29,7 +29,7 @@ namespace EmsTU.Model.Models
         public DbSet<BuildingRequest> BuildingRequests { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<BuildingType> BuildingTypes { get; set; }
-        public DbSet<BuildingUserRole> BuildingUserRoles { get; set; }
+        public DbSet<BuildingUser> BuildingUsers { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<District> Districts { get; set; }
@@ -43,10 +43,8 @@ namespace EmsTU.Model.Models
         public DbSet<OccasionType> OccasionTypes { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<RolesPermission> RolesPermissions { get; set; }
         public DbSet<Settlement> Settlements { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
@@ -65,7 +63,7 @@ namespace EmsTU.Model.Models
             modelBuilder.Configurations.Add(new BuildingPaymentTypeMap());
             modelBuilder.Configurations.Add(new BuildingMap());
             modelBuilder.Configurations.Add(new BuildingTypeMap());
-            modelBuilder.Configurations.Add(new BuildingUserRoleMap());
+            modelBuilder.Configurations.Add(new BuildingUserMap());
             modelBuilder.Configurations.Add(new BuildingRequestMap());
             modelBuilder.Configurations.Add(new CommentMap());
             modelBuilder.Configurations.Add(new CountryMap());
@@ -80,10 +78,8 @@ namespace EmsTU.Model.Models
             modelBuilder.Configurations.Add(new OccasionTypeMap());
             modelBuilder.Configurations.Add(new OfferMap());
             modelBuilder.Configurations.Add(new PaymentTypeMap());
-            modelBuilder.Configurations.Add(new PermissionMap());
             modelBuilder.Configurations.Add(new RatingMap());
             modelBuilder.Configurations.Add(new RoleMap());
-            modelBuilder.Configurations.Add(new RolesPermissionMap());
             modelBuilder.Configurations.Add(new SettlementMap());
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new VisitorMap());

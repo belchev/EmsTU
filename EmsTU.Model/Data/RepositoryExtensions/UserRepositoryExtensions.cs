@@ -51,7 +51,7 @@ namespace EmsTU.Model.Data.RepositoryExtensions
         {
             return
                 userRepository.Query()
-                .Include(u => u.BuildingUserRoles)
+                .Include(u => u.Roles)
                 .Where(predicate)
                 .ToList();
         }
@@ -59,7 +59,7 @@ namespace EmsTU.Model.Data.RepositoryExtensions
         public static User GetByUsername(this IRepository<User> repository, string username)
         {
             return repository.Query()
-                .Include(u => u.BuildingUserRoles)
+                .Include(u => u.Roles)
                 .FirstOrDefault(u => u.Username == username);
         }
     }

@@ -18,6 +18,12 @@ GO
 :r "Insert\Tables\AddressData\Settlements.sql"
  
 
+ :r "Insert\Tables\Users.sql"
+ :r "Insert\Tables\Roles.sql"
+
+
+:r "Insert\Tables\ConfigFinalize.sql"
+
 ---------------------------------------------------------------
 --Insert Test Data
 ---------------------------------------------------------------

@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\EmsTUUnitOfWork.cs" />
+    <Compile Include="Data\RepositoryExtensions\RoleRepositoryExtensions.cs" />
     <Compile Include="Data\RepositoryExtensions\UserRepositoryExtensions.cs" />
     <Compile Include="EmsTUContext.cs" />
     <Compile Include="EmsTUModelModule.cs" />
@@ -82,17 +83,15 @@
     <Compile Include="Models\BuildingOccasionType.cs" />
     <Compile Include="Models\BuildingPaymentType.cs" />
     <Compile Include="Models\BuildingType.cs" />
-    <Compile Include="Models\BuildingUserRole.cs" />
+    <Compile Include="Models\BuildingUser.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\BuildingRequest.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Visitor.cs" />
-    <Compile Include="Models\RolesPermission.cs" />
     <Compile Include="Models\Settlement.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Offer.cs" />
     <Compile Include="Models\PaymentType.cs" />
-    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Event.cs" />
