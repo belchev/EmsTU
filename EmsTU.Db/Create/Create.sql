@@ -33,7 +33,7 @@ GO
 --Users
 :r "Create\Tables\Roles.sql"
 :r "Create\Tables\Users.sql"
-:r "Create\Tables\UserRoles.sql"
+--:r "Create\Tables\UserRoles.sql"
 
 --
 :r "Create\Tables\Buildings.sql"

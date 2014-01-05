@@ -19,15 +19,7 @@ namespace EmsTU.Model.Infrastructure
         {
             this.userId = user.UserId;
             this.fullName = user.Fullname;
-            this.permissions =
-                user.Roles
-                .SelectMany(r =>
-                    r.Permissions
-                    .Split(',')
-                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                    .Select(s => s.Trim()))
-                .Distinct()
-                .ToArray();
+            this.permissions = user.Role.Permissions.Split(',').Select(s => s.Trim()).ToArray();
         }
 
         public UserContext(int userId, string fullName, string[] permissions)

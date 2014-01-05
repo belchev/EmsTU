@@ -134,6 +134,8 @@
     <Compile Include="Common\Statics.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\NomController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,23 +208,29 @@
     <Content Include="App\js\main.js" />
     <Content Include="App\js\src\controllers\app_controller.js" />
     <Content Include="App\js\src\controllers\building_controller.js" />
+    <Content Include="App\js\src\controllers\user_controller.js" />
     <Content Include="App\js\src\ko_utils.js" />
     <Content Include="App\js\src\nomenclature_cache_service.js" />
     <Content Include="App\js\src\nomenclature_context.js" />
     <Content Include="App\js\src\nomenclature_context_handler.js" />
+    <Content Include="App\js\src\repositories\user_repository.js" />
     <Content Include="App\js\src\tab_cache_service.js" />
     <Content Include="App\js\src\utils.js" />
     <Content Include="App\js\src\validation_extenders.js" />
     <Content Include="App\js\src\validation_utils.js" />
+    <Content Include="App\js\src\view_models\edit_user_vm.js" />
+    <Content Include="App\js\src\view_models\users_vm.js" />
     <Content Include="App\js\src\view_models\home_vm.js" />
     <Content Include="App\js\src\view_models\left_navigation_vm.js" />
     <Content Include="App\js\src\view_models\navigation_vm.js" />
+    <Content Include="App\templates\edit_user.html" />
     <Content Include="App\templates\home.html" />
     <Content Include="App\templates\left_navigation.html" />
     <Content Include="App\templates\navigation.html" />
     <Content Include="App\templates\page.html" />
     <Content Include="App\templates\root.html" />
     <Content Include="App\templates\unknown.html" />
+    <Content Include="App\templates\users.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -235,7 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\build\debug\js\" />
-    <Folder Include="App\js\src\repositories\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>

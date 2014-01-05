@@ -218,7 +218,7 @@ define([
 
     //todo
     'src/controllers/app_controller',
-    //'src/controllers/user_controller',
+    'src/controllers/user_controller',
     'src/controllers/building_controller',
 
     'src/nomenclature_cache_service',
@@ -251,7 +251,7 @@ define([
     Utils,
     //todo
     AppController,
-    //UserController,
+    UserController,
     BuildingController,
 
     NomenclatureCacheService,
@@ -358,26 +358,24 @@ define([
     Corium.app.userContext = {
         appName: window.ems.config.app,
         userFullName: window.ems.config.userFullName,
-        //userUnitName: window.ems.config.userUnitName,
-        //userUnitPosition: window.ems.config.userUnitPosition,
-        hasPassword: window.ems.config.userHasPassword
+        hasPassword: window.ems.config.userHasPassword,
         //todo
-        //can: function () {
-        //    var action, object, ao;
-        //    if (arguments.length === 1) {
-        //        ao = arguments[0].split('#');
-        //        action = ao[1];
-        //        object = ao[0];
-        //    }
+        can: function () {
+            var action, object, ao;
+            if (arguments.length === 1) {
+                ao = arguments[0].split('#');
+                action = ao[1];
+                object = ao[0];
+            }
 
-        //    if (arguments.length === 2) {
-        //        action = arguments[0];
-        //        object = arguments[1];
-        //    }
+            if (arguments.length === 2) {
+                action = arguments[0];
+                object = arguments[1];
+            }
 
-        //    return window.ems.config.permissions.indexOf(object + '#*') !== -1 ||
-        //        window.ems.config.permissions.indexOf(object + '#' + action) !== -1;
-        //}
+            return window.ems.config.permissions.indexOf(object + '#*') !== -1 ||
+                window.ems.config.permissions.indexOf(object + '#' + action) !== -1;
+        }
     };
 
     Corium.app.permanentViewModels = [];
@@ -392,20 +390,19 @@ define([
                     'building#home',
                     'building#homeTest'
                 ]
+            }, {
+                text: 'Администриране',
+                icon: 'icon-wrench',
+                permissions: ['sys#admin'],
+                items: [
+                    { text: 'Потребители', action: 'user#search' }
+                ],
+                aliases: [
+                    'user#newUser',
+                    'user#edit',
+                    'user#search'
+                ]
             }
-            //{
-            //    text: 'Администриране',
-            //    icon: 'icon-wrench',
-            //    permissions: ['sys#admin'],
-            //    items: [
-            //        { text: 'Потребители', action: 'user#search' }
-            //    ],
-            //    aliases: [
-            //        'user#newUser',
-            //        'user#edit',
-            //        'user#search'
-            //    ]
-            //}
         ],
         leftBuildingNavigationData: [
             {
@@ -422,16 +419,21 @@ define([
     Corium.app.services = {
         tabCache: new TabCacheService({}, 5 * 60 /*cacheTimeoutSeconds*/),
         nomenclatureCache: new NomenclatureCacheService({
-
             /* Special */
-            'yesNoOptions': 'api/noms/yesNoOptions' //todo maybe replace with something else
+            'yesNoOptions': 'api/noms/yesNoOptions', //todo maybe replace with something else
+
+            'districts': 'api/noms/districts',
+            'municipalities': 'api/noms/municipalities?districtId={0}',
+            'settlements': 'api/noms/settlements?municipalityId={0}',
+
+            'roles': 'api/noms/roles'
         }, 5 * 60 /*cacheTimeoutSeconds*/)
     };
 
     Corium.init({
         controllers: {
             app: AppController,
-            //user: UserController,
+            user: UserController,
             building: BuildingController
             //corr: CorrController,
             //dkhNomenclature: DkhNomenclatureController,
@@ -442,6 +444,15 @@ define([
             routes: [{
                 pattern: 'unknown',
                 action: 'app#unknown'
+            }, {
+                pattern: 'users/new',
+                action: 'user#newUser'
+            }, {
+                pattern: 'users/{userId}',
+                action: 'user#edit'
+            }, {
+                pattern: 'userss/:?query:',
+                action: 'user#search'
             },
             //buildings
             {

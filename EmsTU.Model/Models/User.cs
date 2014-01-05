@@ -11,10 +11,10 @@ namespace EmsTU.Model.Models
         {
             this.Buildings = new List<Building>();
             this.BuildingUsers = new List<BuildingUser>();
-            this.Roles = new List<Role>();
         }
 
         public int UserId { get; set; }
+        public int RoleId { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
@@ -25,7 +25,7 @@ namespace EmsTU.Model.Models
         public byte[] Version { get; set; }
         public virtual ICollection<Building> Buildings { get; set; }
         public virtual ICollection<BuildingUser> BuildingUsers { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual Role Role { get; set; }
 
         //client only
         public string Password { get; set; }
@@ -85,6 +85,7 @@ namespace EmsTU.Model.Models
             // Table & Column Mappings
             this.ToTable("Users");
             this.Property(t => t.UserId).HasColumnName("UserId");
+            this.Property(t => t.RoleId).HasColumnName("RoleId");
             this.Property(t => t.Username).HasColumnName("Username");
             this.Property(t => t.PasswordHash).HasColumnName("PasswordHash");
             this.Property(t => t.PasswordSalt).HasColumnName("PasswordSalt");
@@ -94,7 +95,13 @@ namespace EmsTU.Model.Models
             this.Property(t => t.IsActive).HasColumnName("IsActive");
             this.Property(t => t.Version).HasColumnName("Version");
 
+            // Relationships
+            this.HasRequired(t => t.Role)
+                .WithMany(t => t.Users)
+                .HasForeignKey(d => d.RoleId);
+
             this.Ignore(u => u.Password);
+
         }
     }
 }

@@ -47,18 +47,6 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Permissions).HasColumnName("Permissions");
             this.Property(t => t.IsActive).HasColumnName("IsActive");
             this.Property(t => t.Version).HasColumnName("Version");
-
-            // Relationships
-            this.HasMany(t => t.Users)
-                .WithMany(t => t.Roles)
-                .Map(m =>
-                {
-                    m.ToTable("UserRoles");
-                    m.MapLeftKey("RoleId");
-                    m.MapRightKey("UserId");
-                });
-
-
         }
     }
 }
