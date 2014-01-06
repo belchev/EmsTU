@@ -29,7 +29,6 @@ namespace EmsTU.Model.Models
         public DbSet<BuildingRequest> BuildingRequests { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<BuildingType> BuildingTypes { get; set; }
-        public DbSet<BuildingUser> BuildingUsers { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<District> Districts { get; set; }
@@ -63,7 +62,6 @@ namespace EmsTU.Model.Models
             modelBuilder.Configurations.Add(new BuildingPaymentTypeMap());
             modelBuilder.Configurations.Add(new BuildingMap());
             modelBuilder.Configurations.Add(new BuildingTypeMap());
-            modelBuilder.Configurations.Add(new BuildingUserMap());
             modelBuilder.Configurations.Add(new BuildingRequestMap());
             modelBuilder.Configurations.Add(new CommentMap());
             modelBuilder.Configurations.Add(new CountryMap());

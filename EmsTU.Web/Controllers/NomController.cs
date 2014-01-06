@@ -7,6 +7,7 @@ using System.Web.Http;
 using EmsTU.Common.Data;
 using EmsTU.Model.Models;
 using EmsTU.Model.Utils;
+using EmsTU.Model.DataObjects;
 
 namespace EmsTU.Web.Controllers
 {
@@ -113,6 +114,43 @@ namespace EmsTU.Web.Controllers
                 }).ToList();
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetBuildings(string name, int? limit, int? offset) //string email,
+        {
+            var query = this.unitOfWork.Repo<Building>().Query()
+                //.Include(e => e.CorrespondentType)
+                .Where(e => e.IsActive);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            //if (!string.IsNullOrEmpty(email))
+            //{
+            //    query = query.Where(e => e.Email.Contains(email));
+            //}
+
+            query = query.OrderByDescending(e => e.BuildingId);
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            var returnValue = query.ToList()
+                .Select(e => new BuildingsListDO(e))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                buildings = returnValue,
+                buildingsCount = totalCounts
+            });
         }
 
     }

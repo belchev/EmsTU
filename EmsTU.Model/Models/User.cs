@@ -10,7 +10,6 @@ namespace EmsTU.Model.Models
         public User()
         {
             this.Buildings = new List<Building>();
-            this.BuildingUsers = new List<BuildingUser>();
         }
 
         public int UserId { get; set; }
@@ -23,9 +22,8 @@ namespace EmsTU.Model.Models
         public string Email { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<Building> Buildings { get; set; }
-        public virtual ICollection<BuildingUser> BuildingUsers { get; set; }
         public virtual Role Role { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
 
         //client only
         public string Password { get; set; }
@@ -101,7 +99,7 @@ namespace EmsTU.Model.Models
                 .HasForeignKey(d => d.RoleId);
 
             this.Ignore(u => u.Password);
-
         }
+
     }
 }

@@ -42,7 +42,6 @@ namespace EmsTU.Web.Controllers
             User user = this.unitOfWork.Repo<User>().Query()
                 .SingleOrDefault(e => e.UserId == userContext.UserId);
 
-
             string config = string.Empty;
 
             config =

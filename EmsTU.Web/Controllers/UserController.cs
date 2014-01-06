@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Text.RegularExpressions;
+
 using EmsTU.Model.Infrastructure;
 using EmsTU.Common.Data;
 using EmsTU.Model.Models;
 using EmsTU.Model.Data.RepositoryExtensions;
+using EmsTU.Common.Utils;
+using EmsTU.Model.DataObjects;
+using System.Text.RegularExpressions;
+
 
 namespace EmsTU.Web.Controllers
 {
@@ -51,10 +56,21 @@ namespace EmsTU.Web.Controllers
         {
             //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
 
-            User user = this.unitOfWork.Repo<User>().Find(userId, u => u.Role);
+            List<Building> b = this.unitOfWork.Repo<Building>().Query()
+                .Include(e => e.Users)
+                .ToList();
+
+            List<User> ba = this.unitOfWork.Repo<User>().Query()
+                //.Include(e => e.Buildings)
+                .Include(e => e.Buildings)
+                .ToList();
+
+
+            User user = this.unitOfWork.Repo<User>().Find(userId, u => u.Buildings);
             if (user != null)
             {
-                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, user);
+                UserDO returnResult = new UserDO(user);
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnResult);
             }
             else
             {
@@ -63,7 +79,7 @@ namespace EmsTU.Web.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage PutUser(int userId, User user)
+        public HttpResponseMessage PutUser(int userId, UserDO user)
         {
             //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
 
@@ -72,7 +88,7 @@ namespace EmsTU.Web.Controllers
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.BadRequest, "'Password' should be at least 8 characters long.");
             }
 
-            User oldUser = this.unitOfWork.Repo<User>().Find(userId, u => u.Role);
+            User oldUser = this.unitOfWork.Repo<User>().Find(userId, u => u.Role, c => c.Buildings);
             if (oldUser == null)
             {
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.NotFound);
@@ -85,6 +101,22 @@ namespace EmsTU.Web.Controllers
             oldUser.Email = user.Email;
             oldUser.Role = this.unitOfWork.Repo<Role>().Find(user.RoleId);
 
+            bool newBuilding;
+            bool oldBuilding;
+
+            foreach (var building in this.unitOfWork.Repo<Building>().Query())
+            {
+                newBuilding = user.Buildings.Any(e => e.BuildingId == building.BuildingId && !e.IsDeleted);
+                oldBuilding = oldUser.Buildings.Any(e => e.BuildingId == building.BuildingId);
+
+                if (newBuilding && !oldBuilding)
+                    oldUser.Buildings.Add(this.unitOfWork.Repo<Building>().Find(building.BuildingId));
+
+                if (!newBuilding && oldBuilding)
+                    oldUser.Buildings.Remove(this.unitOfWork.Repo<Building>().Find(building.BuildingId));
+            }
+
+
             if (!String.IsNullOrEmpty(user.Password))
             {
                 oldUser.SetPassword(user.Password);
@@ -96,7 +128,7 @@ namespace EmsTU.Web.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage PostUser(User user)
+        public HttpResponseMessage PostUser(UserDO user)
         {
             //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
 
@@ -122,6 +154,11 @@ namespace EmsTU.Web.Controllers
             newUser.Role = this.unitOfWork.Repo<Role>().Find(user.RoleId);
 
             newUser.SetPassword(user.Password);
+
+            foreach (var building in user.Buildings)
+            {
+                newUser.Buildings.Add(this.unitOfWork.Repo<Building>().Find(building.BuildingId));
+            }
 
             this.unitOfWork.Repo<User>().Add(newUser);
 

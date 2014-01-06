@@ -1,87 +1,95 @@
 ﻿<div class="container page-container">
-    <h4>
-        <span data-bind="visible: !_isEdit">Нов потребител</span>
-        <span data-bind="visible: _isEdit">Редактиране на потребител</span>
-    </h4>
+  <h4>
+    <span data-bind="visible: !_isEdit">Нов потребител</span>
+    <span data-bind="visible: _isEdit">Редактиране на потребител</span>
+  </h4>
 
-    <form class="form-horizontal well">
-        <div class="control-group" data-bind="css: { error: _usernameError() || _usernameExistsError() }">
-            <label class="control-label">Потребителско име:</label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" data-bind="value: _username, attr: { disabled: _isEdit }">
-                <span class="help-block" data-bind="visible: _usernameError">потребителското име трябва да е поне 5 символа и да съдържа само букви, числа, подчертавки (_) и точки (.)</span>
-                <span class="help-inline" data-bind="visible: _usernameExistsError">потребителското име е заето</span>
-            </div>
+  <form class="form-horizontal well">
+    <div class="control-group" data-bind="css: { error: _usernameError() || _usernameExistsError() }">
+      <label class="control-label">Потребителско име:</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: _username, attr: { disabled: _isEdit }">
+        <span class="help-block" data-bind="visible: _usernameError">потребителското име трябва да е поне 5 символа и да съдържа само букви, числа, подчертавки (_) и точки (.)</span>
+        <span class="help-inline" data-bind="visible: _usernameExistsError">потребителското име е заето</span>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Име:</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: _user.fullname">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Коментар:</label>
+      <div class="controls">
+        <textarea rows="3" class="input-xlarge" data-bind="value: _user.notes"></textarea>
+      </div>
+    </div>
+    <div class="control-group" data-bind="css: { error: _emailError() }">
+      <label class="control-label">Email:</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" data-bind="value: _email">
+        <span class="help-inline" data-bind="visible: _emailError">въведете валиден email</span>
+      </div>
+    </div>
+    <!-- ko if: _setPassword -->
+    <div class="control-group" data-bind="css: { error: _passwordError() }">
+      <label class="control-label">Парола:</label>
+      <div class="controls">
+        <input type="password" class="input-xlarge" data-bind="value: _password" />
+        <span class="help-inline" data-bind="visible: _passwordError">паролата трябва да бъде поне 8 символа</span>
+      </div>
+    </div>
+    <div class="control-group" data-bind="css: { 'error': _secondPasswordError() }">
+      <label class="control-label" for="inputPassword">Повтори парола:</label>
+      <div class="controls">
+        <input type="password" class="input-xlarge" data-bind="value: _secondPassword">
+        <span class="help-inline" data-bind="visible: _secondPasswordError">паролите не съвпадат</span>
+      </div>
+    </div>
+    <!-- /ko -->
+    <div class="control-group">
+      <label class="control-label">Роля:</label>
+      <div class="controls" data-bind="attr: { 'title': _roleId.validationMessage }, css: { 'error': _showErrors() && _roleId.hasErrors() }">
+        <div class="dropdown-container span5" data-bind="nomenclatureContext: { nomenclatureKey: 'roles', value: _roleId, idProperty: 'roleId' }">
+          <select class="span5" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'roleId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
         </div>
-        <div class="control-group">
-            <label class="control-label">Име:</label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" data-bind="value: _user.fullname">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Коментар:</label>
-            <div class="controls">
-                <textarea rows="3" class="input-xlarge" data-bind="value: _user.notes"></textarea>
-            </div>
-        </div>
-        <div class="control-group" data-bind="css: { error: _emailError() }">
-            <label class="control-label">Email:</label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" data-bind="value: _email">
-                <span class="help-inline" data-bind="visible: _emailError">въведете валиден email</span>
-            </div>
-        </div>
-        <!-- ko if: _setPassword -->
-        <div class="control-group" data-bind="css: { error: _passwordError() }">
-            <label class="control-label">Парола:</label>
-            <div class="controls">
-                <input type="password" class="input-xlarge" data-bind="value: _password" />
-                <span class="help-inline" data-bind="visible: _passwordError">паролата трябва да бъде поне 8 символа</span>
-            </div>
-        </div>
-        <div class="control-group" data-bind="css: { 'error': _secondPasswordError() }">
-            <label class="control-label" for="inputPassword">Повтори парола:</label>
-            <div class="controls">
-                <input type="password" class="input-xlarge" data-bind="value: _secondPassword">
-                <span class="help-inline" data-bind="visible: _secondPasswordError">паролите не съвпадат</span>
-            </div>
-        </div>
-        <!-- /ko -->
-        <div class="control-group">
-            <label class="control-label">Роля:</label>
-            <div class="controls" data-bind="attr: { 'title': _roleId.validationMessage }, css: { 'error': _showErrors() && _roleId.hasErrors() }">
-                <div class="dropdown-container span5" data-bind="nomenclatureContext: { nomenclatureKey: 'roles', value: _roleId, idProperty: 'roleId' }">
-                    <select class="span5" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'roleId', chosenOptions: { allow_single_deselect: true } }"></select>
-                    <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
-                </div>
-            </div>
-            
-        </div>
+      </div>
 
-        <!--<div class="control-group">
-            <label class="control-label">Роли:</label>
-            <div class="controls" data-bind="foreach: _roles">
-                <div class="checkbox">
-                    <input type="checkbox" data-bind="attr: { value: roleId }, checked: $parent._checkedRoles">
-                    <span data-bind="text: name"></span>
-                </div>
-            </div>
-        </div>-->
-        <div class="control-group">
-            <label class="control-label">Активен:</label>
-            <div class="controls">
-                <div class="checkbox">
-                    <input type="checkbox" data-bind="checked: _user.isActive">
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <div class="control-group">
-            <div class="controls">
-                <button type="button" class="btn btn-primary" data-bind="click: save">Запис</button>
-                <button type="button" class="btn" data-bind="click: cancel">Отказ</button>
-            </div>
+    <div class="control-group">
+      <label class="control-label">Активен:</label>
+      <div class="controls">
+        <div class="checkbox">
+          <input type="checkbox" data-bind="checked: _user.isActive">
         </div>
-    </form>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label">Заведения:</label>
+      <div class="controls">
+        <div class="span5" style="margin-left: 0px;">
+          <div class="chzn-container chzn-container-multi" style="width: 335px;" title="">
+            <ul class="chzn-choices" data-bind="foreach: _getBuildings()" style="min-height: 24px;">
+              <li class="search-choice"><span data-bind="text: name"></span>
+                <a href="javascript:void(0)" data-bind="click: $parent._removeBuilding" class="search-choice-close" rel="1"></a></li>
+            </ul>
+          </div>
+          <span class="add-on" data-bind="click: _editBuildings">
+            <i class="icon-search"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="button" class="btn btn-primary" data-bind="click: save">Запис</button>
+        <button type="button" class="btn" data-bind="click: cancel">Отказ</button>
+      </div>
+    </div>
+  </form>
 </div>

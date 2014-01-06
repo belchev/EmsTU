@@ -391,6 +391,12 @@ define([
                     'building#homeTest'
                 ]
             }, {
+                text: 'Ново заведение',
+                action: 'building#homeTest',
+                //params: { docEntryTypeId: 1 }, //todo remove
+                icon: 'icon-plus'
+                //execute: true
+            }, {
                 text: 'Администриране',
                 icon: 'icon-wrench',
                 permissions: ['sys#admin'],

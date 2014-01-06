@@ -15,13 +15,13 @@ namespace EmsTU.Model.Models
             this.BuildingMusicTypes = new List<BuildingMusicType>();
             this.BuildingOccasionTypes = new List<BuildingOccasionType>();
             this.BuildingPaymentTypes = new List<BuildingPaymentType>();
-            this.BuildingUsers = new List<BuildingUser>();
             this.Comments = new List<Comment>();
             this.Events = new List<Event>();
             this.MenuCategories = new List<MenuCategory>();
             this.Offers = new List<Offer>();
             this.Ratings = new List<Rating>();
             this.Visitors = new List<Visitor>();
+            this.Users = new List<User>();
         }
 
         public int BuildingId { get; set; }
@@ -29,7 +29,6 @@ namespace EmsTU.Model.Models
         public string Slogan { get; set; }
         public string WebSite { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public Nullable<int> UserId { get; set; }
         public Nullable<int> DistrictId { get; set; }
         public Nullable<int> MunicipalityId { get; set; }
         public Nullable<int> SettlementId { get; set; }
@@ -53,14 +52,13 @@ namespace EmsTU.Model.Models
         public virtual District District { get; set; }
         public virtual Municipality Municipality { get; set; }
         public virtual Settlement Settlement { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<BuildingUser> BuildingUsers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<MenuCategory> MenuCategories { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Visitor> Visitors { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 
     public class BuildingMap : EntityTypeConfiguration<Building>
@@ -103,7 +101,6 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Slogan).HasColumnName("Slogan");
             this.Property(t => t.WebSite).HasColumnName("WebSite");
             this.Property(t => t.ModifyDate).HasColumnName("ModifyDate");
-            this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.DistrictId).HasColumnName("DistrictId");
             this.Property(t => t.MunicipalityId).HasColumnName("MunicipalityId");
             this.Property(t => t.SettlementId).HasColumnName("SettlementId");
@@ -119,6 +116,15 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Version).HasColumnName("Version");
 
             // Relationships
+            this.HasMany(t => t.Users)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingUsers");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("UserId");
+                });
+
             this.HasOptional(t => t.District)
                 .WithMany(t => t.Buildings)
                 .HasForeignKey(d => d.DistrictId);
@@ -128,9 +134,6 @@ namespace EmsTU.Model.Models
             this.HasOptional(t => t.Settlement)
                 .WithMany(t => t.Buildings)
                 .HasForeignKey(d => d.SettlementId);
-            this.HasOptional(t => t.User)
-                .WithMany(t => t.Buildings)
-                .HasForeignKey(d => d.UserId);
 
         }
     }

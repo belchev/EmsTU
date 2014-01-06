@@ -25,6 +25,13 @@ namespace EmsTU.Web
 
         public static void RegisterRoutes(HttpConfiguration config)
         {
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/noms/buildings",
+                defaults: new { controller = "Nom", action = "GetBuildings", name = "", limit = "", offset = "" }, //email = "",
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+
             #region noms
 
             config.Routes.MapHttpRoute(
@@ -87,7 +94,7 @@ namespace EmsTU.Web
             );
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/users/{userId}",
+                routeTemplate: "api/users/{userId}/",
                 defaults: new { controller = "user", action = "PutUser" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Put) }
             );

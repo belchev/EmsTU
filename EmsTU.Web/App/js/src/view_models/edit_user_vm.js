@@ -2,6 +2,7 @@
     //libs
     'jquery',
     'knockout',
+    'knockout.mapping',
     'q',
 
     //framework
@@ -9,8 +10,9 @@
 
     //src
     'src/validation_utils',
-    'src/repositories/user_repository'
-], function ($, ko, Q, Corium, ValidationUtils, UserRepository) {
+    'src/repositories/user_repository',
+    'src/view_models/building/buildings_list_vm'
+], function ($, ko, ko_mapping, Q, Corium, ValidationUtils, UserRepository, BuildingListVM) {
     'use strict';
 
     var EditUserVM = Corium.Class.extend({
@@ -42,7 +44,6 @@
             self._saveButtonClicked = ko.observable(false);
 
             //self._checkedRoles = undefined;
-            //self._roles = roles;
 
             self._roleId = ko.observable();
 
@@ -51,10 +52,16 @@
 
             self._showErrors = ko.observable(false);
 
+            self._buildings = ko.observableArray([]);
+
             if (user) {
                 self._user = user;
                 self._user.hasPassword = true;
                 self._roleId(user.roleId);
+
+                user.buildings.map(function (value) {
+                    self._buildings.push(ko_mapping.fromJS(value));
+                });
             } else {
                 self._user = {
                     userId: undefined,
@@ -146,6 +153,77 @@
             });
 
             self._addUserValidationExtenders();
+
+            self._addBuilding = self._addBuilding.bind(self);
+            self._editBuildings = self._editBuildings.bind(self);
+            self._getBuildings = self._getBuildings.bind(self);
+            self._removeBuilding = self._removeBuilding.bind(self);
+        },
+        _addBuilding: function () {
+            var self = this,
+                building = {
+                    buildingId: 1,
+                    name: '12',
+                    isSelected: true,
+                    isNew: true,
+                    isDeleted: false
+                };
+
+            self._buildings().push(ko_mapping.fromJS(building));
+        },
+        _editBuildings: function () {
+            var self = this,
+                buildingListVM = new BuildingListVM();
+
+            buildingListVM._addDelegate(self._addBuilding);
+
+            Corium.dialogs.show({
+                header: 'Избор на заведения',
+                acceptText: 'Избор',
+                cancelText: 'Отказ',
+                width: 800,
+                height: 500,
+                accepting: function (event) {
+                    event.preventDefault();
+
+                    var result = buildingListVM.getSelected();
+                    ko.utils.arrayForEach(result, function (resultItem) {
+                        var match = ko.utils.arrayFirst(self._buildings(), function (item) {
+                            return resultItem.buildingId === item.buildingId();
+                        });
+
+                        if (!match) {
+                            self._buildings.push(ko_mapping.fromJS(resultItem));
+                        } else {
+                            if (match.isDeleted() === true) {
+                                match.isDeleted(false);
+                            }
+                        }
+                    });
+
+                    Corium.dialogs.hide();
+                },
+                viewModel: buildingListVM
+            });
+        },
+        _getBuildings: function () {
+            var self = this;
+
+            return ko.computed(function () {
+                var result = [],
+                    buildings = self._buildings();
+
+                ko.utils.arrayForEach(buildings, function (building) {
+                    if (building.isDeleted() === false) {
+                        result.push(building);
+                    }
+                });
+
+                return result;
+            });
+        },
+        _removeBuilding: function (target) {
+            target.isDeleted(true);
         },
         _addUserValidationExtenders: function () {
             var self = this;
@@ -187,20 +265,8 @@
                             self._password() || '' :
                             '';
                         self._user.hasPassword = self._setPassword();
-                        //self._user.roles = self._roles.filter(function (role) {
-                        //    var checkedRoles = self._checkedRoles(),
-                        //        checkedRoleId,
-                        //        index;
 
-                        //    for (index = 0; index < checkedRoles.length; index++) {
-                        //        checkedRoleId = parseInt(checkedRoles[index], 10);
-
-                        //        if (role.roleId === checkedRoleId) {
-                        //            return true;
-                        //        }
-                        //    }
-                        //    return false;
-                        //});
+                        self._user.buildings = ko_mapping.toJS(self._buildings);
                         self._user.roleId = self._roleId();
 
                         userRepository.save(self._user).then(function () {

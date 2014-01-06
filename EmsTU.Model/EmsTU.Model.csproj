@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataObjects\BuildingsListDO.cs" />
+    <Compile Include="DataObjects\UserDO.cs" />
     <Compile Include="Data\EmsTUUnitOfWork.cs" />
     <Compile Include="Data\RepositoryExtensions\RoleRepositoryExtensions.cs" />
     <Compile Include="Data\RepositoryExtensions\UserRepositoryExtensions.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="Models\BuildingOccasionType.cs" />
     <Compile Include="Models\BuildingPaymentType.cs" />
     <Compile Include="Models\BuildingType.cs" />
-    <Compile Include="Models\BuildingUser.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\BuildingRequest.cs" />
     <Compile Include="Models\Menu.cs" />
@@ -110,9 +111,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EmsTU.Common\EmsTU.Common.csproj">
       <Project>{661b4c26-1b6c-4cea-9c81-ae9c7c2ac8a8}</Project>

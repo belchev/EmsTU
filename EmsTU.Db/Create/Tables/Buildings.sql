@@ -7,7 +7,6 @@ CREATE TABLE [dbo].[Buildings](
 	[Slogan] [nvarchar](50) NULL,
 	[WebSite] [nvarchar](100) NULL,
 	[ModifyDate] [datetime] NULL,
-	[UserId] [int] NULL,
 	[DistrictId] [int] NULL,
 	[MunicipalityId] [int] NULL,
 	[SettlementId] [int] NULL,
@@ -46,10 +45,3 @@ REFERENCES [dbo].[Settlements] ([SettlementId])
 GO
 ALTER TABLE [dbo].[Buildings] CHECK CONSTRAINT [FK_Buildings_Settlements]
 GO
-
-ALTER TABLE [dbo].[Buildings]  WITH CHECK ADD  CONSTRAINT [FK_Buildings_Users] FOREIGN KEY([UserId])
-REFERENCES [dbo].[Users] ([UserId])
-GO
-ALTER TABLE [dbo].[Buildings] CHECK CONSTRAINT [FK_Buildings_Users]
-GO
-

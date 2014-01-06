@@ -1,0 +1,71 @@
+﻿<form class="form-vertical">
+
+    <div class="row">
+        <div class="span5">
+            <label class="control-label">Наименование:</label>
+        </div>
+       <!-- <div class="span5">
+            <label class="control-label">Имейл:</label>
+        </div>-->
+    </div>
+    <div class="row">
+        <div class="span5">
+            <input type="text" class="span5" data-bind="value: _name" />
+        </div>
+        <!--<div class="span5">
+            <input type="text" class="span5" data-bind="value: _email" />
+        </div>-->
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button type="button" class="btn" data-bind="click: function () { _search(); }">Търси</button>
+            <!--<button type="button" class="btn" data-bind="click: _add">Нов</button>-->
+        </div>
+    </div>
+
+    <div data-bind="if: _resultCount() > 0">
+        <br />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 25px;"></th>
+                    <th>Наименование</th>
+                    <th>Слоган</th>
+                    <th>Website</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: _buildings">
+                <tr>
+                    <td>
+                        <input type="checkbox" data-bind="checked: isSelected" />
+                    </td>
+                    <td data-bind="text: name"></td>
+                    <td data-bind="text: slogan"></td>
+                    <td data-bind="text: webSite"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="pagination pagination-centered" data-bind="if: _pager() && _pager().isPaged()">
+            <ul>
+                <li data-bind="css: { 'disabled': _pager().noPrevPage() }">
+                    <a data-bind="click: goToPage.bind($data, _pager().firstPage())" style="cursor: pointer"><<</a>
+                </li>
+                <li data-bind="css: { 'disabled': _pager().noPrevPage() }">
+                    <a data-bind="click: goToPage.bind($data, _pager().prevPage())" style="cursor: pointer"><</a>
+                </li>
+                <!-- ko foreach: { data: _pager().pages, as: 'page' } -->
+                <li data-bind="css: { 'active': page.isCurrentPage }">
+                    <a data-bind="text: page.pageNumber(), click: $parent.goToPage.bind($parent, $data.pageNumber())" style="cursor: pointer"></a>
+                </li>
+                <!-- /ko -->
+                <li data-bind="css: { 'disabled': _pager().noNextPage() }">
+                    <a data-bind="click: goToPage.bind($data, _pager().nextPage())" style="cursor: pointer">></a>
+                </li>
+                <li data-bind="css: { 'disabled': _pager().noNextPage() }">
+                    <a data-bind="click: goToPage.bind($data, _pager().lastPage())" style="cursor: pointer">>></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
