@@ -1,0 +1,25 @@
+﻿<form class="form-vertical">
+    <div class="control-group">
+        <label class="control-label">Въведете текуща парола</label>
+        <div class="control-group" data-bind="css: { 'error': _passwordErrorFromServer }">
+            <div class="controls" >
+                <input type="password" class="input-medium" data-bind="value: _oldPassword" />
+                <span class="help-inline" data-bind="visible: _passwordErrorFromServer"> Въвели сте грешна текуща парола.</span>
+            </div>
+        </div>
+    </div>
+    <label class="control-label">Нова парола:</label>
+    <div class="control-group" data-bind="css: { 'error': _newPasswordError }">
+        <div class="controls">
+            <input type="password" class="input-medium" data-bind="value: _newPassword" />
+            <span class="help-inline" data-bind="visible: _newPasswordError">Паролата трябва да бъде поне 8 символа</span>
+        </div>
+    </div>
+    <label class="control-label">Повтори новата парола:</label>
+    <div class="control-group" data-bind="css: { 'error': _secondPasswordError }">
+        <div class="controls">
+            <input name="password" type="password" class="input-medium" data-bind="value: _secondPassword">
+            <span class="help-inline" data-bind="visible: _secondPasswordError">Паролите не съвпадат</span>
+        </div>
+    </div>
+</form>

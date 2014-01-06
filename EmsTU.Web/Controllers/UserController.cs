@@ -167,22 +167,22 @@ namespace EmsTU.Web.Controllers
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        //[HttpPost]
-        //public HttpResponseMessage PostNewUserPassword(PasswordsDO passwords)
-        //{
-        //    string newPassword = passwords.NewPassword;
-        //    string oldPassword = passwords.OldPassword;
-        //    User user = this.unitOfWork.Repo<User>().Find(this.userContext.UserId);
-        //    if (user.VerifyPassword(oldPassword))
-        //    {
-        //        user.SetPassword(newPassword);
-        //        this.unitOfWork.Save();
-        //        return ControllerContext.Request.CreateResponse(HttpStatusCode.OK);
-        //    }
-        //    else
-        //    {
-        //        return ControllerContext.Request.CreateResponse(HttpStatusCode.MethodNotAllowed, "The provided current password is wrong!");
-        //    }
-        //}
+        [HttpPost]
+        public HttpResponseMessage PostNewUserPassword(PasswordsDO passwords)
+        {
+            string newPassword = passwords.NewPassword;
+            string oldPassword = passwords.OldPassword;
+            User user = this.unitOfWork.Repo<User>().Find(this.userContext.UserId);
+            if (user.VerifyPassword(oldPassword))
+            {
+                user.SetPassword(newPassword);
+                this.unitOfWork.Save();
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.MethodNotAllowed, "The provided current password is wrong!");
+            }
+        }
     }
 }

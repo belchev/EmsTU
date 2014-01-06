@@ -220,12 +220,14 @@
     <Content Include="App\js\src\validation_extenders.js" />
     <Content Include="App\js\src\validation_utils.js" />
     <Content Include="App\js\src\view_models\building\buildings_list_vm.js" />
+    <Content Include="App\js\src\view_models\user_change_password_vm.js" />
     <Content Include="App\js\src\view_models\edit_user_vm.js" />
     <Content Include="App\js\src\view_models\users_vm.js" />
     <Content Include="App\js\src\view_models\home_vm.js" />
     <Content Include="App\js\src\view_models\left_navigation_vm.js" />
     <Content Include="App\js\src\view_models\navigation_vm.js" />
     <Content Include="App\templates\building\buildings_list.html" />
+    <Content Include="App\templates\user_change_pass.html" />
     <Content Include="App\templates\edit_user.html" />
     <Content Include="App\templates\home.html" />
     <Content Include="App\templates\left_navigation.html" />

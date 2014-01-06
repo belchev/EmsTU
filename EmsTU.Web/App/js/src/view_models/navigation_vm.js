@@ -4,13 +4,11 @@
     'knockout',
 
     //framework
-    'framework/corium'
+    'framework/corium',
 
     //src
-    //'src/view_models/user_change_password_vm'
-], function ($, ko, Corium
-    //, UserChangePassVM
-    ) {
+    'src/view_models/user_change_password_vm'
+], function ($, ko, Corium, UserChangePassVM) {
     'use strict';
 
     var NavigationVM = Corium.Class.extend({
@@ -82,21 +80,21 @@
                 self._items[i].active(self._items[i].href === args.href ||
                     (self._items[i].aliases && self._items[i].aliases.indexOf(args.action) !== -1));
             }
-        }
+        },
         //TODO move to a controller that calls it on a certain event
-        //changePassword: function () {
-        //    var userChangePassVM = new UserChangePassVM();
-        //    Corium.dialogs.show({
-        //        header: 'Промяна на паролата',
-        //        acceptText: 'Промени',
-        //        cancelText: 'Отказ',
-        //        accepting: function (event) {
-        //            event.preventDefault();
-        //            userChangePassVM.save();
-        //        },
-        //        viewModel: userChangePassVM
-        //    });
-        //}
+        changePassword: function () {
+            var userChangePassVM = new UserChangePassVM();
+            Corium.dialogs.show({
+                header: 'Промяна на паролата',
+                acceptText: 'Промени',
+                cancelText: 'Отказ',
+                accepting: function (event) {
+                    event.preventDefault();
+                    userChangePassVM.save();
+                },
+                viewModel: userChangePassVM
+            });
+        }
     });
     return NavigationVM;
 });
