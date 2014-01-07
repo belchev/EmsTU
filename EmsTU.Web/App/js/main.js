@@ -384,11 +384,12 @@ define([
         navigationData: [
             {
                 text: 'Заведения',
-                action: 'building#home',
+                action: 'building#search',
                 icon: 'icon-file',
                 aliases: [
                     'building#home',
-                    'building#homeTest'
+                    'building#homeTest',
+                    'building#search'
                 ]
             }, {
                 text: 'Ново заведение',
@@ -413,7 +414,7 @@ define([
         leftBuildingNavigationData: [
             {
                 text: 'Текущи',
-                action: 'building#home'
+                action: 'building#search'
             },
             {
                 text: 'Всички',
@@ -431,6 +432,12 @@ define([
             'districts': 'api/noms/districts',
             'municipalities': 'api/noms/municipalities?districtId={0}',
             'settlements': 'api/noms/settlements?municipalityId={0}',
+
+            'buildingTypes': 'api/noms/buildingTypes',
+            'kitchenTypes': 'api/noms/kitchenTypes',
+            'musicTypes': 'api/noms/musicTypes',
+            'occasionTypes': 'api/noms/occasionTypes',
+            'extras': 'api/noms/extras',
 
             'roles': 'api/noms/roles'
         }, 5 * 60 /*cacheTimeoutSeconds*/)
@@ -462,11 +469,14 @@ define([
             },
             //buildings
             {
-                pattern: 'home',
-                action: 'building#home'
+                pattern: 'search/:?query:',
+                action: 'building#search'
             }, {
                 pattern: 'homeTest',
                 action: 'building#homeTest'
+            }, {
+                pattern: 'home',
+                action: 'building#home'
             }
             ]
         },

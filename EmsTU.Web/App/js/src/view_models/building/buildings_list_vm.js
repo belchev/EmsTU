@@ -12,7 +12,7 @@
     'framework/corium',
 
     //src
-    'src/repositories/building_repository'
+    'src/utils'
 ], function (
     $,
     ko,
@@ -20,160 +20,127 @@
     Q,
     document,
     Corium,
-    BuildingRepository) {
+    Utils
+    ) {
     'use strict';
 
     var BuildingsListVM = Corium.Class.extend({
-        constructor: function () {
-            var self = this;
+        constructor: function (
+            buildings,
+            buildingsCount,
+            msg,
+            name,
+            buildingTypeId,
+            kitchenTypeId,
+            musicTypeId,
+            occasionTypeId,
+            extraId,
+            limit,
+            offset
+            ) {
+            var self = this,
+                numberOfPages = Math.ceil(buildingsCount / limit),
+                currentPage = offset / limit + 1,
+                segmentLength = Math.min(7, numberOfPages),
+                radius = (segmentLength + 1) / 2,
+                startPage = Math.min(Math.max(currentPage - radius, 0),
+                    numberOfPages - segmentLength) + 1,
+                endPage = startPage + segmentLength,
+                page;
 
             self.templateId = 'templates:building:buildings_list.html';
-            //self._add = self._add.bind(self);
-            self._search = self._search.bind(self);
-            self.getSelected = self.getSelected.bind(self);
 
-            self._buildingRepository = new BuildingRepository();
-            //self._docCorrRepository = new BuildingRepository();
+            self.search = self.search.bind(self);
+            self.goToPage = self.goToPage.bind(self);
+            self.reset = self.reset.bind(self);
+            self.editBuilding = self.editBuilding.bind(self);
 
+            self._name = ko.observable(name);
+            self._buildingTypeId = ko.observable(buildingTypeId);
+            self._kitchenTypeId = ko.observable(kitchenTypeId);
+            self._musicTypeId = ko.observable(musicTypeId);
+            self._occasionTypeId = ko.observable(occasionTypeId);
+            self._extraId = ko.observable(extraId);
 
-            self._addDelegate = ko.observable();
-            //filters
-            self._name = ko.observable();
-            //self._email = ko.observable();
-            //list
-            self._buildings = ko.observableArray([]);
-            self._resultCount = ko.observable(0);
+            self._resultCount = buildingsCount;
+            self._msgString = ko.observable(msg);
 
-            self._pager = ko.observable();
+            //buildings.map(function (value) {
+            //    self._buildings.push(ko_mapping.fromJS(value));
+            //});
 
-            self._selectedBuildings = ko.observableArray([]);
+            self._buildings = ko.observableArray(buildings.map(function (value) {
+                var mappedBuilding = ko_mapping.fromJS(value);
+                return mappedBuilding;
+            }));
 
-            ko.computed(function () {
-                var buildings = self._buildings(),
-                    match;
-
-                ko.utils.arrayForEach(buildings, function (building) {
-                    if (building.isSelected() === true) {
-                        match = ko.utils.arrayFirst(self._selectedBuildings(), function (item) {
-                            return building.buildingId() === item.buildingId;
-                        });
-                        if (!match) {
-                            self._selectedBuildings.push(ko_mapping.toJS(building));
-                        }
-                    }
-                    else {
-                        match = ko.utils.arrayFirst(self._selectedBuildings(), function (item) {
-                            return building.buildingId() === item.buildingId;
-                        });
-                        if (match) {
-                            self._selectedBuildings.remove(match);
-                        }
-                    }
+            self._pager = {};
+            self._pager.pages = [];
+            for (page = startPage; page < endPage; page++) {
+                self._pager.pages.push({
+                    pageNumber: page,
+                    isCurrentPage: page === currentPage
                 });
+            }
 
-            });
+            self._pager.isPaged = numberOfPages > 1;
+            self._pager.noPrevPage = currentPage === 1;
+            self._pager.prevPage = currentPage - 1;
+            self._pager.firstPage = 1;
+            self._pager.noNextPage = currentPage === numberOfPages;
+            self._pager.nextPage = currentPage + 1;
+            self._pager.lastPage = numberOfPages;
+            self._pager.itemsPerPage = limit;
         },
-        //_add: function () {
-        //    var self = this,
-        //        editCorrVM;
-
-        //    self._corrRepository.newCorr().then(function (corr) {
-        //        editCorrVM = new EditCorrVM(corr);
-        //        editCorrVM._isInDialog(true);
-
-        //        Corium.dialogs.show({
-        //            header: 'Нов кореспондент',
-        //            acceptText: 'Запис и избор',
-        //            cancelText: 'Отказ',
-        //            width: 800,
-        //            height: 500,
-        //            accepting: function (event) {
-        //                event.preventDefault();
-        //                editCorrVM._save().then(function (corr) {
-        //                    if (corr) {
-        //                        self._addDelegate()(corr);
-        //                        Corium.dialogs.hide();
-        //                    }
-        //                });
-        //            },
-        //            viewModel: editCorrVM
-        //        });
-        //    });
-        //},
-        _search: function (offsetValue) {
-            var self = this,
-                limit = 10,
-                offset = offsetValue || 0;
-
-            self._buildings([]);
-
-            return self._buildingRepository.search(self._name(), limit, offset).then(function (result) { // self._email(),
-                var buildings = result.buildings,
-                    buildingsCount = result.buildingsCount,
-                    numberOfPages = Math.ceil(buildingsCount / limit),
-                    currentPage = offset / limit + 1,
-                    segmentLength = Math.min(7, numberOfPages),
-                    radius = (segmentLength + 1) / 2,
-                    startPage = Math.min(Math.max(currentPage - radius, 0),
-                    numberOfPages - segmentLength) + 1,
-                    endPage = startPage + segmentLength,
-                    page,
-                    pager = {},
-                    match;
-
-                pager.pages = [];
-                for (page = startPage; page < endPage; page++) {
-                    pager.pages.push({
-                        pageNumber: page,
-                        isCurrentPage: page === currentPage
-                    });
-                }
-
-                pager.isPaged = numberOfPages > 1;
-                pager.noPrevPage = currentPage === 1;
-                pager.prevPage = currentPage - 1;
-                pager.firstPage = 1;
-                pager.noNextPage = currentPage === numberOfPages;
-                pager.nextPage = currentPage + 1;
-                pager.lastPage = numberOfPages;
-                pager.itemsPerPage = limit;
-
-                self._pager(ko_mapping.fromJS(pager));
-
-                self._resultCount(buildingsCount);
-
-                buildings.map(function (item) {
-                    var mappedItem = ko_mapping.fromJS(item);
-
-                    match = ko.utils.arrayFirst(self._selectedBuildings(), function (selectedItem) {
-                        return mappedItem.buildingId() === selectedItem.buildingId;
-                    });
-
-                    if (match) {
-                        mappedItem.isSelected(true);
-                    }
-
-                    self._buildings.push(mappedItem);
-                });
-            });
-        },
-        goToPage: function (page) {
+        search: function () {
             var self = this;
 
-            if (self._pager().noPrevPage() && page < 1 ||
-                self._pager().noNextPage() && page > self._pager().lastPage()) {
+            Corium.navigation.navigateAction(
+                'building#search',
+                {
+                    query: {
+                        'n': self._name(),
+                        'bt': self._buildingTypeId(),
+                        'kt': self._kitchenTypeId(),
+                        'mt': self._musicTypeId(),
+                        'ot': self._occasionTypeId(),
+                        'e': self._extraId()
+                    }
+                });
+        },
+        goToPage: function (page) {
+            var self = this,
+                query;
+
+            if (self._pager.noPrevPage && page < 1 ||
+                self._pager.noNextPage && page > self._pager.lastPage) {
                 return;
             }
 
-            return self._search((page - 1) * self._pager().itemsPerPage());
+            query = Utils.Uri.createQuery();
+
+            Corium.navigation.navigateAction(
+                'building#search',
+                {
+                    query: {
+                        'n': self._name(),
+                        'bt': self._buildingTypeId(),
+                        'kt': self._kitchenTypeId(),
+                        'mt': self._musicTypeId(),
+                        'ot': self._occasionTypeId(),
+                        'e': self._extraId(),
+                        'limit': self._pager.itemsPerPage,
+                        'offset': (page - 1) * self._pager.itemsPerPage
+                    }
+                });
         },
-        getSelected: function () {
-            var self = this,
-                result = $.extend(true, [], self._selectedBuildings());
+        reset: function () {
+            Corium.navigation.navigateAction('building#search');
+        },
+        editBuilding: function (details) {
+            var buildingId = details.buildingId();
 
-            self._selectedBuildings([]);
-
-            return result;
+            //Corium.navigation.navigateAction('building#edit', { buildingId: buildingId });
         }
     });
     return BuildingsListVM;

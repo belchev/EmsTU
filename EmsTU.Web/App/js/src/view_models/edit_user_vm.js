@@ -11,7 +11,7 @@
     //src
     'src/validation_utils',
     'src/repositories/user_repository',
-    'src/view_models/building/buildings_list_vm'
+    'src/view_models/building/buildings_pop_list_vm'
 ], function ($, ko, ko_mapping, Q, Corium, ValidationUtils, UserRepository, BuildingListVM) {
     'use strict';
 

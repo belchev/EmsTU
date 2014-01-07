@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\BuildingsListDO.cs" />
+    <Compile Include="DataObjects\BuildingsListItemDO.cs" />
     <Compile Include="DataObjects\PasswordsDO.cs" />
     <Compile Include="DataObjects\UserDO.cs" />
     <Compile Include="Data\EmsTUUnitOfWork.cs" />

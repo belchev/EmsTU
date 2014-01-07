@@ -10,6 +10,35 @@
     var BuildingRepository = Corium.Repository.extend({
         constructor: function () {
         },
+        getBuildings: function (
+            name,
+            buildingTypeId,
+            kitchenTypeId,
+            musicTypeId,
+            occasionTypeId,
+            extraId,
+            limit,
+            offset
+            ) {
+            var self = this,
+                apiQuery,
+                urlQuery;
+
+            apiQuery = Utils.Uri.createQuery({
+                'name': name,
+                'buildingTypeId': buildingTypeId,
+                'kitchenTypeId': kitchenTypeId,
+                'musicTypeId': musicTypeId,
+                'occasionTypeId': occasionTypeId,
+                'extraId': extraId,
+                'limit': limit,
+                'offset': offset
+            });
+
+            urlQuery = 'api/buildings?' + apiQuery;
+
+            return self.get(urlQuery);
+        },
         search: function (
             name,
             //email,

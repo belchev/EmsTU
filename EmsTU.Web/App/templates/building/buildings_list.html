@@ -1,71 +1,123 @@
-﻿<form class="form-vertical">
+﻿<div class="page-view">
 
+  <form class="well">
     <div class="row">
-        <div class="span5">
-            <label class="control-label">Наименование:</label>
-        </div>
-       <!-- <div class="span5">
-            <label class="control-label">Имейл:</label>
-        </div>-->
+      <div class="span6">
+        <label class="control-label">Наименование:</label>
+      </div>
     </div>
     <div class="row">
-        <div class="span5">
-            <input type="text" class="span5" data-bind="value: _name" />
-        </div>
-        <!--<div class="span5">
-            <input type="text" class="span5" data-bind="value: _email" />
-        </div>-->
+      <div class="span6">
+        <input type="text" class="span5" data-bind="value: _name " />
+      </div>
     </div>
 
-    <div class="control-group">
-        <div class="controls">
-            <button type="button" class="btn" data-bind="click: function () { _search(); }">Търси</button>
-            <!--<button type="button" class="btn" data-bind="click: _add">Нов</button>-->
+    <div class="row">
+      <div class="span3">
+        <label class="control-label">Заведение:</label>
+      </div>
+      <div class="span3">
+        <label class="control-label">Кухня:</label>
+      </div>
+      <div class="span3">
+        <label class="control-label">Музика:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span3" style="margin-bottom: 5px;">
+        <div class="dropdown-container span3" data-bind="nomenclatureContext: { nomenclatureKey: 'buildingTypes', value: _buildingTypeId, idProperty: 'buildingTypeId' }">
+          <select class="span3" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'buildingTypeId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
         </div>
+      </div>
+      <div class="span3" style="margin-bottom: 5px;">
+        <div class="dropdown-container span3" data-bind="nomenclatureContext: { nomenclatureKey: 'kitchenTypes', value: _kitchenTypeId, idProperty: 'kitchenTypeId' }">
+          <select class="span3" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'kitchenTypeId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+        </div>
+      </div>
+      <div class="span3" style="margin-bottom: 5px;">
+        <div class="dropdown-container span3" data-bind="nomenclatureContext: { nomenclatureKey: 'musicTypes', value: _musicTypeId, idProperty: 'musicTypeId' }">
+          <select class="span3" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'musicTypeId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+        </div>
+      </div>
     </div>
 
-    <div data-bind="if: _resultCount() > 0">
-        <br />
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width: 25px;"></th>
-                    <th>Наименование</th>
-                    <th>Слоган</th>
-                    <th>Website</th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: _buildings">
-                <tr>
-                    <td>
-                        <input type="checkbox" data-bind="checked: isSelected" />
-                    </td>
-                    <td data-bind="text: name"></td>
-                    <td data-bind="text: slogan"></td>
-                    <td data-bind="text: webSite"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="pagination pagination-centered" data-bind="if: _pager() && _pager().isPaged()">
-            <ul>
-                <li data-bind="css: { 'disabled': _pager().noPrevPage() }">
-                    <a data-bind="click: goToPage.bind($data, _pager().firstPage())" style="cursor: pointer"><<</a>
-                </li>
-                <li data-bind="css: { 'disabled': _pager().noPrevPage() }">
-                    <a data-bind="click: goToPage.bind($data, _pager().prevPage())" style="cursor: pointer"><</a>
-                </li>
-                <!-- ko foreach: { data: _pager().pages, as: 'page' } -->
-                <li data-bind="css: { 'active': page.isCurrentPage }">
-                    <a data-bind="text: page.pageNumber(), click: $parent.goToPage.bind($parent, $data.pageNumber())" style="cursor: pointer"></a>
-                </li>
-                <!-- /ko -->
-                <li data-bind="css: { 'disabled': _pager().noNextPage() }">
-                    <a data-bind="click: goToPage.bind($data, _pager().nextPage())" style="cursor: pointer">></a>
-                </li>
-                <li data-bind="css: { 'disabled': _pager().noNextPage() }">
-                    <a data-bind="click: goToPage.bind($data, _pager().lastPage())" style="cursor: pointer">>></a>
-                </li>
-            </ul>
-        </div>
+    <div class="row">
+      <div class="span3">
+        <label class="control-label">Повод:</label>
+      </div>
+      <div class="span3">
+        <label class="control-label">Екстри:</label>
+      </div>
     </div>
-</form>
+    <div class="row">
+      <div class="span3" style="margin-bottom: 5px;">
+        <div class="dropdown-container span3" data-bind="nomenclatureContext: { nomenclatureKey: 'occasionTypes', value: _occasionTypeId, idProperty: 'occasionTypeId' }">
+          <select class="span3" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'occasionTypeId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+        </div>
+      </div>
+      <div class="span3" style="margin-bottom: 5px;">
+        <div class="dropdown-container span3" data-bind="nomenclatureContext: { nomenclatureKey: 'extras', value: _extraId, idProperty: 'extraId' }">
+          <select class="span3" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'extraId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="pull-right">
+        <button type="button" class="btn" data-bind="click: reset">Изчисти</button>
+        <button type="submit" class="btn" data-bind="click: search"><i class="icon-search"></i>Търси</button>
+      </div>
+    </div>
+  </form>
+
+  <div data-bind="if: _resultCount > 0">
+    <br />
+    <div class="alert alert-info" data-bind="visible: _msgString(), html: _msgString">
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Наименование</th>
+          <th>Слоган</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: _buildings">
+        <tr>
+
+          <td data-bind="text: name"></td>
+          <td data-bind="text: slogan"></td>
+          <td data-bind="text: webSite"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination pagination-centered" data-bind="if: _pager.isPaged">
+      <ul>
+        <li data-bind="css: { 'disabled': _pager.noPrevPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.firstPage)" style="cursor: pointer"><<</a>
+        </li>
+        <li data-bind="css: { 'disabled': _pager.noPrevPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.prevPage)" style="cursor: pointer"><</a>
+        </li>
+        <!-- ko foreach: { data: _pager.pages, as: 'page' } -->
+        <li data-bind="css: { 'active': page.isCurrentPage }">
+          <a data-bind="text: page.pageNumber, click: $parent.goToPage.bind($parent, $data.pageNumber)" style="cursor: pointer"></a>
+        </li>
+        <!-- /ko -->
+        <li data-bind="css: { 'disabled': _pager.noNextPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.nextPage)" style="cursor: pointer">></a>
+        </li>
+        <li data-bind="css: { 'disabled': _pager.noNextPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.lastPage)" style="cursor: pointer">>></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

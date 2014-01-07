@@ -25,14 +25,45 @@ namespace EmsTU.Web
 
         public static void RegisterRoutes(HttpConfiguration config)
         {
+            #region Noms
+
             config.Routes.MapHttpRoute(
                 name: null,
                 routeTemplate: "api/noms/buildings",
-                defaults: new { controller = "Nom", action = "GetBuildings", name = "", limit = "", offset = "" }, //email = "",
+                defaults: new { controller = "Nom", action = "GetBuildings", name = "", limit = "", offset = "" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 
-            #region noms
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/noms/buildingTypes",
+                defaults: new { controller = "Nom", action = "GetBuildingTypes" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/noms/kitchenTypes",
+                defaults: new { controller = "Nom", action = "GetKitchenTypes" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/noms/musicTypes",
+                defaults: new { controller = "Nom", action = "GetMusicTypes" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/noms/occasionTypes",
+                defaults: new { controller = "Nom", action = "GetOccasionTypes" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/noms/extras",
+                defaults: new { controller = "Nom", action = "GetExtras" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
 
             config.Routes.MapHttpRoute(
                name: null,
@@ -103,6 +134,17 @@ namespace EmsTU.Web
               routeTemplate: "api/user/changepassword",
               defaults: new { controller = "user", action = "PostNewUserPassword" },
               constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) }
+            );
+
+            #endregion
+
+            #region Buildings
+
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/buildings",
+                defaults: new { controller = "Building", action = "GetBuildings", name = "", buildingTypeId = "", kitchenTypeId = "", musicTypeId = "", occasionTypeId = "", extraId = "", limit = "", offset = "" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 
             #endregion
