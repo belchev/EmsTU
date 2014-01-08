@@ -108,6 +108,11 @@
     <Content Include="Insert\Tables\AddressData\Municipalities.sql" />
     <Content Include="Insert\Tables\AddressData\Settlements.sql" />
     <Content Include="Insert\Tables\ConfigFinalize.sql" />
+    <Content Include="Insert\Tables\BuildingTypes.sql" />
+    <Content Include="Insert\Tables\Extras.sql" />
+    <Content Include="Insert\Tables\KitchenTypes.sql" />
+    <Content Include="Insert\Tables\MusicTypes.sql" />
+    <Content Include="Insert\Tables\OccasionTypes.sql" />
     <Content Include="Insert\Tables\Roles.sql" />
     <Content Include="Insert\Tables\Users.sql" />
   </ItemGroup>
