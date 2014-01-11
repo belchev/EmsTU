@@ -1,0 +1,13 @@
+﻿<form class="form-vertical">
+  <br />
+  <div class="row">
+    <div class="span5" data-bind="css: { 'error': _showErrors() && _hasFileError() }">
+      <label class="control-label">Файл:</label>
+    </div>
+  </div>
+  <div class="row">
+    <div title="Изберете файл" class="span5" data-bind="css: { 'error': _showErrors() && _hasFileError() }">
+      <input id="file_input" accept="image/*" name="file" type="file" style="width: 356px;" />
+    </div>
+  </div>
+</form>
