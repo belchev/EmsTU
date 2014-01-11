@@ -11,7 +11,7 @@ namespace EmsTU.Model.DataObjects
     {
         public UserDO()
         {
-            this.Buildings = new List<BuildingsListDO>();
+            this.Buildings = new List<BuildingsListItemDO>();
         }
 
         public UserDO(User u)
@@ -32,7 +32,7 @@ namespace EmsTU.Model.DataObjects
 
                 if (u.Buildings != null && u.Buildings.Any())
                 {
-                    this.Buildings.AddRange(u.Buildings.Select(e => new BuildingsListDO(e)).ToList());
+                    this.Buildings.AddRange(u.Buildings.Select(e => new BuildingsListItemDO(e)).ToList());
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace EmsTU.Model.DataObjects
         public string Email { get; set; }
         public bool IsActive { get; set; }
 
-        public List<BuildingsListDO> Buildings { get; set; }
+        public List<BuildingsListItemDO> Buildings { get; set; }
 
         public byte[] Version { get; set; }
     }

@@ -29,6 +29,25 @@ namespace EmsTU.Web.Controllers
             this.userContext = userContextProvider.GetCurrentUserContext();
         }
 
+        /// <summary>
+        /// Генерира нова сграда
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public HttpResponseMessage GetNewBuilding()
+        {
+            User user = unitOfWork.Repo<User>()
+               .Query()
+               .Include(e => e.Role)
+               .SingleOrDefault(e => e.UserId == this.userContext.UserId);
+
+            //todo has permissions to get new building
+            
+            var returnValue = new NewBuildingDO();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
+        }
+
         [HttpGet]
         public HttpResponseMessage GetBuildings(
             string name,
@@ -52,7 +71,7 @@ namespace EmsTU.Web.Controllers
 
             if (!String.IsNullOrWhiteSpace(name))
             {
-                predicate = predicate.And(d => d.Name.Contains(name));
+                predicate = predicate.And(d => d.Name.Contains(name.Trim()));
             }
 
             if (buildingTypeId.HasValue)
@@ -95,11 +114,8 @@ namespace EmsTU.Web.Controllers
                .Skip(offset)
                .Take(limit)
                .Include(e => e.BuildingBuildingTypes)
-               //.Include(e => e.DocDirection)
-               //.Include(e => e.DocStatus)
-               //.Include(e => e.DocUnits)
-               //.Include(e => e.DocWorkflows)
-               //.Include(e => e.DocSourceType)
+               .Include(e => e.Users)
+               .Include(e => e.BuildingBuildingTypes.Select(g => g.BuildingType))
                .ToList()
                .Select(e => new BuildingsListItemDO(e))
                .ToList();

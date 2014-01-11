@@ -11,6 +11,7 @@
     'src/repositories/building_repository',
 
     'src/view_models/building/buildings_list_vm',
+    'src/view_models/building/buildings_new_vm',
     'src/view_models/home_vm'
 ], function (
     $,
@@ -19,6 +20,7 @@
     Corium,
     BuildingRepository,
     BuildingsVM,
+    NewBuildingVM,
     HomeVM
     ) {
     'use strict';
@@ -26,6 +28,22 @@
     var BuildingController = Corium.Controller.extend({
         constructor: function () {
             Corium.Controller.prototype.constructor.call(this);
+        },
+        newBuilding: {
+            dependencies: ['app#leftBuilding'],
+            action: function (params, cancelationToken) {
+                var buildingRepository = new BuildingRepository();
+
+                return buildingRepository.newBuilding()
+                    .then(function (newBuilding) {
+                        if (cancelationToken.isCanceled) {
+                            return;
+                        }
+
+                        return Corium.app.rootView().pageView().right(new NewBuildingVM(newBuilding));
+                    });
+
+            }
         },
         search: {
             dependencies: ['app#leftBuilding'],
@@ -72,13 +90,13 @@
             }
         },
         home: {
-            dependencies: ['app#leftBuilding'],
+            dependencies: ['app#root'],
             action: function (params, cancelationToken) {
                 if (cancelationToken.isCanceled) {
                     return;
                 }
 
-                return Corium.app.rootView().pageView().right(new HomeVM());
+                return Corium.app.rootView().pageView(new HomeVM());
             }
         },
         homeTest: {

@@ -197,21 +197,15 @@ namespace EmsTU.Web.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetBuildings(string name, int? limit, int? offset) //string email,
+        public HttpResponseMessage GetBuildings(string name, int? limit, int? offset)
         {
             var query = this.unitOfWork.Repo<Building>().Query()
-                //.Include(e => e.CorrespondentType)
                 .Where(e => e.IsActive);
 
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(e => e.Name.Contains(name));
             }
-
-            //if (!string.IsNullOrEmpty(email))
-            //{
-            //    query = query.Where(e => e.Email.Contains(email));
-            //}
 
             query = query.OrderByDescending(e => e.BuildingId);
 
@@ -223,7 +217,7 @@ namespace EmsTU.Web.Controllers
             }
 
             var returnValue = query.ToList()
-                .Select(e => new BuildingsListDO(e))
+                .Select(e => new BuildingsListItemDO(e))
                 .ToList();
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new

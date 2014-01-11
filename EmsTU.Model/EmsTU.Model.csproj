@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataObjects\BuildingsListDO.cs" />
     <Compile Include="DataObjects\BuildingsListItemDO.cs" />
     <Compile Include="DataObjects\BuildingTypeDO.cs" />
     <Compile Include="DataObjects\NewBuildingDO.cs" />

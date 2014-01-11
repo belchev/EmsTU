@@ -563,6 +563,20 @@ td.nomenclature-cell i {
     margin-left: 150px;
 }
 
+/*.form-horizontal .control-label1 {
+    float: left;
+    width: 10px;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.form-horizontal .controls1 {
+    *display: inline-block;
+    *padding-left: 20px;
+    margin-left: 50px;
+    *margin-left: 0;
+}*/
+
 /*///LOGIN///*/
 
 /*
@@ -695,10 +709,10 @@ ul.tree {
     color: #777;
 }
 
-.btn-text:active {
-    background: none !important;
-    box-shadow: none;
-}
+    .btn-text:active {
+        background: none !important;
+        box-shadow: none;
+    }
 
 /*.alert {
     border-color: #CCCCCC;

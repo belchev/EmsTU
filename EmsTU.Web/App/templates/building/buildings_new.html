@@ -1,0 +1,149 @@
+﻿<div class="page-view-CT">
+
+  <div class="navbar" style="position: fixed; top: 40px; width: 100%; z-index: 1000;" data-bind="visible: !_isInDialog()">
+    <div class="navbar-inner">
+      <div class="container nav-container">
+        <ul class="nav">
+          <li>
+            <a data-bind="click: _save" href="#">
+              <i class="icon-ok"></i><span>&nbsp;Запис</span>
+            </a>
+          </li>
+          <li>
+            <a data-bind="click: _cancel" href="#">
+              <i class="icon-remove"></i><span>&nbsp;Отказ</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <form class="well" data-bind="with: _building">
+
+    <div class="row" data-bind="visible: !imagePath()">
+      <div class="span5">
+        <button class="btn" data-bind="visible: !imagePath(), click: $parent._chooseFile">Добави снимка</button>
+      </div>
+    </div>
+
+    <div class="row" data-bind="visible: imagePath()">
+      <div class="span5">
+        <img data-bind="attr: { src: imagePath() }" /><br />
+        <button class="btn" data-bind="click: $parent._deleteFile"><i class="icon-remove"></i>&nbsp; изтрий</button>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+      <div class="span5">Име:</div>
+      <div class="span5">Слоган:</div>
+    </div>
+    <div class="row">
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: name">
+      </div>
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: slogan">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span5">Уеб сайт:</div>
+    </div>
+    <div class="row">
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: webSite">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span5">
+        <label class="control-label">Област:</label>
+      </div>
+      <div class="span5">
+        <label class="control-label">Община:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span5" style="margin-bottom: 5px;">
+        <div class="dropdown-container span4" data-bind="nomenclatureContext: { nomenclatureKey: 'districts', value: districtId, idProperty: 'districtId' }">
+          <select class="span4" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'districtId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+        </div>
+      </div>
+
+      <div class="span5" style="margin-bottom: 5px;">
+        <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'municipalities', value: municipalityId, idProperty: 'municipalityId', parent: districtId }">
+          <select class="span4" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'municipalityId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <i data-bind="visible: nomenclatureContext.loading"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span5">
+        <label class="control-label">Населено място:</label>
+      </div>
+      <div class="span5">
+        <label class="control-label">Адрес:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span5" style="margin-bottom: 5px;">
+        <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'settlements', value: settlementId, idProperty: 'settlementId', parent: municipalityId }">
+          <select class="span4" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'settlementId', chosenOptions: { allow_single_deselect: true } }"></select>
+          <i data-bind="visible: nomenclatureContext.loading"></i>
+        </div>
+      </div>
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: address">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span5">Телефон за контакт:</div>
+      <div class="span5">Работно време:</div>
+    </div>
+    <div class="row">
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: contactPhone">
+      </div>
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: workingTime">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span2">Места вътре:</div>
+      <div class="span3">Места вън:</div>
+      <div class="span2">Ценови клас:</div>
+    </div>
+    <div class="row">
+      <div class="span2 input-append">
+        <input type="text" class="input-small" data-bind="value: seatsInside"><span class="add-on">бр.</span>
+      </div>
+      <div class="span3 input-append">
+        <input type="text" class="input-small" data-bind="value: seatsOutside"><span class="add-on">бр.</span>
+      </div>
+      <div class="span2 input-append">
+        <input type="text" class="input-small" data-bind="value: price"><span class="add-on">лв.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span9">
+        <label class="control-label">Доп. информация:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span9">
+        <textarea rows="6" class="span9" data-bind="value: info"></textarea>
+      </div>
+    </div>
+
+
+
+  </form>
+</div>

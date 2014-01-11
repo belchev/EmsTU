@@ -10,6 +10,12 @@
     var BuildingRepository = Corium.Repository.extend({
         constructor: function () {
         },
+        newBuilding: function () {
+            var self = this,
+                url = 'api/buildings/newBuilding';
+
+            return self.get(url);
+        },
         getBuildings: function (
             name,
             buildingTypeId,

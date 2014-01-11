@@ -140,7 +140,7 @@
         editBuilding: function (details) {
             var buildingId = details.buildingId();
 
-            //Corium.navigation.navigateAction('building#edit', { buildingId: buildingId });
+            Corium.navigation.navigateAction('building#edit', { buildingId: buildingId });
         }
     });
     return BuildingsListVM;

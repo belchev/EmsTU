@@ -25,6 +25,7 @@ EmsTU.Web/Properties/PublishProfiles/**/*
 EmsTU.Web/App/node_modules/**/*
 EmsTU.Web/App/build/**/*
 EmsTU.Web/App/npm-debug.log
+EmsTU.Web/Storage/**/*
 
 *.tmp
 *.suo

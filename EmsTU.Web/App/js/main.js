@@ -387,15 +387,17 @@ define([
                 action: 'building#search',
                 icon: 'icon-file',
                 aliases: [
-                    'building#home',
-                    'building#homeTest',
                     'building#search'
                 ]
             }, {
                 text: 'Ново заведение',
-                action: 'building#homeTest',
+                action: 'building#newBuilding',
                 //params: { docEntryTypeId: 1 }, //todo remove
-                icon: 'icon-plus'
+                icon: 'icon-plus',
+                permissions: ['sys#admin'],
+                aliases: [
+                    'building#newBuilding'
+                ]
                 //execute: true
             }, {
                 text: 'Администриране',
@@ -409,11 +411,20 @@ define([
                     'user#edit',
                     'user#search'
                 ]
+            },
+            {
+                text: 'Помощ',
+                items: [
+                    { text: 'Табло за съобщения', action: 'building#home' }
+                ],
+                aliases: [
+                    'building#home'
+                ]
             }
         ],
         leftBuildingNavigationData: [
             {
-                text: 'Текущи',
+                text: 'Последни',
                 action: 'building#search'
             },
             {
@@ -458,25 +469,28 @@ define([
                 pattern: 'unknown',
                 action: 'app#unknown'
             }, {
-                pattern: 'users/new',
+                pattern: 'u/n',
                 action: 'user#newUser'
             }, {
-                pattern: 'users/{userId}',
+                pattern: 'u/{userId}',
                 action: 'user#edit'
             }, {
-                pattern: 'userss/:?query:',
+                pattern: 'u/:?query:',
                 action: 'user#search'
             },
             //buildings
             {
-                pattern: 'search/:?query:',
+                pattern: 'b/s/:?query:',
                 action: 'building#search'
             }, {
-                pattern: 'homeTest',
+                pattern: 'ht',
                 action: 'building#homeTest'
             }, {
-                pattern: 'home',
+                pattern: 'h',
                 action: 'building#home'
+            }, {
+                pattern: 'b/n',
+                action: 'building#newBuilding'
             }
             ]
         },

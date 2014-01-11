@@ -147,6 +147,13 @@ namespace EmsTU.Web
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/buildings/newBuilding",
+                defaults: new { controller = "Building", action = "GetNewBuilding" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+
             #endregion
 
         }
