@@ -27,6 +27,7 @@ namespace EmsTU.Model.Models
         public int BuildingId { get; set; }
         public string Name { get; set; }
         public string Slogan { get; set; }
+        public string ImagePath { get; set; }
         public string WebSite { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<int> DistrictId { get; set; }
@@ -36,6 +37,7 @@ namespace EmsTU.Model.Models
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
         public string Info { get; set; }
+        public string WorkingTime { get; set; }
         public string BuildingPhone { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> SeatsInside { get; set; }
@@ -76,6 +78,9 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Slogan)
                 .HasMaxLength(50);
 
+            this.Property(t => t.ImagePath)
+                .HasMaxLength(100);
+
             this.Property(t => t.WebSite)
                 .HasMaxLength(100);
 
@@ -86,6 +91,9 @@ namespace EmsTU.Model.Models
                 .HasMaxLength(100);
 
             this.Property(t => t.BuildingPhone)
+                .HasMaxLength(50);
+
+            this.Property(t => t.WorkingTime)
                 .HasMaxLength(50);
 
             this.Property(t => t.Version)
@@ -99,6 +107,7 @@ namespace EmsTU.Model.Models
             this.Property(t => t.BuildingId).HasColumnName("BuildingId");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Slogan).HasColumnName("Slogan");
+            this.Property(t => t.ImagePath).HasColumnName("ImagePath");
             this.Property(t => t.WebSite).HasColumnName("WebSite");
             this.Property(t => t.ModifyDate).HasColumnName("ModifyDate");
             this.Property(t => t.DistrictId).HasColumnName("DistrictId");
@@ -109,6 +118,7 @@ namespace EmsTU.Model.Models
             this.Property(t => t.ContactPhone).HasColumnName("ContactPhone");
             this.Property(t => t.Info).HasColumnName("Info");
             this.Property(t => t.BuildingPhone).HasColumnName("BuildingPhone");
+            this.Property(t => t.WorkingTime).HasColumnName("WorkingTime");
             this.Property(t => t.Price).HasColumnName("Price");
             this.Property(t => t.SeatsInside).HasColumnName("SeatsInside");
             this.Property(t => t.SeatsOutside).HasColumnName("SeatsOutside");

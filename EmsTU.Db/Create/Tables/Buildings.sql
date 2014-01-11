@@ -4,6 +4,7 @@ GO
 CREATE TABLE [dbo].[Buildings](
 	[BuildingId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](200) NOT NULL,
+	[ImagePath] [nvarchar](50) NULL,
 	[Slogan] [nvarchar](50) NULL,
 	[WebSite] [nvarchar](100) NULL,
 	[ModifyDate] [datetime] NULL,
@@ -14,6 +15,7 @@ CREATE TABLE [dbo].[Buildings](
 	[ContactName] [nvarchar](100) NULL,
 	[ContactPhone] [nvarchar](100) NULL,
 	[Info] [nvarchar](max) NULL,
+	[WorkingTime] [nvarchar](50) NULL,
 	[BuildingPhone] [nvarchar](50) NULL,
 	[Price] [int] NULL,
 	[SeatsInside] [int] NULL,

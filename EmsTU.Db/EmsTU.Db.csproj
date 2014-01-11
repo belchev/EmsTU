@@ -109,6 +109,7 @@
     <Content Include="Insert\Tables\AddressData\Settlements.sql" />
     <Content Include="Insert\Tables\ConfigFinalize.sql" />
     <Content Include="Insert\Tables\BuildingTypes.sql" />
+    <Content Include="Insert\Tables\Buildings.sql" />
     <Content Include="Insert\Tables\Extras.sql" />
     <Content Include="Insert\Tables\KitchenTypes.sql" />
     <Content Include="Insert\Tables\MusicTypes.sql" />

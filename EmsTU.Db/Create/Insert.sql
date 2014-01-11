@@ -32,6 +32,8 @@ GO
 --Insert Test Data
 ---------------------------------------------------------------
 
+:r "Insert\Tables\Buildings.sql"
+
 
 SET NOCOUNT OFF;
 GO
