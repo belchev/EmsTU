@@ -248,7 +248,7 @@ label {
 
 .page-view-CT {
     width: 100%;
-    margin-top: 27px;
+    margin-top: 30px;
 }
 
 .page-view {
@@ -719,3 +719,19 @@ ul.tree {
     color: #000000;
     background-color: #FFF7C4;
 }*/
+
+.table-list a {
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+    .table-list a:hover {
+        text-decoration: underline;
+        color: #0088cc;
+    }
+
+.table-list img {
+    cursor: pointer;
+}

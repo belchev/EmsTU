@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -216,7 +217,9 @@ namespace EmsTU.Web.Controllers
                 query = query.Skip(offset.Value).Take(limit.Value);
             }
 
-            var returnValue = query.ToList()
+            List<BuildingsListItemDO> returnValue = query
+                .Include(e => e.Settlement)
+                .ToList()
                 .Select(e => new BuildingsListItemDO(e))
                 .ToList();
 

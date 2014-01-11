@@ -142,15 +142,22 @@ namespace EmsTU.Web
 
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/buildings",
-                defaults: new { controller = "Building", action = "GetBuildings", name = "", buildingTypeId = "", kitchenTypeId = "", musicTypeId = "", occasionTypeId = "", extraId = "", limit = "", offset = "" },
+                routeTemplate: "api/buildings/newBuilding",
+                defaults: new { controller = "Building", action = "GetNewBuilding" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 
             config.Routes.MapHttpRoute(
+               name: null,
+               routeTemplate: "api/buildings/{id}",
+               defaults: new { controller = "Building", action = "GetBuilding" },
+               constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/buildings/newBuilding",
-                defaults: new { controller = "Building", action = "GetNewBuilding" },
+                routeTemplate: "api/buildings",
+                defaults: new { controller = "Building", action = "GetBuildings", name = "", buildingTypeId = "", kitchenTypeId = "", musicTypeId = "", occasionTypeId = "", extraId = "", limit = "", offset = "" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 

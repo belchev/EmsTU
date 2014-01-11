@@ -22,7 +22,6 @@ namespace EmsTU.Model.Models
             this.Ratings = new List<Rating>();
             this.Visitors = new List<Visitor>();
             this.Users = new List<User>();
-                
         }
 
         public int BuildingId { get; set; }
@@ -45,6 +44,7 @@ namespace EmsTU.Model.Models
         public Nullable<int> SeatsInside { get; set; }
         public Nullable<int> SeatsOutside { get; set; }
         public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
         public byte[] Version { get; set; }
         public virtual ICollection<Album> Albums { get; set; }
         public virtual ICollection<BuildingBuildingType> BuildingBuildingTypes { get; set; }
@@ -56,7 +56,7 @@ namespace EmsTU.Model.Models
         public virtual District District { get; set; }
         public virtual Municipality Municipality { get; set; }
         public virtual Settlement Settlement { get; set; }
-        public virtual User ModifiedUser { get; set; }
+        public virtual User ModifyUser { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<MenuCategory> MenuCategories { get; set; }
@@ -127,6 +127,7 @@ namespace EmsTU.Model.Models
             this.Property(t => t.SeatsInside).HasColumnName("SeatsInside");
             this.Property(t => t.SeatsOutside).HasColumnName("SeatsOutside");
             this.Property(t => t.IsActive).HasColumnName("IsActive");
+            this.Property(t => t.IsDeleted).HasColumnName("IsDeleted");
             this.Property(t => t.Version).HasColumnName("Version");
 
             // Relationships
@@ -148,7 +149,7 @@ namespace EmsTU.Model.Models
             this.HasOptional(t => t.Settlement)
                 .WithMany(t => t.Buildings)
                 .HasForeignKey(d => d.SettlementId);
-            this.HasOptional(t => t.ModifiedUser)
+            this.HasOptional(t => t.ModifyUser)
                 .WithMany(t => t.BuildingsModifyUser)
                 .HasForeignKey(d => d.ModifyUserId);
 

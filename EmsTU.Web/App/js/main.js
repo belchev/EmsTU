@@ -387,7 +387,8 @@ define([
                 action: 'building#search',
                 icon: 'icon-file',
                 aliases: [
-                    'building#search'
+                    'building#search',
+                    'building#edit'
                 ]
             }, {
                 text: 'Ново заведение',
@@ -480,17 +481,20 @@ define([
             },
             //buildings
             {
-                pattern: 'b/s/:?query:',
+                pattern: 'b/:?query:',
                 action: 'building#search'
+            }, {
+                pattern: 'b/n',
+                action: 'building#newBuilding'
+            }, {
+                pattern: 'b/{buildingId}',
+                action: 'building#edit'
             }, {
                 pattern: 'ht',
                 action: 'building#homeTest'
             }, {
                 pattern: 'h',
                 action: 'building#home'
-            }, {
-                pattern: 'b/n',
-                action: 'building#newBuilding'
             }
             ]
         },

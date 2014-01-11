@@ -1,0 +1,58 @@
+﻿<div class="container page-container">
+
+  <div class="page-view-CT">
+
+    <div class="navbar" style="position: fixed; top: 40px; width: 948px; z-index: 1000;" data-bind="visible: !_isInDialog()">
+      <div class="navbar-inner">
+        <div class="container nav-container">
+          <ul class="nav">
+            <li data-bind="visible: !_inEditMode()">
+              <a data-bind="click: _enterEditMode" href="#">
+                <i class="icon-edit"></i><span>&nbsp;Редакция</span>
+              </a>
+            </li>
+            <li data-bind="visible: _inEditMode()">
+              <a data-bind="click: _save" href="#">
+                <i class="icon-ok"></i><span>&nbsp;Запис</span>
+              </a>
+            </li>
+            <li data-bind="visible: _inEditMode()">
+              <a data-bind="click: _exitEditMode" href="#">
+                <i class="icon-remove"></i><span>&nbsp;Отказ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <form class="well" data-bind="with: _building">
+
+      <!--<div class="alert alert-error" data-bind="visible: errorString(), text: errorString">
+      </div>-->
+
+      <ul class="nav nav-tabs">
+        <li data-bind="css: { 'active': $parent._currentTab() === 'buildingInfo' }">
+          <a data-toggle="tab" data-target="#buildingInfo" data-bind="click: function () { $parent._innerNavigation('buildingInfo'); }">Инфо</a>
+        </li>
+        <li data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
+          <a data-toggle="tab" data-target="#buildingMenu" data-bind="click: function () { $parent._innerNavigation('buildingMenu'); }">Меню</a>
+        </li>
+      </ul>
+
+      <div class="tabbable">
+        <div class="tab-content">
+          <div class="tab-pane" id="buildingInfo" data-bind="css: { 'active': $parent._currentTab() === 'buildingInfo' }">
+              <span>AAA</span>
+          </div>
+
+          <div class="tab-pane" id="buildingMenu" data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
+              <span>BBB</span>
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>

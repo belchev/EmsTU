@@ -23,6 +23,11 @@ namespace EmsTU.Model.DataObjects
                 {
                     this.BuildingTypes.AddRange(b.BuildingBuildingTypes.Select(e => new BuildingTypeDO(e.BuildingType)));
                 }
+                if (b.Settlement != null)
+                {
+                    this.DisplayAddress = b.Settlement.Name + ", ";
+                }
+                this.DisplayAddress = this.DisplayAddress + b.Address;
 
                 this.BuildingId = b.BuildingId;
                 this.Name = b.Name;
@@ -31,6 +36,10 @@ namespace EmsTU.Model.DataObjects
                 this.Slogan = b.Slogan;
                 this.ImagePath = b.ImagePath;
                 this.WebSite = b.WebSite;
+                this.Status = b.IsDeleted ? "Изтрит | " : "";
+                this.Status = this.Status + (b.IsActive ? "Активен" : "Неактивен");
+                this.IsActive = b.IsActive;
+                this.IsSoftDeleted = b.IsDeleted;
 
                 this.Version = b.Version;
             }
@@ -41,12 +50,16 @@ namespace EmsTU.Model.DataObjects
         public int BuildingId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string DisplayAddress { get; set; }
         public string WorkingTime { get; set; }
 
         public string Slogan { get; set; }
         public string ImagePath { get; set; }
         public string WebSite { get; set; }
+        public string Status { get; set; }
 
+        public bool IsActive { get; set; }
+        public bool IsSoftDeleted { get; set; }
         public bool IsSelected { get; set; }
         public bool IsNew { get; set; }
         public bool IsDeleted { get; set; }

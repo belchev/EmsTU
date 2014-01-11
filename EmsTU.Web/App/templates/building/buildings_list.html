@@ -81,39 +81,36 @@
     <div class="alert alert-info" data-bind="visible: _msgString(), html: _msgString">
     </div>
 
-    <table class="table">
-      <!--<thead>
+    <table class="table table-list">
+      <thead>
         <tr>
           <th></th>
-          <th>Наименование</th>
-          <th>Слоган</th>
-          <th>Website</th>
+          <th style="width: 500px;"></th>
+          <th style="text-align: center;">Статус</th>
         </tr>
-      </thead>-->
+      </thead>
       <tbody data-bind="foreach: _buildings">
         <tr>
-          <td style="width: 50px;">
-            <img data-bind="attr: { src: imagePath }" />
+          <td style="width: 116px; text-align: center;">
+            <img data-bind="attr: { src: imagePath }, click: $parent.editBuilding" style="" alt="Преглед" title="Преглед" />
           </td>
           <td>
-            <h4><b><span data-bind="text: name"></span></b></h4>
+            <h4><a data-bind="text: name, click: $parent.editBuilding" style="" title="Преглед"></a></h4>
 
             <div data-bind="visible: buildingTypes().length > 0">
-              <i><span data-bind="foreach: buildingTypes"><span data-bind="text: name"></span>,</span></i><br />
+              <i><span data-bind="foreach: buildingTypes"><span data-bind="text: name"></span>, </span></i><br />
             </div>
 
-            <div  data-bind="visible: address">
-              <b><span data-bind="text: address"></span></b><br />
+            <div data-bind="visible: displayAddress">
+              <b><span data-bind="text: displayAddress"></span></b><br />
             </div>
 
-            <div  data-bind="visible: workingTime">
+            <div data-bind="visible: workingTime">
               Работно време: <span data-bind="text: workingTime"></span><br />
             </div>
             
-            <!--<span data-bind="text: slogan"></span>
-            <span data-bind="text: webSite"></span>-->
-
           </td>
+          <td style="text-align: center; vertical-align:middle;" data-bind="text: status, css: { 'error bolded': isSoftDeleted() }"></td>
         </tr>
       </tbody>
     </table>

@@ -31,6 +31,43 @@ namespace EmsTU.Web.Controllers
         }
 
         /// <summary>
+        /// Взима сградата
+        /// </summary>
+        /// <param name="id">Уникален идентификатор</param>
+        /// <returns></returns>
+        [HttpGet]
+        public HttpResponseMessage GetBuilding(int id)
+        {
+            User user = unitOfWork.Repo<User>()
+               .Query()
+               .Include(e => e.Role)
+               .Include(e => e.Buildings)
+               .SingleOrDefault(e => e.UserId == this.userContext.UserId);
+
+            bool a = user. Buildings.Any(e => e.BuildingId == id);
+
+            if (!user.Buildings.Any(e => e.BuildingId == id) && !this.userContext.Permissions.Contains("sys#admin"))
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            var query = this.unitOfWork.Repo<Building>()
+                .Find(id,
+                    d => d.Settlement
+                );
+
+            if (query == null)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+
+            var returnValue = new BuildingDO(query);
+
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
+        }
+
+        /// <summary>
         /// Генерира нова сграда
         /// </summary>
         /// <returns></returns>
@@ -76,7 +113,8 @@ namespace EmsTU.Web.Controllers
                     newBuilding.SeatsInside = building.SeatsInside;
                     newBuilding.SeatsOutside = building.SeatsOutside;
 
-                    newBuilding.IsActive = true;
+                    newBuilding.IsActive = false;
+                    newBuilding.IsDeleted = false;
                     newBuilding.ModifyDate = DateTime.Now;
                     newBuilding.ModifyUserId = this.userContext.UserId;
 
@@ -115,7 +153,12 @@ namespace EmsTU.Web.Controllers
 
             int totalCounts;
             var predicate = PredicateBuilder.True<Building>();
-            predicate = predicate.And(d => d.IsActive);
+
+            if (!this.userContext.Permissions.Contains("sys#admin"))
+            {
+                predicate = predicate.And(d => d.Users.Any(e => e.UserId == this.userContext.UserId));
+                predicate = predicate.And(d => !d.IsDeleted);
+            }
 
             if (!String.IsNullOrWhiteSpace(name))
             {
@@ -147,8 +190,6 @@ namespace EmsTU.Web.Controllers
                 predicate = predicate.And(d => d.BuildingExtras.Any(e => e.ExtraId == extraId.Value));
             }
 
-            //todo constraint with user permissions!
-
             var query = this.unitOfWork.Repo<Building>().Query();
 
             query = query
@@ -164,7 +205,6 @@ namespace EmsTU.Web.Controllers
                .Include(e => e.District)
                .Include(e => e.Municipality)
                .Include(e => e.Settlement)
-               .Include(e => e.BuildingBuildingTypes)
                .Include(e => e.Users)
                .Include(e => e.BuildingBuildingTypes.Select(g => g.BuildingType))
                .ToList()

@@ -22,6 +22,7 @@ CREATE TABLE [dbo].[Buildings](
 	[SeatsInside] [int] NULL,
 	[SeatsOutside] [int] NULL,
 	[IsActive] [bit] NOT NULL DEFAULT (1),
+	[IsDeleted] [bit] NOT NULL DEFAULT (0),
 	[Version] [timestamp] NOT NULL,
  CONSTRAINT [PK_Buildings] PRIMARY KEY CLUSTERED 
 (
