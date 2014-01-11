@@ -29,7 +29,7 @@
 
     <div class="row" data-bind="visible: imagePath()">
       <div class="span5">
-        <img data-bind="attr: { src: imagePath() }" /><br />
+        <img data-bind="attr: { src: imagePath() }" style="margin-bottom: 10px;"><br />
         <button class="btn" data-bind="click: $parent._deleteFile"><i class="icon-remove"></i>&nbsp; изтрий</button>
       </div>
     </div>
@@ -37,12 +37,12 @@
     <br />
 
     <div class="row">
-      <div class="span5">Име:</div>
+      <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">Име:</div>
       <div class="span5">Слоган:</div>
     </div>
     <div class="row">
-      <div class="span5">
-        <input type="text" class="input-xlarge" data-bind="value: name">
+      <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">
+        <input type="text" class="input-xlarge" data-bind="value: $parent._name">
       </div>
       <div class="span5">
         <input type="text" class="input-xlarge" data-bind="value: slogan">
@@ -51,30 +51,36 @@
 
     <div class="row">
       <div class="span5">Уеб сайт:</div>
+      <div class="span5">Работно време:</div>
     </div>
     <div class="row">
       <div class="span5">
         <input type="text" class="input-xlarge" data-bind="value: webSite">
       </div>
+      <div class="span5">
+        <input type="text" class="input-xlarge" data-bind="value: workingTime">
+      </div>
     </div>
 
+    <br />
+
     <div class="row">
-      <div class="span5">
+      <div class="span5" data-bind="css: { 'error': $parent._showErrors() && $parent._settlementId.hasErrors() }">
         <label class="control-label">Област:</label>
       </div>
-      <div class="span5">
+      <div class="span5" data-bind="css: { 'error': $parent._showErrors() && $parent._settlementId.hasErrors() }">
         <label class="control-label">Община:</label>
       </div>
     </div>
     <div class="row">
-      <div class="span5" style="margin-bottom: 5px;">
+      <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && $parent._settlementId.hasErrors() }">
         <div class="dropdown-container span4" data-bind="nomenclatureContext: { nomenclatureKey: 'districts', value: districtId, idProperty: 'districtId' }">
           <select class="span4" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'districtId', chosenOptions: { allow_single_deselect: true } }"></select>
           <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
         </div>
       </div>
 
-      <div class="span5" style="margin-bottom: 5px;">
+      <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && $parent._settlementId.hasErrors() }">
         <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'municipalities', value: municipalityId, idProperty: 'municipalityId', parent: districtId }">
           <select class="span4" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'municipalityId', chosenOptions: { allow_single_deselect: true } }"></select>
           <i data-bind="visible: nomenclatureContext.loading"></i>
@@ -83,35 +89,37 @@
     </div>
 
     <div class="row">
-      <div class="span5">
+      <div class="span5" data-bind="css: { 'error': $parent._showErrors() && $parent._settlementId.hasErrors() }">
         <label class="control-label">Населено място:</label>
       </div>
-      <div class="span5">
+      <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._addressError()) || $parent._addressError() }">
         <label class="control-label">Адрес:</label>
       </div>
     </div>
     <div class="row">
-      <div class="span5" style="margin-bottom: 5px;">
-        <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'settlements', value: settlementId, idProperty: 'settlementId', parent: municipalityId }">
+      <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && $parent._settlementId.hasErrors() }">
+        <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'settlements', value: $parent._settlementId, idProperty: 'settlementId', parent: municipalityId }">
           <select class="span4" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'settlementId', chosenOptions: { allow_single_deselect: true } }"></select>
           <i data-bind="visible: nomenclatureContext.loading"></i>
         </div>
       </div>
-      <div class="span5">
-        <input type="text" class="input-xlarge" data-bind="value: address">
+      <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._addressError()) || $parent._addressError() }">
+        <input type="text" class="input-xlarge" data-bind="value: $parent._address">
       </div>
     </div>
 
+    <br />
+
     <div class="row">
-      <div class="span5">Телефон за контакт:</div>
-      <div class="span5">Работно време:</div>
+      <div class="span5">Лице за контакт:</div>
+      <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._contactPhoneError()) || $parent._contactPhoneError() }">Телефон за контакт:</div>
     </div>
     <div class="row">
       <div class="span5">
-        <input type="text" class="input-xlarge" data-bind="value: contactPhone">
+        <input type="text" class="input-xlarge" data-bind="value: contactName">
       </div>
-      <div class="span5">
-        <input type="text" class="input-xlarge" data-bind="value: workingTime">
+      <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._contactPhoneError()) || $parent._contactPhoneError() }">
+        <input type="text" class="input-xlarge" data-bind="value: $parent._contactPhone">
       </div>
     </div>
 
@@ -131,6 +139,8 @@
         <input type="text" class="input-small" data-bind="value: price"><span class="add-on">лв.</span>
       </div>
     </div>
+
+    <br />
 
     <div class="row">
       <div class="span9">

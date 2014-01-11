@@ -14,6 +14,7 @@ using EmsTU.Common.Utils;
 using EmsTU.Model.DataObjects;
 using EmsTU.Model.Utils;
 using System.Text;
+using System.Transactions;
 
 
 namespace EmsTU.Web.Controllers
@@ -42,10 +43,56 @@ namespace EmsTU.Web.Controllers
                .SingleOrDefault(e => e.UserId == this.userContext.UserId);
 
             //todo has permissions to get new building
-            
+
             var returnValue = new NewBuildingDO();
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage PostBuilding(NewBuildingDO building)
+        {
+            try
+            {
+                using (TransactionScope transactionScope = this.unitOfWork.CreateTransactionScope())
+                {
+                    Building newBuilding = new Building();
+
+                    newBuilding.Name = building.Name;
+
+                    newBuilding.ImagePath = !String.IsNullOrEmpty(building.ImagePath) ? building.ImagePath : "app\\img\\nopic.jpg";
+
+                    newBuilding.Slogan = building.Slogan;
+                    newBuilding.WebSite = building.WebSite;
+                    newBuilding.DistrictId = building.DistrictId;
+                    newBuilding.MunicipalityId = building.MunicipalityId;
+                    newBuilding.SettlementId = building.SettlementId;
+                    newBuilding.Address = building.Address;
+                    newBuilding.ContactName = building.ContactName;
+                    newBuilding.ContactPhone = building.ContactPhone;
+                    newBuilding.Info = building.Info;
+                    newBuilding.WorkingTime = building.WorkingTime;
+                    newBuilding.Price = building.Price;
+                    newBuilding.SeatsInside = building.SeatsInside;
+                    newBuilding.SeatsOutside = building.SeatsOutside;
+
+                    newBuilding.IsActive = true;
+                    newBuilding.ModifyDate = DateTime.Now;
+                    newBuilding.ModifyUserId = this.userContext.UserId;
+
+                    this.unitOfWork.Repo<Building>().Add(newBuilding);
+
+                    this.unitOfWork.Save();
+                    transactionScope.Complete();
+
+                    return ControllerContext.Request.CreateResponse(HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = ex.Message });
+            }
+
         }
 
         [HttpGet]
@@ -68,6 +115,7 @@ namespace EmsTU.Web.Controllers
 
             int totalCounts;
             var predicate = PredicateBuilder.True<Building>();
+            predicate = predicate.And(d => d.IsActive);
 
             if (!String.IsNullOrWhiteSpace(name))
             {
@@ -113,6 +161,9 @@ namespace EmsTU.Web.Controllers
             List<BuildingsListItemDO> returnValue = query
                .Skip(offset)
                .Take(limit)
+               .Include(e => e.District)
+               .Include(e => e.Municipality)
+               .Include(e => e.Settlement)
                .Include(e => e.BuildingBuildingTypes)
                .Include(e => e.Users)
                .Include(e => e.BuildingBuildingTypes.Select(g => g.BuildingType))

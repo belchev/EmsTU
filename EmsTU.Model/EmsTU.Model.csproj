@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DataObjects\BuildingsListItemDO.cs" />
     <Compile Include="DataObjects\BuildingTypeDO.cs" />
+    <Compile Include="DataObjects\BuildingDO.cs" />
     <Compile Include="DataObjects\NewBuildingDO.cs" />
     <Compile Include="DataObjects\PasswordsDO.cs" />
     <Compile Include="DataObjects\UserDO.cs" />

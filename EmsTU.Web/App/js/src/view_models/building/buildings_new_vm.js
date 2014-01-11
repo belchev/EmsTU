@@ -13,11 +13,12 @@
 
     //framework
     'framework/corium',
+
+    //src
+    'src/utils',
+    'src/validation_utils',
     'src/view_models/upload_file_vm',
     'src/repositories/building_repository'
-
-    ////src
-    //'src/utils'
 ], function (
     window,
     $,
@@ -26,6 +27,8 @@
     Q,
     document,
     Corium,
+    Utils,
+    ValidationUtils,
     UploadFileVM,
     BuildingRepository
     ) {
@@ -44,8 +47,72 @@
             self._building = ko.observable(ko_mapping.fromJS(newBuilding));
 
             self._isInDialog = ko.observable(false);
+            self._showErrors = ko.observable(false);
+            self._saveButtonClicked = ko.observable(false);
+
+            self._settlementId = ko.observable();
+
+            self._contactPhone = ko.observable();
+            self._contactPhoneError = undefined;
+            self._contactPhoneChanged = ko.observable(false);
+
+            self._name = ko.observable();
+            self._nameError = undefined;
+            self._nameChanged = ko.observable(false);
+
+            self._address = ko.observable();
+            self._addressError = undefined;
+            self._addressChanged = ko.observable(false);
+
+            self._contactPhone.subscribe(function () {
+                self._contactPhoneChanged(true);
+            });
+            self._contactPhoneError = ko.computed(function () {
+                var contactPhone = self._contactPhone();
+
+                if (self._saveButtonClicked() || self._contactPhoneChanged()) {
+                    return !contactPhone;
+                }
+                else {
+                    return false;
+                }
+            });
+
+            self._address.subscribe(function () {
+                self._addressChanged(true);
+            });
+            self._addressError = ko.computed(function () {
+                var address = self._address();
+
+                if (self._saveButtonClicked() || self._addressChanged()) {
+                    return !address;
+                }
+                else {
+                    return false;
+                }
+            });
+
+            self._name.subscribe(function () {
+                self._nameChanged(true);
+            });
+            self._nameError = ko.computed(function () {
+                var name = self._name();
+
+                if (self._saveButtonClicked() || self._nameChanged()) {
+                    return !name;
+                }
+                else {
+                    return false;
+                }
+            });
 
             self._buildingRepository = new BuildingRepository();
+            self._addUserValidationExtenders();
+        },
+        _addUserValidationExtenders: function () {
+            var self = this;
+
+            self._settlementId.extend({ required: true });
         },
         _cancel: function () {
             Corium.navigation.navigateAction('building#search');
@@ -78,7 +145,30 @@
         },
 
         _save: function () {
-            //var self = this;
+            var self = this,
+                isFormInvalid,
+                building = self._building();
+
+            self._saveButtonClicked(true);
+
+            if (ValidationUtils.isValid(self)) {
+                isFormInvalid = self._nameError() || self._contactPhoneError() || self._addressError();
+
+                if (!isFormInvalid) {
+                    building.name(self._name());
+                    building.contactPhone(self._contactPhone());
+                    building.address(self._address());
+
+                    building.settlementId(self._settlementId());
+
+                    self._buildingRepository.save(ko_mapping.toJS(building)).then(function () {
+                        Corium.navigation.navigateAction('building#search');
+                    });
+                }
+            }
+            else {
+                self._showErrors(true);
+            }
 
             return;
         }
