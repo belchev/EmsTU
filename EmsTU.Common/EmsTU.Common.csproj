@@ -97,6 +97,7 @@
     <Compile Include="Data\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
+    <Compile Include="Utils\CodeGenerator.cs" />
     <Compile Include="Utils\Formatter.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\NinjectDependencyResolver.cs" />

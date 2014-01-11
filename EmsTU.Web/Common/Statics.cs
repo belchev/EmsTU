@@ -18,6 +18,34 @@ namespace EmsTU.Web.Common
                 return GetAppConfigValue<bool>("EnableActionLog");
             }
         }
+        public static string PathStorage
+        {
+            get
+            {
+                return GetAppConfigValue<string>("PathStorage");
+            }
+        }
+        public static string PathImageThumb
+        {
+            get
+            {
+                return GetAppConfigValue<string>("PathImageThumb");
+            }
+        }
+        public static string PathImage
+        {
+            get
+            {
+                return GetAppConfigValue<string>("PathImage");
+            }
+        }
+        public static string PathImageBuilding
+        {
+            get
+            {
+                return GetAppConfigValue<string>("PathImageBuilding");
+            }
+        }
 
         #endregion
 

@@ -69,6 +69,7 @@
     <Compile Include="DataObjects\PasswordsDO.cs" />
     <Compile Include="DataObjects\UserDO.cs" />
     <Compile Include="Data\EmsTUUnitOfWork.cs" />
+    <Compile Include="Data\RepositoryExtensions\BuildingRepositoryExtensions.cs" />
     <Compile Include="Data\RepositoryExtensions\RoleRepositoryExtensions.cs" />
     <Compile Include="Data\RepositoryExtensions\UserRepositoryExtensions.cs" />
     <Compile Include="EmsTUContext.cs" />
