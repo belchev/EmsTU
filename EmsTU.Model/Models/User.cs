@@ -10,6 +10,7 @@ namespace EmsTU.Model.Models
         public User()
         {
             this.Buildings = new List<Building>();
+            this.BuildingsModifyUser = new List<Building>();
         }
 
         public int UserId { get; set; }
@@ -24,6 +25,7 @@ namespace EmsTU.Model.Models
         public byte[] Version { get; set; }
         public virtual Role Role { get; set; }
         public virtual ICollection<Building> Buildings { get; set; }
+        public virtual ICollection<Building> BuildingsModifyUser { get; set; }
 
         //client only
         public string Password { get; set; }

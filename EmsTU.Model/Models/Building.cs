@@ -22,6 +22,7 @@ namespace EmsTU.Model.Models
             this.Ratings = new List<Rating>();
             this.Visitors = new List<Visitor>();
             this.Users = new List<User>();
+                
         }
 
         public int BuildingId { get; set; }
@@ -29,6 +30,7 @@ namespace EmsTU.Model.Models
         public string Slogan { get; set; }
         public string ImagePath { get; set; }
         public string WebSite { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<int> DistrictId { get; set; }
         public Nullable<int> MunicipalityId { get; set; }
@@ -54,6 +56,7 @@ namespace EmsTU.Model.Models
         public virtual District District { get; set; }
         public virtual Municipality Municipality { get; set; }
         public virtual Settlement Settlement { get; set; }
+        public virtual User ModifiedUser { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<MenuCategory> MenuCategories { get; set; }
@@ -109,6 +112,7 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Slogan).HasColumnName("Slogan");
             this.Property(t => t.ImagePath).HasColumnName("ImagePath");
             this.Property(t => t.WebSite).HasColumnName("WebSite");
+            this.Property(t => t.ModifyUserId).HasColumnName("ModifyUserId");
             this.Property(t => t.ModifyDate).HasColumnName("ModifyDate");
             this.Property(t => t.DistrictId).HasColumnName("DistrictId");
             this.Property(t => t.MunicipalityId).HasColumnName("MunicipalityId");
@@ -144,6 +148,9 @@ namespace EmsTU.Model.Models
             this.HasOptional(t => t.Settlement)
                 .WithMany(t => t.Buildings)
                 .HasForeignKey(d => d.SettlementId);
+            this.HasOptional(t => t.ModifiedUser)
+                .WithMany(t => t.BuildingsModifyUser)
+                .HasForeignKey(d => d.ModifyUserId);
 
         }
     }

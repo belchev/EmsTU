@@ -7,6 +7,7 @@ CREATE TABLE [dbo].[Buildings](
 	[ImagePath] [nvarchar](50) NULL,
 	[Slogan] [nvarchar](50) NULL,
 	[WebSite] [nvarchar](100) NULL,
+	[ModifyUserId] [int] NULL,
 	[ModifyDate] [datetime] NULL,
 	[DistrictId] [int] NULL,
 	[MunicipalityId] [int] NULL,
@@ -20,7 +21,7 @@ CREATE TABLE [dbo].[Buildings](
 	[Price] [int] NULL,
 	[SeatsInside] [int] NULL,
 	[SeatsOutside] [int] NULL,
-	[IsActive] [bit] NOT NULL,
+	[IsActive] [bit] NOT NULL DEFAULT (1),
 	[Version] [timestamp] NOT NULL,
  CONSTRAINT [PK_Buildings] PRIMARY KEY CLUSTERED 
 (
@@ -46,4 +47,10 @@ ALTER TABLE [dbo].[Buildings]  WITH CHECK ADD  CONSTRAINT [FK_Buildings_Settleme
 REFERENCES [dbo].[Settlements] ([SettlementId])
 GO
 ALTER TABLE [dbo].[Buildings] CHECK CONSTRAINT [FK_Buildings_Settlements]
+GO
+
+ALTER TABLE [dbo].[Buildings]  WITH CHECK ADD  CONSTRAINT [FK_Buildings_Users] FOREIGN KEY([ModifyUserId])
+REFERENCES [dbo].[Users] ([UserId])
+GO
+ALTER TABLE [dbo].[Buildings] CHECK CONSTRAINT [FK_Buildings_Users]
 GO
