@@ -12,7 +12,7 @@
     'framework/corium',
 
     //src
-    'src/repositories/building_repository'
+    'src/repositories/nom_repository'
 ], function (
     $,
     ko,
@@ -20,50 +20,51 @@
     Q,
     document,
     Corium,
-    BuildingRepository) {
+    NomRepository) {
     'use strict';
 
-    var BuildingsPopListVM = Corium.Class.extend({
-        constructor: function () {
+    var NomsPopListVM = Corium.Class.extend({
+        constructor: function (type) {
             var self = this;
 
-            self.templateId = 'templates:building:buildings_pop_list.html';
+            self.templateId = 'templates:building:nom_pop_list.html';
             self._search = self._search.bind(self);
             self.getSelected = self.getSelected.bind(self);
 
-            self._buildingRepository = new BuildingRepository();
-
+            self._nomRepository = new NomRepository();
             self._addDelegate = ko.observable();
+            self._type = ko.observable(type);
+
             //filters
             self._name = ko.observable();
 
             //list
-            self._buildings = ko.observableArray([]);
+            self._noms = ko.observableArray([]);
             self._resultCount = ko.observable(0);
 
             self._pager = ko.observable();
 
-            self._selectedBuildings = ko.observableArray([]);
+            self._selectedNoms = ko.observableArray([]);
 
             ko.computed(function () {
-                var buildings = self._buildings(),
+                var noms = self._noms(),
                     match;
 
-                ko.utils.arrayForEach(buildings, function (building) {
-                    if (building.isSelected() === true) {
-                        match = ko.utils.arrayFirst(self._selectedBuildings(), function (item) {
-                            return building.buildingId() === item.buildingId;
+                ko.utils.arrayForEach(noms, function (nom) {
+                    if (nom.isSelected() === true) {
+                        match = ko.utils.arrayFirst(self._selectedNoms(), function (item) {
+                            return nom.nomId() === item.nomId;
                         });
                         if (!match) {
-                            self._selectedBuildings.push(ko_mapping.toJS(building));
+                            self._selectedNoms.push(ko_mapping.toJS(nom));
                         }
                     }
                     else {
-                        match = ko.utils.arrayFirst(self._selectedBuildings(), function (item) {
-                            return building.buildingId() === item.buildingId;
+                        match = ko.utils.arrayFirst(self._selectedNoms(), function (item) {
+                            return nom.nomId() === item.nomId;
                         });
                         if (match) {
-                            self._selectedBuildings.remove(match);
+                            self._selectedNoms.remove(match);
                         }
                     }
                 });
@@ -75,12 +76,12 @@
                 limit = 10,
                 offset = offsetValue || 0;
 
-            self._buildings([]);
+            self._noms([]);
 
-            return self._buildingRepository.search(self._name(), limit, offset).then(function (result) { // self._email(),
-                var buildings = result.buildings,
-                    buildingsCount = result.buildingsCount,
-                    numberOfPages = Math.ceil(buildingsCount / limit),
+            return self._nomRepository.search(self._type(), self._name(), limit, offset).then(function (result) {
+                var noms = result.noms,
+                    nomsCount = result.nomsCount,
+                    numberOfPages = Math.ceil(nomsCount / limit),
                     currentPage = offset / limit + 1,
                     segmentLength = Math.min(7, numberOfPages),
                     radius = (segmentLength + 1) / 2,
@@ -110,20 +111,20 @@
 
                 self._pager(ko_mapping.fromJS(pager));
 
-                self._resultCount(buildingsCount);
+                self._resultCount(nomsCount);
 
-                buildings.map(function (item) {
+                noms.map(function (item) {
                     var mappedItem = ko_mapping.fromJS(item);
 
-                    match = ko.utils.arrayFirst(self._selectedBuildings(), function (selectedItem) {
-                        return mappedItem.buildingId() === selectedItem.buildingId;
+                    match = ko.utils.arrayFirst(self._selectedNoms(), function (selectedItem) {
+                        return mappedItem.nomId() === selectedItem.nomId;
                     });
 
                     if (match) {
                         mappedItem.isSelected(true);
                     }
 
-                    self._buildings.push(mappedItem);
+                    self._noms.push(mappedItem);
                 });
             });
         },
@@ -139,12 +140,12 @@
         },
         getSelected: function () {
             var self = this,
-                result = $.extend(true, [], self._selectedBuildings());
+                result = $.extend(true, [], self._selectedNoms());
 
-            self._selectedBuildings([]);
+            self._selectedNoms([]);
 
             return result;
         }
     });
-    return BuildingsPopListVM;
+    return NomsPopListVM;
 });

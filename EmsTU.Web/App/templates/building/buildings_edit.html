@@ -28,8 +28,10 @@
 
     <form class="well" data-bind="with: _building">
 
-      <!--<div class="alert alert-error" data-bind="visible: errorString(), text: errorString">
-      </div>-->
+      <div class="alert alert-error" data-bind="visible: errorString(), text: errorString">
+      </div>
+
+      <h2 data-bind="text: name" style="text-align: center;"></h2>
 
       <ul class="nav nav-tabs">
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingInfo' }">
@@ -43,16 +45,268 @@
       <div class="tabbable">
         <div class="tab-content">
           <div class="tab-pane" id="buildingInfo" data-bind="css: { 'active': $parent._currentTab() === 'buildingInfo' }">
-              <span>AAA</span>
-          </div>
 
+
+            <div class="row">
+              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">Име:</div>
+              <div class="span5">Слоган:</div>
+            </div>
+            <div class="row">
+              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">
+                <input type="text" class="input-xlarge" data-bind="value: name, enable: $parent._inEditMode()">
+              </div>
+              <div class="span5">
+                <input type="text" class="input-xlarge" data-bind="value: slogan, enable: $parent._inEditMode()">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="span5">Уеб сайт:</div>
+              <div class="span5">Работно време:</div>
+            </div>
+            <div class="row">
+              <div class="span5">
+                <input type="text" class="input-xlarge" data-bind="value: webSite, enable: $parent._inEditMode()">
+              </div>
+              <div class="span5">
+                <input type="text" class="input-xlarge" data-bind="value: workingTime, enable: $parent._inEditMode()">
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="span5" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <label class="control-label">Област:</label>
+              </div>
+              <div class="span5" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <label class="control-label">Община:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <div class="dropdown-container span4" data-bind="nomenclatureContext: { nomenclatureKey: 'districts', value: districtId, idProperty: 'districtId' }">
+                  <select class="span4" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'districtId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                </div>
+              </div>
+
+              <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'municipalities', value: municipalityId, idProperty: 'municipalityId', parent: districtId }">
+                  <select class="span4" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'municipalityId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <i data-bind="visible: nomenclatureContext.loading"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="span5" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <label class="control-label">Населено място:</label>
+              </div>
+              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._addressError()) || $parent._addressError() }">
+                <label class="control-label">Адрес:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'settlements', value: settlementId, idProperty: 'settlementId', parent: municipalityId }">
+                  <select class="span4" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'settlementId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <i data-bind="visible: nomenclatureContext.loading"></i>
+                </div>
+              </div>
+              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._addressError()) || $parent._addressError() }">
+                <input type="text" class="input-xlarge" data-bind="value: address, enable: $parent._inEditMode()">
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="span5">Лице за контакт:</div>
+              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._contactPhoneError()) || $parent._contactPhoneError() }">Телефон за контакт:</div>
+            </div>
+            <div class="row">
+              <div class="span5">
+                <input type="text" class="input-xlarge" data-bind="value: contactName, enable: $parent._inEditMode()">
+              </div>
+              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._contactPhoneError()) || $parent._contactPhoneError() }">
+                <input type="text" class="input-xlarge" data-bind="value: contactPhone, enable: $parent._inEditMode()">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="span2">Места вътре:</div>
+              <div class="span3">Места вън:</div>
+              <div class="span2">Ценови клас:</div>
+            </div>
+            <div class="row">
+              <div class="span2 input-append">
+                <input type="text" class="input-small" data-bind="value: seatsInside, enable: $parent._inEditMode()"><span class="add-on">бр.</span>
+              </div>
+              <div class="span3 input-append">
+                <input type="text" class="input-small" data-bind="value: seatsOutside, enable: $parent._inEditMode()"><span class="add-on">бр.</span>
+              </div>
+              <div class="span2 input-append">
+                <input type="text" class="input-small" data-bind="value: price, enable: $parent._inEditMode()"><span class="add-on">лв.</span>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="span5">
+                <label class="control-label">Тип заведение:</label>
+              </div>
+              <div class="span5">
+                <label class="control-label">Тип кухня:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span5 input-append" style="margin-left: 0px;">
+                <div class="chzn-container chzn-container-multi span4" title="">
+                  <ul class="chzn-choices" data-bind="foreach: $parent._getBuildingTypes()" style="min-height: 24px;">
+                    <li class="search-choice"><span data-bind="text: name"></span>
+                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
+                  </ul>
+                </div>
+                <span class="add-on" data-bind="click: $parent._editBuildingTypes, visible: $parent._inEditMode()">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <div class="span5 input-append">
+                <div class="chzn-container chzn-container-multi span4" title="">
+                  <ul class="chzn-choices" data-bind="foreach: $parent._getKitchenTypes()" style="min-height: 24px;">
+                    <li class="search-choice"><span data-bind="text: name"></span>
+                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
+                  </ul>
+                </div>
+                <span class="add-on" data-bind="click: $parent._editKitchenTypes, visible: $parent._inEditMode()">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="span5">
+                <label class="control-label">Тип музика:</label>
+              </div>
+              <div class="span5">
+                <label class="control-label">Повод:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span5 input-append" style="margin-left: 0px;">
+                <div class="chzn-container chzn-container-multi span4" title="">
+                  <ul class="chzn-choices" data-bind="foreach: $parent._getMusicTypes()" style="min-height: 24px;">
+                    <li class="search-choice"><span data-bind="text: name"></span>
+                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
+                  </ul>
+                </div>
+                <span class="add-on" data-bind="click: $parent._editMusicTypes, visible: $parent._inEditMode()">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <div class="span5 input-append">
+                <div class="chzn-container chzn-container-multi span4" title="">
+                  <ul class="chzn-choices" data-bind="foreach: $parent._getOccasionTypes()" style="min-height: 24px;">
+                    <li class="search-choice"><span data-bind="text: name"></span>
+                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
+                  </ul>
+                </div>
+                <span class="add-on" data-bind="click: $parent._editOccasionTypes, visible: $parent._inEditMode()">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="span5">
+                <label class="control-label">Начин на плащане:</label>
+              </div>
+              <div class="span5">
+                <label class="control-label">Екстри:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span5 input-append" style="margin-left: 0px;">
+                <div class="chzn-container chzn-container-multi span4" title="">
+                  <ul class="chzn-choices" data-bind="foreach: $parent._getPaymentTypes()" style="min-height: 24px;">
+                    <li class="search-choice"><span data-bind="text: name"></span>
+                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
+                  </ul>
+                </div>
+                <span class="add-on" data-bind="click: $parent._editPaymentTypes, visible: $parent._inEditMode()">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <div class="span5 input-append">
+                <div class="chzn-container chzn-container-multi span4" title="">
+                  <ul class="chzn-choices" data-bind="foreach: $parent._getExtras()" style="min-height: 24px;">
+                    <li class="search-choice"><span data-bind="text: name"></span>
+                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
+                  </ul>
+                </div>
+                <span class="add-on" data-bind="click: $parent._editExtras, visible: $parent._inEditMode()">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">
+                <label class="control-label">Активен:</label>
+              </div>
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">
+                <label class="control-label">Изтрит:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">
+                <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isActive, idProperty: 'value' }">
+                  <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                </div>
+              </div>
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">
+                <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isDeleted, idProperty: 'value' }">
+                  <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="span9">
+                <label class="control-label">Доп. информация:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span9">
+                <textarea rows="6" class="span9" data-bind="value: info, enable: $parent._inEditMode()"></textarea>
+              </div>
+            </div>
+
+            <!--<div class="span5" style="margin-bottom: 5px;">
+              <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: $parent._array1, idProperty: 'buildingTypeId' }">
+                <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'buildingTypeId', chosenOptions: { placeholder_text_multiple: 'asd' } }"></select>
+                <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+              </div>
+            </div>
+            <div class="dropdown-container span5">
+                <select style="width: 356px;" data-bind="chosen: { options: $parent._yesNoOptions, value: $parent._isActive, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
+            </div>-->
+
+
+          </div>
           <div class="tab-pane" id="buildingMenu" data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
-              <span>BBB</span>
+            <span>BBB</span>
           </div>
         </div>
+
+
       </div>
-
-
     </form>
   </div>
 </div>

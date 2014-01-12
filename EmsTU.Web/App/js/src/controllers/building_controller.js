@@ -42,7 +42,7 @@
                             return;
                         }
 
-                        return Corium.app.rootView().pageView(new EditBuildingVM(building));
+                        return Corium.app.rootView().pageView(new EditBuildingVM(building, params.inEditMode));
                     });
             }
         },

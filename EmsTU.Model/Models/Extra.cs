@@ -8,7 +8,7 @@ namespace EmsTU.Model.Models
     {
         public Extra()
         {
-            this.BuildingExtras = new List<BuildingExtra>();
+            this.Buildings = new List<Building>();
         }
 
         public int ExtraId { get; set; }
@@ -16,7 +16,7 @@ namespace EmsTU.Model.Models
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingExtra> BuildingExtras { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
     }
 
     public class ExtraMap : EntityTypeConfiguration<Extra>

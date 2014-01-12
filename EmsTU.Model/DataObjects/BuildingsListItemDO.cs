@@ -11,7 +11,7 @@ namespace EmsTU.Model.DataObjects
     {
         public BuildingsListItemDO()
         {
-            this.BuildingTypes = new List<BuildingTypeDO>();
+            this.BuildingTypes = new List<NomDO>();
         }
 
         public BuildingsListItemDO(Building b)
@@ -19,9 +19,9 @@ namespace EmsTU.Model.DataObjects
         {
             if (b != null)
             {
-                if (b.BuildingBuildingTypes != null && b.BuildingBuildingTypes.Any())
+                if (b.BuildingTypes != null && b.BuildingTypes.Any())
                 {
-                    this.BuildingTypes.AddRange(b.BuildingBuildingTypes.Select(e => new BuildingTypeDO(e.BuildingType)));
+                    this.BuildingTypes.AddRange(b.BuildingTypes.Select(e => new NomDO(e, "BuildingTypes")));
                 }
                 if (b.Settlement != null)
                 {
@@ -45,7 +45,7 @@ namespace EmsTU.Model.DataObjects
             }
         }
 
-        public List<BuildingTypeDO> BuildingTypes { get; set; }
+        public List<NomDO> BuildingTypes { get; set; }
 
         public int BuildingId { get; set; }
         public string Name { get; set; }

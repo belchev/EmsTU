@@ -31,7 +31,155 @@ namespace EmsTU.Web.Controllers
         }
 
         /// <summary>
-        /// Взима сградата
+        /// Редакция на заведение
+        /// </summary>
+        /// <param name="id">Идентификатор на заведение</param>
+        /// <param name="building">Нови данни на заведение</param>
+        /// <returns></returns>
+        [HttpPut]
+        public HttpResponseMessage PutBuilding(int id, BuildingDO building)
+        {
+            try
+            {
+                using (TransactionScope transactionScope = this.unitOfWork.CreateTransactionScope())
+                {
+                    User user = unitOfWork.Repo<User>()
+                       .Query()
+                       .Include(e => e.Role)
+                       .Include(e => e.Buildings)
+                       .SingleOrDefault(e => e.UserId == this.userContext.UserId);
+
+                    var oldBuilding = this.unitOfWork.Repo<Building>().
+                        Find(id,
+                            u => u.BuildingTypes,
+                            u => u.KitchenTypes,
+                            u => u.MusicTypes,
+                            u => u.PaymentTypes,
+                            u => u.Extras,
+                            u => u.OccasionTypes
+                        );
+
+                    if (oldBuilding == null)
+                    {
+                        return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "Заведението не може да бъде намерено." });
+                    }
+
+                    if (!oldBuilding.Version.SequenceEqual(building.Version))
+                    {
+                        return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "Съществува нова версия на заведението." });
+                    }
+
+                    oldBuilding.Name = building.Name;
+                    oldBuilding.ImagePath = !String.IsNullOrEmpty(building.ImagePath) ? building.ImagePath : "app\\img\\nopic.jpg";
+                    oldBuilding.Slogan = building.Slogan;
+                    oldBuilding.WebSite = building.WebSite;
+                    oldBuilding.DistrictId = building.DistrictId;
+                    oldBuilding.MunicipalityId = building.MunicipalityId;
+                    oldBuilding.SettlementId = building.SettlementId;
+                    oldBuilding.Address = building.Address;
+                    oldBuilding.ContactName = building.ContactName;
+                    oldBuilding.ContactPhone = building.ContactPhone;
+                    oldBuilding.Info = building.Info;
+                    oldBuilding.WorkingTime = building.WorkingTime;
+                    oldBuilding.Price = building.Price;
+                    oldBuilding.SeatsInside = building.SeatsInside;
+                    oldBuilding.SeatsOutside = building.SeatsOutside;
+                    oldBuilding.IsActive = building.IsActive;
+                    oldBuilding.IsDeleted = building.IsDeleted;
+                    oldBuilding.ModifyDate = DateTime.Now;
+                    oldBuilding.ModifyUserId = this.userContext.UserId;
+
+                    bool newType;
+                    bool oldType;
+                    foreach (var buildingType in this.unitOfWork.Repo<BuildingType>().Query())
+                    {
+                        newType = building.BuildingTypes.Any(e => e.NomId == buildingType.BuildingTypeId && !e.IsDeleted);
+                        oldType = oldBuilding.BuildingTypes.Any(e => e.BuildingTypeId == buildingType.BuildingTypeId);
+
+                        if (newType && !oldType)
+                            oldBuilding.BuildingTypes.Add(this.unitOfWork.Repo<BuildingType>().Find(buildingType.BuildingTypeId));
+
+                        if (!newType && oldType)
+                            oldBuilding.BuildingTypes.Remove(this.unitOfWork.Repo<BuildingType>().Find(buildingType.BuildingTypeId));
+                    }
+
+                    foreach (var kitchenType in this.unitOfWork.Repo<KitchenType>().Query())
+                    {
+                        newType = building.KitchenTypes.Any(e => e.NomId == kitchenType.KitchenTypeId && !e.IsDeleted);
+                        oldType = oldBuilding.KitchenTypes.Any(e => e.KitchenTypeId == kitchenType.KitchenTypeId);
+
+                        if (newType && !oldType)
+                            oldBuilding.KitchenTypes.Add(this.unitOfWork.Repo<KitchenType>().Find(kitchenType.KitchenTypeId));
+
+                        if (!newType && oldType)
+                            oldBuilding.KitchenTypes.Remove(this.unitOfWork.Repo<KitchenType>().Find(kitchenType.KitchenTypeId));
+                    }
+
+                    foreach (var musicType in this.unitOfWork.Repo<MusicType>().Query())
+                    {
+                        newType = building.MusicTypes.Any(e => e.NomId == musicType.MusicTypeId && !e.IsDeleted);
+                        oldType = oldBuilding.MusicTypes.Any(e => e.MusicTypeId == musicType.MusicTypeId);
+
+                        if (newType && !oldType)
+                            oldBuilding.MusicTypes.Add(this.unitOfWork.Repo<MusicType>().Find(musicType.MusicTypeId));
+
+                        if (!newType && oldType)
+                            oldBuilding.MusicTypes.Remove(this.unitOfWork.Repo<MusicType>().Find(musicType.MusicTypeId));
+                    }
+
+                    foreach (var occasionType in this.unitOfWork.Repo<OccasionType>().Query())
+                    {
+                        newType = building.OccasionTypes.Any(e => e.NomId == occasionType.OccasionTypeId && !e.IsDeleted);
+                        oldType = oldBuilding.OccasionTypes.Any(e => e.OccasionTypeId == occasionType.OccasionTypeId);
+
+                        if (newType && !oldType)
+                            oldBuilding.OccasionTypes.Add(this.unitOfWork.Repo<OccasionType>().Find(occasionType.OccasionTypeId));
+
+                        if (!newType && oldType)
+                            oldBuilding.OccasionTypes.Remove(this.unitOfWork.Repo<OccasionType>().Find(occasionType.OccasionTypeId));
+                    }
+
+                    foreach (var paymentType in this.unitOfWork.Repo<PaymentType>().Query())
+                    {
+                        newType = building.PaymentTypes.Any(e => e.NomId == paymentType.PaymentTypeId && !e.IsDeleted);
+                        oldType = oldBuilding.PaymentTypes.Any(e => e.PaymentTypeId == paymentType.PaymentTypeId);
+
+                        if (newType && !oldType)
+                            oldBuilding.PaymentTypes.Add(this.unitOfWork.Repo<PaymentType>().Find(paymentType.PaymentTypeId));
+
+                        if (!newType && oldType)
+                            oldBuilding.PaymentTypes.Remove(this.unitOfWork.Repo<PaymentType>().Find(paymentType.PaymentTypeId));
+                    }
+
+                    foreach (var extra in this.unitOfWork.Repo<Extra>().Query())
+                    {
+                        newType = building.Extras.Any(e => e.NomId == extra.ExtraId && !e.IsDeleted);
+                        oldType = oldBuilding.Extras.Any(e => e.ExtraId == extra.ExtraId);
+
+                        if (newType && !oldType)
+                            oldBuilding.Extras.Add(this.unitOfWork.Repo<Extra>().Find(extra.ExtraId));
+
+                        if (!newType && oldType)
+                            oldBuilding.Extras.Remove(this.unitOfWork.Repo<Extra>().Find(extra.ExtraId));
+                    }
+
+
+
+                    this.unitOfWork.Save();
+
+                    transactionScope.Complete();
+
+                    return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "", buildingId = oldBuilding.BuildingId });
+                }
+            }
+            catch (Exception ex)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Метод, който връща данни за заведение
         /// </summary>
         /// <param name="id">Уникален идентификатор</param>
         /// <returns></returns>
@@ -44,16 +192,22 @@ namespace EmsTU.Web.Controllers
                .Include(e => e.Buildings)
                .SingleOrDefault(e => e.UserId == this.userContext.UserId);
 
-            bool a = user. Buildings.Any(e => e.BuildingId == id);
+            bool isAdmin = this.userContext.Permissions.Contains("sys#admin");
 
-            if (!user.Buildings.Any(e => e.BuildingId == id) && !this.userContext.Permissions.Contains("sys#admin"))
+            if (!user.Buildings.Any(e => e.BuildingId == id) && !isAdmin)
             {
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
             }
 
             var query = this.unitOfWork.Repo<Building>()
                 .Find(id,
-                    d => d.Settlement
+                    d => d.Settlement,
+                    d => d.BuildingTypes,
+                    d => d.KitchenTypes,
+                    d => d.MusicTypes,
+                    d => d.OccasionTypes,
+                    d => d.PaymentTypes,
+                    d => d.Extras
                 );
 
             if (query == null)
@@ -61,8 +215,7 @@ namespace EmsTU.Web.Controllers
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            var returnValue = new BuildingDO(query);
-
+            var returnValue = new BuildingDO(query, isAdmin);
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
         }
@@ -167,27 +320,27 @@ namespace EmsTU.Web.Controllers
 
             if (buildingTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.BuildingBuildingTypes.Any(e => e.BuildingTypeId == buildingTypeId.Value));
+                predicate = predicate.And(d => d.BuildingTypes.Any(e => e.BuildingTypeId == buildingTypeId.Value));
             }
 
             if (kitchenTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.BuildingKitchenTypes.Any(e => e.KitchenTypeId == kitchenTypeId.Value));
+                predicate = predicate.And(d => d.KitchenTypes.Any(e => e.KitchenTypeId == kitchenTypeId.Value));
             }
 
             if (musicTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.BuildingMusicTypes.Any(e => e.MusicTypeId == musicTypeId.Value));
+                predicate = predicate.And(d => d.MusicTypes.Any(e => e.MusicTypeId == musicTypeId.Value));
             }
 
             if (occasionTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.BuildingOccasionTypes.Any(e => e.OccasionTypeId == occasionTypeId.Value));
+                predicate = predicate.And(d => d.OccasionTypes.Any(e => e.OccasionTypeId == occasionTypeId.Value));
             }
 
             if (extraId.HasValue)
             {
-                predicate = predicate.And(d => d.BuildingExtras.Any(e => e.ExtraId == extraId.Value));
+                predicate = predicate.And(d => d.Extras.Any(e => e.ExtraId == extraId.Value));
             }
 
             var query = this.unitOfWork.Repo<Building>().Query();
@@ -206,7 +359,7 @@ namespace EmsTU.Web.Controllers
                .Include(e => e.Municipality)
                .Include(e => e.Settlement)
                .Include(e => e.Users)
-               .Include(e => e.BuildingBuildingTypes.Select(g => g.BuildingType))
+               .Include(e => e.BuildingTypes)
                .ToList()
                .Select(e => new BuildingsListItemDO(e))
                .ToList();

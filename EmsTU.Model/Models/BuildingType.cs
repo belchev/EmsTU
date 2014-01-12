@@ -8,7 +8,7 @@ namespace EmsTU.Model.Models
     {
         public BuildingType()
         {
-            this.BuildingBuildingTypes = new List<BuildingBuildingType>();
+            this.Buildings = new List<Building>();
         }
 
         public int BuildingTypeId { get; set; }
@@ -16,7 +16,7 @@ namespace EmsTU.Model.Models
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingBuildingType> BuildingBuildingTypes { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
     }
 
     public class BuildingTypeMap : EntityTypeConfiguration<BuildingType>

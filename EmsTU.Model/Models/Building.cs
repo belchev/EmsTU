@@ -9,18 +9,18 @@ namespace EmsTU.Model.Models
         public Building()
         {
             this.Albums = new List<Album>();
-            this.BuildingBuildingTypes = new List<BuildingBuildingType>();
-            this.BuildingExtras = new List<BuildingExtra>();
-            this.BuildingKitchenTypes = new List<BuildingKitchenType>();
-            this.BuildingMusicTypes = new List<BuildingMusicType>();
-            this.BuildingOccasionTypes = new List<BuildingOccasionType>();
-            this.BuildingPaymentTypes = new List<BuildingPaymentType>();
             this.Comments = new List<Comment>();
             this.Events = new List<Event>();
             this.MenuCategories = new List<MenuCategory>();
             this.Offers = new List<Offer>();
             this.Ratings = new List<Rating>();
             this.Visitors = new List<Visitor>();
+            this.BuildingTypes = new List<BuildingType>();
+            this.Extras = new List<Extra>();
+            this.KitchenTypes = new List<KitchenType>();
+            this.MusicTypes = new List<MusicType>();
+            this.OccasionTypes = new List<OccasionType>();
+            this.PaymentTypes = new List<PaymentType>();
             this.Users = new List<User>();
         }
 
@@ -47,12 +47,6 @@ namespace EmsTU.Model.Models
         public bool IsDeleted { get; set; }
         public byte[] Version { get; set; }
         public virtual ICollection<Album> Albums { get; set; }
-        public virtual ICollection<BuildingBuildingType> BuildingBuildingTypes { get; set; }
-        public virtual ICollection<BuildingExtra> BuildingExtras { get; set; }
-        public virtual ICollection<BuildingKitchenType> BuildingKitchenTypes { get; set; }
-        public virtual ICollection<BuildingMusicType> BuildingMusicTypes { get; set; }
-        public virtual ICollection<BuildingOccasionType> BuildingOccasionTypes { get; set; }
-        public virtual ICollection<BuildingPaymentType> BuildingPaymentTypes { get; set; }
         public virtual District District { get; set; }
         public virtual Municipality Municipality { get; set; }
         public virtual Settlement Settlement { get; set; }
@@ -63,6 +57,12 @@ namespace EmsTU.Model.Models
         public virtual ICollection<Offer> Offers { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Visitor> Visitors { get; set; }
+        public virtual ICollection<BuildingType> BuildingTypes { get; set; }
+        public virtual ICollection<Extra> Extras { get; set; }
+        public virtual ICollection<KitchenType> KitchenTypes { get; set; }
+        public virtual ICollection<MusicType> MusicTypes { get; set; }
+        public virtual ICollection<OccasionType> OccasionTypes { get; set; }
+        public virtual ICollection<PaymentType> PaymentTypes { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 
@@ -131,6 +131,60 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Version).HasColumnName("Version");
 
             // Relationships
+            this.HasMany(t => t.BuildingTypes)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingBuildingTypes");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("BuildingTypeId");
+                });
+
+            this.HasMany(t => t.Extras)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingExtras");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("ExtraId");
+                });
+
+            this.HasMany(t => t.KitchenTypes)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingKitchenTypes");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("KitchenTypeId");
+                });
+
+            this.HasMany(t => t.MusicTypes)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingMusicTypes");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("MusicTypeId");
+                });
+
+            this.HasMany(t => t.OccasionTypes)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingOccasionTypes");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("OccasionTypeId");
+                });
+
+            this.HasMany(t => t.PaymentTypes)
+                .WithMany(t => t.Buildings)
+                .Map(m =>
+                {
+                    m.ToTable("BuildingPaymentTypes");
+                    m.MapLeftKey("BuildingId");
+                    m.MapRightKey("PaymentTypeId");
+                });
+
             this.HasMany(t => t.Users)
                 .WithMany(t => t.Buildings)
                 .Map(m =>

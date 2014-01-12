@@ -107,9 +107,9 @@
             });
 
             self._buildingRepository = new BuildingRepository();
-            self._addUserValidationExtenders();
+            self._addBuildingValidationExtenders();
         },
-        _addUserValidationExtenders: function () {
+        _addBuildingValidationExtenders: function () {
             var self = this;
 
             self._settlementId.extend({ required: true });

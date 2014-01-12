@@ -20,12 +20,6 @@ namespace EmsTU.Model.Models
         public DbSet<ActionLog> ActionLogs { get; set; }
         public DbSet<AlbumPhoto> AlbumPhotos { get; set; }
         public DbSet<Album> Albums { get; set; }
-        public DbSet<BuildingBuildingType> BuildingBuildingTypes { get; set; }
-        public DbSet<BuildingExtra> BuildingExtras { get; set; }
-        public DbSet<BuildingKitchenType> BuildingKitchenTypes { get; set; }
-        public DbSet<BuildingMusicType> BuildingMusicTypes { get; set; }
-        public DbSet<BuildingOccasionType> BuildingOccasionTypes { get; set; }
-        public DbSet<BuildingPaymentType> BuildingPaymentTypes { get; set; }
         public DbSet<BuildingRequest> BuildingRequests { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<BuildingType> BuildingTypes { get; set; }
@@ -54,12 +48,6 @@ namespace EmsTU.Model.Models
             modelBuilder.Configurations.Add(new ActionLogMap());
             modelBuilder.Configurations.Add(new AlbumPhotoMap());
             modelBuilder.Configurations.Add(new AlbumMap());
-            modelBuilder.Configurations.Add(new BuildingBuildingTypeMap());
-            modelBuilder.Configurations.Add(new BuildingExtraMap());
-            modelBuilder.Configurations.Add(new BuildingKitchenTypeMap());
-            modelBuilder.Configurations.Add(new BuildingMusicTypeMap());
-            modelBuilder.Configurations.Add(new BuildingOccasionTypeMap());
-            modelBuilder.Configurations.Add(new BuildingPaymentTypeMap());
             modelBuilder.Configurations.Add(new BuildingMap());
             modelBuilder.Configurations.Add(new BuildingTypeMap());
             modelBuilder.Configurations.Add(new BuildingRequestMap());

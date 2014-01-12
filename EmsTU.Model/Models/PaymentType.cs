@@ -8,7 +8,7 @@ namespace EmsTU.Model.Models
     {
         public PaymentType()
         {
-            this.BuildingPaymentTypes = new List<BuildingPaymentType>();
+            this.Buildings = new List<Building>();
         }
 
         public int PaymentTypeId { get; set; }
@@ -16,7 +16,7 @@ namespace EmsTU.Model.Models
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingPaymentType> BuildingPaymentTypes { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
     }
 
     public class PaymentTypeMap : EntityTypeConfiguration<PaymentType>

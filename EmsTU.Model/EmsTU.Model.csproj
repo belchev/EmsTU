@@ -66,6 +66,7 @@
     <Compile Include="DataObjects\BuildingsListItemDO.cs" />
     <Compile Include="DataObjects\BuildingTypeDO.cs" />
     <Compile Include="DataObjects\BuildingDO.cs" />
+    <Compile Include="DataObjects\NomDO.cs" />
     <Compile Include="DataObjects\NewBuildingDO.cs" />
     <Compile Include="DataObjects\PasswordsDO.cs" />
     <Compile Include="DataObjects\UserDO.cs" />
@@ -83,12 +84,6 @@
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumPhoto.cs" />
     <Compile Include="Models\Building.cs" />
-    <Compile Include="Models\BuildingBuildingType.cs" />
-    <Compile Include="Models\BuildingExtra.cs" />
-    <Compile Include="Models\BuildingKitchenType.cs" />
-    <Compile Include="Models\BuildingMusicType.cs" />
-    <Compile Include="Models\BuildingOccasionType.cs" />
-    <Compile Include="Models\BuildingPaymentType.cs" />
     <Compile Include="Models\BuildingType.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\BuildingRequest.cs" />

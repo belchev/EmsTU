@@ -28,6 +28,202 @@ namespace EmsTU.Web.Controllers
             this.unitOfWork = unitOfWork;
         }
 
+        #region Load Noms
+
+        [HttpGet]
+        public HttpResponseMessage GetNomBuildingTypes(string type, string name, int? limit, int? offset)
+        {
+            var query = this.unitOfWork.Repo<BuildingType>().Query()
+                .Where(e => e.IsActive);
+            
+            query = query.OrderByDescending(e => e.BuildingTypeId);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            List<NomDO> returnValue = query
+                .ToList()
+                .Select(e => new NomDO(e, type))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = returnValue,
+                nomsCount = totalCounts
+            });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetNomKitchenTypes(string type, string name, int? limit, int? offset)
+        {
+            var query = this.unitOfWork.Repo<KitchenType>().Query()
+                .Where(e => e.IsActive);
+
+            query = query.OrderByDescending(e => e.KitchenTypeId);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            List<NomDO> returnValue = query
+                .ToList()
+                .Select(e => new NomDO(e, type))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = returnValue,
+                nomsCount = totalCounts
+            });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetMusicTypes(string type, string name, int? limit, int? offset)
+        {
+            var query = this.unitOfWork.Repo<MusicType>().Query()
+                .Where(e => e.IsActive);
+
+            query = query.OrderByDescending(e => e.MusicTypeId);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            List<NomDO> returnValue = query
+                .ToList()
+                .Select(e => new NomDO(e, type))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = returnValue,
+                nomsCount = totalCounts
+            });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetNomOccasionTypes(string type, string name, int? limit, int? offset)
+        {
+            var query = this.unitOfWork.Repo<OccasionType>().Query()
+                .Where(e => e.IsActive);
+
+            query = query.OrderByDescending(e => e.OccasionTypeId);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            List<NomDO> returnValue = query
+                .ToList()
+                .Select(e => new NomDO(e, type))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = returnValue,
+                nomsCount = totalCounts
+            });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetNomPaymentTypes(string type, string name, int? limit, int? offset)
+        {
+            var query = this.unitOfWork.Repo<PaymentType>().Query()
+                .Where(e => e.IsActive);
+
+            query = query.OrderByDescending(e => e.PaymentTypeId);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            List<NomDO> returnValue = query
+                .ToList()
+                .Select(e => new NomDO(e, type))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = returnValue,
+                nomsCount = totalCounts
+            });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetNomExtras(string type, string name, int? limit, int? offset)
+        {
+            var query = this.unitOfWork.Repo<Extra>().Query()
+                .Where(e => e.IsActive);
+
+            query = query.OrderByDescending(e => e.ExtraId);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+
+            int totalCounts = query.Count();
+
+            if (limit.HasValue && offset.HasValue)
+            {
+                query = query.Skip(offset.Value).Take(limit.Value);
+            }
+
+            List<NomDO> returnValue = query
+                .ToList()
+                .Select(e => new NomDO(e, type))
+                .ToList();
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = returnValue,
+                nomsCount = totalCounts
+            });
+        }
+
+        #endregion
+
         [HttpGet]
         public HttpResponseMessage GetBuildingTypes()
         {
@@ -111,8 +307,8 @@ namespace EmsTU.Web.Controllers
         [HttpGet]
         public HttpResponseMessage GetYesNoOptions()
         {
-            var yes = new { Name = "Да", Value = 1, IsActive = true };
-            var no = new { Name = "Не", Value = 2, IsActive = true };
+            var yes = new { Name = "Да", Value = "1", IsActive = true };
+            var no = new { Name = "Не", Value = "2", IsActive = true };
 
             var returnValue = new[] { yes, no }.ToList();
 
@@ -200,8 +396,7 @@ namespace EmsTU.Web.Controllers
         [HttpGet]
         public HttpResponseMessage GetBuildings(string name, int? limit, int? offset)
         {
-            var query = this.unitOfWork.Repo<Building>().Query()
-                .Where(e => e.IsActive);
+            var query = this.unitOfWork.Repo<Building>().Query();
 
             if (!string.IsNullOrEmpty(name))
             {

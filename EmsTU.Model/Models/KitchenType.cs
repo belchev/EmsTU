@@ -8,7 +8,7 @@ namespace EmsTU.Model.Models
     {
         public KitchenType()
         {
-            this.BuildingKitchenTypes = new List<BuildingKitchenType>();
+            this.Buildings = new List<Building>();
         }
 
         public int KitchenTypeId { get; set; }
@@ -16,7 +16,7 @@ namespace EmsTU.Model.Models
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingKitchenType> BuildingKitchenTypes { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
     }
 
     public class KitchenTypeMap : EntityTypeConfiguration<KitchenType>

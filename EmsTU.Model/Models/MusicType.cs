@@ -8,7 +8,7 @@ namespace EmsTU.Model.Models
     {
         public MusicType()
         {
-            this.BuildingMusicTypes = new List<BuildingMusicType>();
+            this.Buildings = new List<Building>();
         }
 
         public int MusicTypeId { get; set; }
@@ -16,7 +16,7 @@ namespace EmsTU.Model.Models
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingMusicType> BuildingMusicTypes { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
     }
 
     public class MusicTypeMap : EntityTypeConfiguration<MusicType>

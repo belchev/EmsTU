@@ -8,7 +8,7 @@ namespace EmsTU.Model.Models
     {
         public OccasionType()
         {
-            this.BuildingOccasionTypes = new List<BuildingOccasionType>();
+            this.Buildings = new List<Building>();
         }
 
         public int OccasionTypeId { get; set; }
@@ -16,7 +16,7 @@ namespace EmsTU.Model.Models
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<BuildingOccasionType> BuildingOccasionTypes { get; set; }
+        public virtual ICollection<Building> Buildings { get; set; }
     }
 
     public class OccasionTypeMap : EntityTypeConfiguration<OccasionType>
