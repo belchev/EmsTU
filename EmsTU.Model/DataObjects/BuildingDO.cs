@@ -49,6 +49,7 @@ namespace EmsTU.Model.DataObjects
                     this.Extras.AddRange(b.Extras.Select(e => new NomDO(e, "Extras")));
                 }
 
+                this.HasLogo = b.ImagePath == "app\\img\\nopic.jpg" ? false : true;
                 this.BuildingId = b.BuildingId;
                 this.Name = b.Name;
                 this.ImagePath = b.ImagePath;
@@ -100,6 +101,7 @@ namespace EmsTU.Model.DataObjects
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public bool HasLogo { get; set; }
         public string ErrorString { get; set; }
 
         public byte[] Version { get; set; }

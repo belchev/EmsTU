@@ -115,10 +115,18 @@
                 { name: 'Не', value: '2' }
             ]);
 
+            self._deleteFile = self._deleteFile.bind(self);
+
 
             if (inEditMode) {
                 self._enterEditMode();
             }
+        },
+        _deleteFile: function () {
+            var self = this;
+
+            self._building().imagePath('app\\img\\nopic.jpg');
+            self._building().hasLogo(false);
         },
         _editExtras: function () {
             var self = this,

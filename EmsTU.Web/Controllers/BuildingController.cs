@@ -194,7 +194,7 @@ namespace EmsTU.Web.Controllers
 
             bool isAdmin = this.userContext.Permissions.Contains("sys#admin");
 
-            if (!user.Buildings.Any(e => e.BuildingId == id) && !isAdmin)
+            if (!user.Buildings.Any(e => e.BuildingId == id && !e.IsDeleted) && !isAdmin)
             {
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
             }

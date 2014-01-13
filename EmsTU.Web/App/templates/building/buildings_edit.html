@@ -256,8 +256,11 @@
               <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">
                 <label class="control-label">Активен:</label>
               </div>
-              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">
-                <label class="control-label">Изтрит:</label>
+              <div class="span3">
+                <label class="control-label" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">Изтрит:</label>
+              </div>
+              <div class="span5">
+                <label class="control-label">Лого:</label>
               </div>
             </div>
             <div class="row">
@@ -267,10 +270,21 @@
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
-              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">
-                <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isDeleted, idProperty: 'value' }">
-                  <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
-                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+              <div class="span3">
+                <div data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">
+                  <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isDeleted, idProperty: 'value' }">
+                    <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
+                    <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="span5">
+                <div data-bind="visible: hasLogo()" style="float: left; margin-right: 5px;">
+                  <img data-bind="attr: { src: imagePath() }">
+                </div>
+                <div style="float: left;">
+                  <button class="btn" data-bind="click: $parent._deleteFile, visible: hasLogo()"><i class="icon-remove"></i>&nbsp; изтрий</button>
+                  <button class="btn" data-bind="visible: !hasLogo()"><i class="icon-plus"></i>&nbsp; добави</button>
                 </div>
               </div>
             </div>
