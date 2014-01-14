@@ -282,19 +282,43 @@
 
             </div>
 
-            <div style="width: 350px; float: left;" class="middleR">
+            <div class="building-edit-right">
               <div style="text-align: center;">
-                <h3 style="line-height: 16px;">Меню</h3>
+                <h3>Меню</h3>
                 <hr />
               </div>
 
-              <div data-bind="foreach: menuCategories">
-                <a data-bind="">
-                  <h4 data-bind="text: name"></h4>
-                </a>
+              <div class="menu-cat">
+                <div data-bind="foreach: menuCategories">
+                  <!-- ko if: !$parents[1]._inEditMode() -->
+                  <a data-bind="">
+                    <h4 data-bind="text: name"></h4>
+                  </a>
+                  <!-- /ko-->
 
+                  <!-- ko if: $parents[1]._inEditMode() -->
+                    <div data-bind="if: !isDeleted()">
+                      <div class="input-append" style="margin-bottom: 1px;">
+                        <input type="text" class="input-large" data-bind="value: name">
+                        <button class="btn" data-bind="click: $parents[1]._deleteMenuCat"><i class="icon-minus-sign"></i></button>
+                      </div>
+                    </div>
+                    <div data-bind="if: isDeleted()">
+                      <div class="input-append" style="margin-bottom: 1px;">
+                        <input type="text" class="input-large" data-bind="value: name" style="background-color: indianred;">
+                        <button class="btn" data-bind="click: $parents[1]._unDeleteMenuCat"><i class="icon-plus-sign"></i></button>
+                      </div>
+                    </div>
+                  <!-- /ko-->
+
+                </div>
+                <br />
+
+
+                <button class="btn" data-bind="click: $parent._addMenuCat, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; добави категория</button>
               </div>
-              <span>BBB</span>
+
+
 
             </div>
 
@@ -302,8 +326,6 @@
 
           </div>
         </div>
-
-
       </div>
     </form>
   </div>

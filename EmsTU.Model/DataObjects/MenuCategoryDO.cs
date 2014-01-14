@@ -29,6 +29,7 @@ namespace EmsTU.Model.DataObjects
                 this.BuildingId = mc.BuildingId;
                 this.Name = mc.Name;
                 this.IsActive = mc.IsActive;
+                this.IsDeleted = false;
 
                 this.Version = mc.Version;
             }
@@ -40,6 +41,11 @@ namespace EmsTU.Model.DataObjects
         public int BuildingId { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
+
+        //
+        public bool IsNew { get; set; }
+        public bool IsEdited { get; set; }
+        public bool IsDeleted { get; set; }
 
         public byte[] Version { get; set; }
     }

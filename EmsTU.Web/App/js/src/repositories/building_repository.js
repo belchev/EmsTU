@@ -10,6 +10,13 @@
     var BuildingRepository = Corium.Repository.extend({
         constructor: function () {
         },
+        newMenuCategory: function(id) {
+            var self = this,
+                  buildingId = parseInt(id, 10),
+                  url = 'api/buildings/' + buildingId + '/menuCategory/new';
+
+            return self.get(url);
+        },
         getBuilding: function (id) {
             var self = this,
                 buildingId = parseInt(id, 10),

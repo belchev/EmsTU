@@ -736,22 +736,35 @@ ul.tree {
     cursor: pointer;
 }
 
-.middleR a {
-    text-decoration: none;
+.building-edit-right {
+    width: 300px;
+    float: right;
 }
 
-.middleR h4 {
-    min-height: 18px;
-    background-color: #333;
+    .building-edit-right h3 {
+        line-height: 16px;
+    }
+
+    .building-edit-right a {
+        text-decoration: none;
+    }
+
+.menu-cat {
     margin: 0 0 0 10px;
-    color: #CCC;
-    padding: 4px 4px 4px 10px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    display: block;
-    font-size: 13px;
-    font-weight: 100;
-    text-align: left;
-    margin-bottom: 1px;
-    text-decoration: none;
-    border-radius: 0px !important;
 }
+
+    .menu-cat h4 {
+        min-height: 18px;
+        background-color: #333;
+        color: #CCC;
+        margin: 0px;
+        padding: 4px 4px 4px 10px;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        display: block;
+        font-size: 13px;
+        font-weight: 100;
+        text-align: left;
+        margin-bottom: 1px;
+        text-decoration: none;
+        border-radius: 0px !important;
+    }

@@ -42,6 +42,9 @@
             self._exitEditMode = self._exitEditMode.bind(self);
             self._deleteFile = self._deleteFile.bind(self);
             self._chooseFile = self._chooseFile.bind(self);
+            self._addMenuCat = self._addMenuCat.bind(self);
+            self._deleteMenuCat = self._deleteMenuCat.bind(self);
+            self._unDeleteMenuCat = self._unDeleteMenuCat.bind(self);
             self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingMenu'));
 
             self._buildingRepository = new BuildingRepository();
@@ -112,6 +115,31 @@
             if (inEditMode) {
                 self._enterEditMode();
             }
+        },
+        _unDeleteMenuCat: function (target) {
+            target.isDeleted(false);
+        },
+        _deleteMenuCat: function (target) {
+            var self = this,
+                idx;
+
+            if (target.isNew() === true) {
+                idx = self._building().menuCategories.indexOf(target);
+
+                if (idx > -1) {
+                    self._building().menuCategories.splice(idx, 1);
+                }
+            }
+            else {
+                target.isDeleted(true);
+            }
+        },
+        _addMenuCat: function() {
+            var self = this;
+
+            self._buildingRepository.newMenuCategory(self._building().buildingId()).then(function (menuCategory) {
+                self._building().menuCategories.push(ko_mapping.fromJS(menuCategory));
+            });
         },
         _chooseFile: function () {
             var self = this,

@@ -31,6 +31,27 @@ namespace EmsTU.Web.Controllers
         }
 
         /// <summary>
+        /// Генерира нова меню категория
+        /// </summary>
+        /// <param name="id">Идентификатор на заведение</param>
+        /// <returns></returns>
+        [HttpGet]
+        public HttpResponseMessage GetNewMenuCategory(int id)
+        {
+            var building = this.unitOfWork.Repo<Building>().Find(id);
+
+            var returnValue = new MenuCategoryDO
+            {
+                BuildingId = building.BuildingId,
+                Name = "",
+                IsActive = true,
+                IsNew = true
+            };
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
+        }
+
+        /// <summary>
         /// Редакция на заведение
         /// </summary>
         /// <param name="id">Идентификатор на заведение</param>
@@ -51,7 +72,8 @@ namespace EmsTU.Web.Controllers
 
                     var oldBuilding = this.unitOfWork.Repo<Building>().
                         Find(id,
-                            u => u.Noms.Select( e=> e.NomType)
+                            u => u.Noms.Select(e => e.NomType),
+                            u => u.MenuCategories.Select(e => e.Menus)
                         );
 
                     if (oldBuilding == null)
@@ -161,6 +183,34 @@ namespace EmsTU.Web.Controllers
                     }
 
                     #endregion
+
+                    foreach (var mc in building.MenuCategories)
+                    {
+                        if (!mc.IsNew && mc.IsDeleted)
+                        {
+                            MenuCategory mCat = this.unitOfWork.Repo<MenuCategory>().Find(mc.MenuCategoryId, u => u.Menus);
+                            foreach (var menu in mCat.Menus.ToList())
+                            {
+                                Menu m = this.unitOfWork.Repo<Menu>().Find(menu.MenuId);
+                                this.unitOfWork.Repo<Menu>().Remove(m);
+                            }
+
+                            this.unitOfWork.Repo<MenuCategory>().Remove(mCat);
+                        }
+                        else if (!mc.IsNew && !mc.IsDeleted)
+                        {
+                            var oldMenuCat = oldBuilding.MenuCategories.FirstOrDefault(e => e.MenuCategoryId == mc.MenuCategoryId);
+                            oldMenuCat.Name = mc.Name;
+                        }
+                        else
+                        {
+                            MenuCategory mCat = new MenuCategory();
+                            mCat.BuildingId = building.BuildingId;
+                            mCat.Name = mc.Name;
+                            mCat.IsActive = true;
+                            this.unitOfWork.Repo<MenuCategory>().Add(mCat);
+                        }
+                    }
 
                     this.unitOfWork.Save();
 
