@@ -11,12 +11,14 @@ namespace EmsTU.Model.DataObjects
     {
         public BuildingDO()
         {
-            this.BuildingTypes = new List<NomDO>();
-            this.KitchenTypes = new List<NomDO>();
-            this.MusicTypes = new List<NomDO>();
-            this.OccasionTypes = new List<NomDO>();
-            this.PaymentTypes = new List<NomDO>();
-            this.Extras = new List<NomDO>();
+            this.BuildingTypes = new List<int>();
+            this.KitchenTypes = new List<int>();
+            this.MusicTypes = new List<int>();
+            this.OccasionTypes = new List<int>();
+            this.PaymentTypes = new List<int>();
+            this.Extras = new List<int>();
+
+            this.MenuCategories = new List<MenuCategoryDO>();
         }
 
         public BuildingDO(Building b, bool isAdmin)
@@ -24,29 +26,39 @@ namespace EmsTU.Model.DataObjects
         {
             if (b != null)
             {
+                if (b.MenuCategories != null && b.MenuCategories.Any())
+                {
+                    this.MenuCategories.AddRange(b.MenuCategories.Select(e => new MenuCategoryDO(e)));
+                }
+
                 if (b.Noms.Any(e => e.NomType.Alias == "KitchenTypes"))
                 {
-                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "KitchenTypes").Select(e => new NomDO(e)));
+                    this.KitchenTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "KitchenTypes").Select(e => e.NomId));
                 }
-                if (b.Noms.Any(e => e.NomType.Alias == "Extras"))
-                {
-                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "Extras").Select(e => new NomDO(e)));
-                }
-                if (b.Noms.Any(e => e.NomType.Alias == "PaymentTypes"))
-                {
-                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "PaymentTypes").Select(e => new NomDO(e)));
-                }
-                if (b.Noms.Any(e => e.NomType.Alias == "OccasionTypes"))
-                {
-                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "OccasionTypes").Select(e => new NomDO(e)));
-                }
+
                 if (b.Noms.Any(e => e.NomType.Alias == "BuildingTypes"))
                 {
-                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "BuildingTypes").Select(e => new NomDO(e)));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "BuildingTypes").Select(e => e.NomId));
                 }
+
+                if (b.Noms.Any(e => e.NomType.Alias == "Extras"))
+                {
+                    this.Extras.AddRange(b.Noms.Where(e => e.NomType.Alias == "Extras").Select(e => e.NomId));
+                }
+
+                if (b.Noms.Any(e => e.NomType.Alias == "PaymentTypes"))
+                {
+                    this.PaymentTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "PaymentTypes").Select(e => e.NomId));
+                }
+
+                if (b.Noms.Any(e => e.NomType.Alias == "OccasionTypes"))
+                {
+                    this.OccasionTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "OccasionTypes").Select(e => e.NomId));
+                }
+
                 if (b.Noms.Any(e => e.NomType.Alias == "MusicTypes"))
                 {
-                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "MusicTypes").Select(e => new NomDO(e)));
+                    this.MusicTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "MusicTypes").Select(e => e.NomId));
                 }
 
                 this.HasLogo = b.ImagePath == "app\\img\\nopic.jpg" ? false : true;
@@ -74,12 +86,14 @@ namespace EmsTU.Model.DataObjects
             }
         }
 
-        public List<NomDO> BuildingTypes { get; set; }
-        public List<NomDO> KitchenTypes { get; set; }
-        public List<NomDO> MusicTypes { get; set; }
-        public List<NomDO> OccasionTypes { get; set; }
-        public List<NomDO> PaymentTypes { get; set; }
-        public List<NomDO> Extras { get; set; }
+        public List<MenuCategoryDO> MenuCategories { get; set; }
+
+        public List<int> BuildingTypes { get; set; }
+        public List<int> KitchenTypes { get; set; }
+        public List<int> MusicTypes { get; set; }
+        public List<int> OccasionTypes { get; set; }
+        public List<int> PaymentTypes { get; set; }
+        public List<int> Extras { get; set; }
 
         public int BuildingId { get; set; }
         public string Name { get; set; }

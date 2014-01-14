@@ -450,6 +450,7 @@ define([
             'musicTypes': 'api/noms/noms?type=MusicTypes',
             'occasionTypes': 'api/noms/noms?type=OccasionTypes',
             'extras': 'api/noms/noms?type=Extras',
+            'paymentTypes': 'api/noms/noms?type=PaymentTypes',
 
             'roles': 'api/noms/roles'
         }, 5 * 60 /*cacheTimeoutSeconds*/)

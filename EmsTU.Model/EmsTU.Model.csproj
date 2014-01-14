@@ -66,6 +66,8 @@
     <Compile Include="DataObjects\BuildingsListItemDO.cs" />
     <Compile Include="DataObjects\BuildingTypeDO.cs" />
     <Compile Include="DataObjects\BuildingDO.cs" />
+    <Compile Include="DataObjects\MenuDO.cs" />
+    <Compile Include="DataObjects\MenuCategoryDO.cs" />
     <Compile Include="DataObjects\NomDO.cs" />
     <Compile Include="DataObjects\NewBuildingDO.cs" />
     <Compile Include="DataObjects\PasswordsDO.cs" />

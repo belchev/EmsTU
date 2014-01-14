@@ -735,3 +735,23 @@ ul.tree {
 .table-list img {
     cursor: pointer;
 }
+
+.middleR a {
+    text-decoration: none;
+}
+
+.middleR h4 {
+    min-height: 18px;
+    background-color: #333;
+    margin: 0 0 0 10px;
+    color: #CCC;
+    padding: 4px 4px 4px 10px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    display: block;
+    font-size: 13px;
+    font-weight: 100;
+    text-align: left;
+    margin-bottom: 1px;
+    text-decoration: none;
+    border-radius: 0px !important;
+}

@@ -14,6 +14,7 @@
     //src
     'src/validation_utils',
     'src/repositories/building_repository',
+    'src/view_models/upload_file_vm',
     'src/view_models/building/nom_pop_list_vm'
 ], function (
     $,
@@ -24,6 +25,7 @@
     Corium,
     ValidationUtils,
     BuildingRepository,
+    UploadFileVM,
     NomPopListVM
     ) {
     'use strict';
@@ -38,20 +40,9 @@
             self._cancel = self._cancel.bind(self);
             self._enterEditMode = self._enterEditMode.bind(self);
             self._exitEditMode = self._exitEditMode.bind(self);
-            self._removeNomType = self._removeNomType.bind(self);
-            self._getBuildingTypes = self._getBuildingTypes.bind(self);
-            self._editBuildingTypes = self._editBuildingTypes.bind(self);
-            self._getKitchenTypes = self._getKitchenTypes.bind(self);
-            self._editKitchenTypes = self._editKitchenTypes.bind(self);
-            self._getMusicTypes = self._getMusicTypes.bind(self);
-            self._editMusicTypes = self._editMusicTypes.bind(self);
-            self._getOccasionTypes = self._getOccasionTypes.bind(self);
-            self._editOccasionTypes = self._editOccasionTypes.bind(self);
-            self._getPaymentTypes = self._getPaymentTypes.bind(self);
-            self._editPaymentTypes = self._editPaymentTypes.bind(self);
-            self._getExtras = self._getExtras.bind(self);
-            self._editExtras = self._editExtras.bind(self);
-            self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingInfo'));
+            self._deleteFile = self._deleteFile.bind(self);
+            self._chooseFile = self._chooseFile.bind(self);
+            self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingMenu'));
 
             self._buildingRepository = new BuildingRepository();
 
@@ -115,22 +106,33 @@
                 { name: 'Не', value: '2' }
             ]);
 
-            self._deleteFile = self._deleteFile.bind(self);
+            
 
 
             if (inEditMode) {
                 self._enterEditMode();
             }
-
-            self._isInsidePTIds = ko.observableArray(self._splitQueryArray('1;2;3'));
         },
-        _splitQueryArray: function (queryArray) {
-            queryArray = queryArray || '';
-            queryArray = queryArray.split(';');
-            return queryArray.map(function (i) {
-                return parseInt(i, 10);
-            }).filter(function (i) {
-                return !isNaN(i);
+        _chooseFile: function () {
+            var self = this,
+                building = self._building(),
+                uploadFileVM = new UploadFileVM();
+
+            Corium.dialogs.show({
+                header: 'Добавяне на снимка',
+                acceptText: 'Добави',
+                cancelText: 'Отказ',
+                accepting: function (event) {
+                    event.preventDefault();
+                    uploadFileVM.attach().then(function (result) {
+                        if (result) {
+                            building.imagePath(result);
+                            building.hasLogo(true);
+                            Corium.dialogs.hide();
+                        }
+                    });
+                },
+                viewModel: uploadFileVM
             });
         },
         _deleteFile: function () {
@@ -138,303 +140,6 @@
 
             self._building().imagePath('app\\img\\nopic.jpg');
             self._building().hasLogo(false);
-        },
-        _editExtras: function () {
-            var self = this,
-                nomPopListVM = new NomPopListVM('Extras');
-
-            Corium.dialogs.show({
-                header: 'Избор на екстра',
-                acceptText: 'Избор',
-                cancelText: 'Отказ',
-                width: 800,
-                height: 500,
-                accepting: function (event) {
-                    event.preventDefault();
-
-                    var result = nomPopListVM.getSelected();
-                    ko.utils.arrayForEach(result, function (resultItem) {
-                        var match = ko.utils.arrayFirst(self._building().extras(), function (item) {
-                            return resultItem.nomId === item.nomId();
-                        });
-
-                        if (!match) {
-                            self._building().extras.push(ko_mapping.fromJS(resultItem));
-                        } else {
-                            if (match.isDeleted() === true) {
-                                match.isDeleted(false);
-                            }
-                        }
-                    });
-
-                    Corium.dialogs.hide();
-                },
-                viewModel: nomPopListVM
-            });
-        },
-        _getExtras: function () {
-            var self = this;
-
-            return ko.computed(function () {
-                var result = [],
-                    extras = self._building().extras();
-
-                ko.utils.arrayForEach(extras, function (extra) {
-                    if (extra.isDeleted() === false) {
-                        result.push(extra);
-                    }
-                });
-
-                return result;
-            });
-        },
-        _editPaymentTypes: function () {
-            var self = this,
-                nomPopListVM = new NomPopListVM('PaymentTypes');
-
-            Corium.dialogs.show({
-                header: 'Избор на тип плащане',
-                acceptText: 'Избор',
-                cancelText: 'Отказ',
-                width: 800,
-                height: 500,
-                accepting: function (event) {
-                    event.preventDefault();
-
-                    var result = nomPopListVM.getSelected();
-                    ko.utils.arrayForEach(result, function (resultItem) {
-                        var match = ko.utils.arrayFirst(self._building().paymentTypes(), function (item) {
-                            return resultItem.nomId === item.nomId();
-                        });
-
-                        if (!match) {
-                            self._building().paymentTypes.push(ko_mapping.fromJS(resultItem));
-                        } else {
-                            if (match.isDeleted() === true) {
-                                match.isDeleted(false);
-                            }
-                        }
-                    });
-
-                    Corium.dialogs.hide();
-                },
-                viewModel: nomPopListVM
-            });
-        },
-        _getPaymentTypes: function () {
-            var self = this;
-
-            return ko.computed(function () {
-                var result = [],
-                    paymentTypes = self._building().paymentTypes();
-
-                ko.utils.arrayForEach(paymentTypes, function (paymentType) {
-                    if (paymentType.isDeleted() === false) {
-                        result.push(paymentType);
-                    }
-                });
-
-                return result;
-            });
-        },
-        _editOccasionTypes: function () {
-            var self = this,
-                nomPopListVM = new NomPopListVM('OccasionTypes');
-
-            Corium.dialogs.show({
-                header: 'Избор на повод',
-                acceptText: 'Избор',
-                cancelText: 'Отказ',
-                width: 800,
-                height: 500,
-                accepting: function (event) {
-                    event.preventDefault();
-
-                    var result = nomPopListVM.getSelected();
-                    ko.utils.arrayForEach(result, function (resultItem) {
-                        var match = ko.utils.arrayFirst(self._building().occasionTypes(), function (item) {
-                            return resultItem.nomId === item.nomId();
-                        });
-
-                        if (!match) {
-                            self._building().occasionTypes.push(ko_mapping.fromJS(resultItem));
-                        } else {
-                            if (match.isDeleted() === true) {
-                                match.isDeleted(false);
-                            }
-                        }
-                    });
-
-                    Corium.dialogs.hide();
-                },
-                viewModel: nomPopListVM
-            });
-        },
-        _getOccasionTypes: function () {
-            var self = this;
-
-            return ko.computed(function () {
-                var result = [],
-                    occasionTypes = self._building().occasionTypes();
-
-                ko.utils.arrayForEach(occasionTypes, function (occasionType) {
-                    if (occasionType.isDeleted() === false) {
-                        result.push(occasionType);
-                    }
-                });
-
-                return result;
-            });
-        },
-        _editMusicTypes: function () {
-            var self = this,
-                nomPopListVM = new NomPopListVM('MusicTypes');
-
-            Corium.dialogs.show({
-                header: 'Избор на тип музика',
-                acceptText: 'Избор',
-                cancelText: 'Отказ',
-                width: 800,
-                height: 500,
-                accepting: function (event) {
-                    event.preventDefault();
-
-                    var result = nomPopListVM.getSelected();
-                    ko.utils.arrayForEach(result, function (resultItem) {
-                        var match = ko.utils.arrayFirst(self._building().musicTypes(), function (item) {
-                            return resultItem.nomId === item.nomId();
-                        });
-
-                        if (!match) {
-                            self._building().musicTypes.push(ko_mapping.fromJS(resultItem));
-                        } else {
-                            if (match.isDeleted() === true) {
-                                match.isDeleted(false);
-                            }
-                        }
-                    });
-
-                    Corium.dialogs.hide();
-                },
-                viewModel: nomPopListVM
-            });
-        },
-        _getMusicTypes: function () {
-            var self = this;
-
-            return ko.computed(function () {
-                var result = [],
-                    musicTypes = self._building().musicTypes();
-
-                ko.utils.arrayForEach(musicTypes, function (musicType) {
-                    if (musicType.isDeleted() === false) {
-                        result.push(musicType);
-                    }
-                });
-
-                return result;
-            });
-        },
-        _editKitchenTypes: function () {
-            var self = this,
-                nomPopListVM = new NomPopListVM('KitchenTypes');
-
-            Corium.dialogs.show({
-                header: 'Избор на тип кухня',
-                acceptText: 'Избор',
-                cancelText: 'Отказ',
-                width: 800,
-                height: 500,
-                accepting: function (event) {
-                    event.preventDefault();
-
-                    var result = nomPopListVM.getSelected();
-                    ko.utils.arrayForEach(result, function (resultItem) {
-                        var match = ko.utils.arrayFirst(self._building().kitchenTypes(), function (item) {
-                            return resultItem.nomId === item.nomId();
-                        });
-
-                        if (!match) {
-                            self._building().kitchenTypes.push(ko_mapping.fromJS(resultItem));
-                        } else {
-                            if (match.isDeleted() === true) {
-                                match.isDeleted(false);
-                            }
-                        }
-                    });
-
-                    Corium.dialogs.hide();
-                },
-                viewModel: nomPopListVM
-            });
-        },
-        _getKitchenTypes: function () {
-            var self = this;
-
-            return ko.computed(function () {
-                var result = [],
-                    kitchenTypes = self._building().kitchenTypes();
-
-                ko.utils.arrayForEach(kitchenTypes, function (kitchenType) {
-                    if (kitchenType.isDeleted() === false) {
-                        result.push(kitchenType);
-                    }
-                });
-
-                return result;
-            });
-        },
-        _editBuildingTypes: function () {
-            var self = this,
-                nomPopListVM = new NomPopListVM('BuildingTypes');
-
-            Corium.dialogs.show({
-                header: 'Избор на тип заведение',
-                acceptText: 'Избор',
-                cancelText: 'Отказ',
-                width: 800,
-                height: 500,
-                accepting: function (event) {
-                    event.preventDefault();
-
-                    var result = nomPopListVM.getSelected();
-                    ko.utils.arrayForEach(result, function (resultItem) {
-                        var match = ko.utils.arrayFirst(self._building().buildingTypes(), function (item) {
-                            return resultItem.nomId === item.nomId();
-                        });
-
-                        if (!match) {
-                            self._building().buildingTypes.push(ko_mapping.fromJS(resultItem));
-                        } else {
-                            if (match.isDeleted() === true) {
-                                match.isDeleted(false);
-                            }
-                        }
-                    });
-
-                    Corium.dialogs.hide();
-                },
-                viewModel: nomPopListVM
-            });
-        },
-        _getBuildingTypes: function () {
-            var self = this;
-
-            return ko.computed(function () {
-                var result = [],
-                    buildingTypes = self._building().buildingTypes();
-
-                ko.utils.arrayForEach(buildingTypes, function (buildingType) {
-                    if (buildingType.isDeleted() === false) {
-                        result.push(buildingType);
-                    }
-                });
-
-                return result;
-            });
-        },
-        _removeNomType: function (target) {
-            target.isDeleted(true);
         },
         _innerNavigation: function (tabName) {
             var self = this;
@@ -487,17 +192,11 @@
         _enterEditMode: function () {
             var self = this;
 
-            //self._tempCorr = $.extend(true, {}, ko_mapping.toJS(self._corr()));
             self._inEditMode(true);
         },
         _exitEditMode: function () {
             var self = this;
 
-            //if (self._isNew()) {
-            //    return self._cancel();
-            //}
-
-            //self._setCorr(self._tempCorr);
             self._inEditMode(false);
         },
         _cancel: function () {

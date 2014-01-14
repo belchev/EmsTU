@@ -162,27 +162,17 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5 input-append" style="margin-left: 0px;">
-                <div class="chzn-container chzn-container-multi span4" title="">
-                  <ul class="chzn-choices" data-bind="foreach: $parent._getBuildingTypes()" style="min-height: 24px;">
-                    <li class="search-choice"><span data-bind="text: name"></span>
-                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
-                  </ul>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: buildingTypes, idProperty: 'nomId' }">
+                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
-                <span class="add-on" data-bind="click: $parent._editBuildingTypes, visible: $parent._inEditMode()">
-                  <i class="icon-search"></i>
-                </span>
               </div>
-              <div class="span5 input-append">
-                <div class="chzn-container chzn-container-multi span4" title="">
-                  <ul class="chzn-choices" data-bind="foreach: $parent._getKitchenTypes()" style="min-height: 24px;">
-                    <li class="search-choice"><span data-bind="text: name"></span>
-                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
-                  </ul>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'kitchenTypes', value: kitchenTypes, idProperty: 'nomId' }">
+                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
-                <span class="add-on" data-bind="click: $parent._editKitchenTypes, visible: $parent._inEditMode()">
-                  <i class="icon-search"></i>
-                </span>
               </div>
             </div>
 
@@ -195,27 +185,17 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5 input-append" style="margin-left: 0px;">
-                <div class="chzn-container chzn-container-multi span4" title="">
-                  <ul class="chzn-choices" data-bind="foreach: $parent._getMusicTypes()" style="min-height: 24px;">
-                    <li class="search-choice"><span data-bind="text: name"></span>
-                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
-                  </ul>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'musicTypes', value: musicTypes, idProperty: 'nomId' }">
+                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
-                <span class="add-on" data-bind="click: $parent._editMusicTypes, visible: $parent._inEditMode()">
-                  <i class="icon-search"></i>
-                </span>
               </div>
-              <div class="span5 input-append">
-                <div class="chzn-container chzn-container-multi span4" title="">
-                  <ul class="chzn-choices" data-bind="foreach: $parent._getOccasionTypes()" style="min-height: 24px;">
-                    <li class="search-choice"><span data-bind="text: name"></span>
-                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
-                  </ul>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'occasionTypes', value: occasionTypes, idProperty: 'nomId' }">
+                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
-                <span class="add-on" data-bind="click: $parent._editOccasionTypes, visible: $parent._inEditMode()">
-                  <i class="icon-search"></i>
-                </span>
               </div>
             </div>
 
@@ -228,27 +208,17 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5 input-append" style="margin-left: 0px;">
-                <div class="chzn-container chzn-container-multi span4" title="">
-                  <ul class="chzn-choices" data-bind="foreach: $parent._getPaymentTypes()" style="min-height: 24px;">
-                    <li class="search-choice"><span data-bind="text: name"></span>
-                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
-                  </ul>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'paymentTypes', value: paymentTypes, idProperty: 'nomId' }">
+                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
-                <span class="add-on" data-bind="click: $parent._editPaymentTypes, visible: $parent._inEditMode()">
-                  <i class="icon-search"></i>
-                </span>
               </div>
-              <div class="span5 input-append">
-                <div class="chzn-container chzn-container-multi span4" title="">
-                  <ul class="chzn-choices" data-bind="foreach: $parent._getExtras()" style="min-height: 24px;">
-                    <li class="search-choice"><span data-bind="text: name"></span>
-                      <a href="javascript:void(0)" data-bind="click: $parents[1]._removeNomType, visible: $parents[1]._inEditMode()" class="search-choice-close" rel="1"></a></li>
-                  </ul>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'extras', value: extras, idProperty: 'nomId' }">
+                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
-                <span class="add-on" data-bind="click: $parent._editExtras, visible: $parent._inEditMode()">
-                  <i class="icon-search"></i>
-                </span>
               </div>
             </div>
 
@@ -283,8 +253,8 @@
                   <img data-bind="attr: { src: imagePath() }">
                 </div>
                 <div style="float: left;">
-                  <button class="btn" data-bind="click: $parent._deleteFile, visible: hasLogo()"><i class="icon-remove"></i>&nbsp; изтрий</button>
-                  <button class="btn" data-bind="visible: !hasLogo()"><i class="icon-plus"></i>&nbsp; добави</button>
+                  <button class="btn" data-bind="click: $parent._deleteFile, visible: hasLogo(), enable: $parent._inEditMode()"><i class="icon-remove"></i>&nbsp; изтрий</button>
+                  <button class="btn" data-bind="visible: !hasLogo(), enable: $parent._inEditMode(), click: $parent._chooseFile"><i class="icon-plus"></i>&nbsp; добави</button>
                 </div>
               </div>
             </div>
@@ -302,20 +272,34 @@
               </div>
             </div>
 
-            <div class="span5" style="margin-bottom: 5px;">
-              <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: $parent._isInsidePTIds, idProperty: 'nomId' }">
-                <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { placeholder_text_multiple: 'asd' } }"></select>
-                 <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
-              </div>
-            </div>
-           <!-- <div class="dropdown-container span5">
-                <select style="width: 356px;" data-bind="chosen: { options: $parent._yesNoOptions, value: $parent._isActive, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
-            </div>-->
-
-
           </div>
           <div class="tab-pane" id="buildingMenu" data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
-            <span>BBB</span>
+            <div style="width: 520px; float: left;">
+              <div>
+                <h3 style="line-height: 16px;">Предястия</h3>
+                <hr style="margin-right: 30px;" />
+              </div>
+
+            </div>
+
+            <div style="width: 350px; float: left;" class="middleR">
+              <div style="text-align: center;">
+                <h3 style="line-height: 16px;">Меню</h3>
+                <hr />
+              </div>
+
+              <div data-bind="foreach: menuCategories">
+                <a data-bind="">
+                  <h4 data-bind="text: name"></h4>
+                </a>
+
+              </div>
+              <span>BBB</span>
+
+            </div>
+
+            <div style="clear: both;"></div>
+
           </div>
         </div>
 
