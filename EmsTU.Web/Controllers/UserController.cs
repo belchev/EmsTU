@@ -61,7 +61,6 @@ namespace EmsTU.Web.Controllers
                 .ToList();
 
             List<User> ba = this.unitOfWork.Repo<User>().Query()
-                //.Include(e => e.Buildings)
                 .Include(e => e.Buildings)
                 .ToList();
 

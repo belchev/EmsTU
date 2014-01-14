@@ -15,12 +15,8 @@ namespace EmsTU.Model.Models
             this.Offers = new List<Offer>();
             this.Ratings = new List<Rating>();
             this.Visitors = new List<Visitor>();
-            this.BuildingTypes = new List<BuildingType>();
-            this.Extras = new List<Extra>();
-            this.KitchenTypes = new List<KitchenType>();
-            this.MusicTypes = new List<MusicType>();
-            this.OccasionTypes = new List<OccasionType>();
-            this.PaymentTypes = new List<PaymentType>();
+            this.Noms = new List<Nom>();
+
             this.Users = new List<User>();
         }
 
@@ -57,12 +53,7 @@ namespace EmsTU.Model.Models
         public virtual ICollection<Offer> Offers { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Visitor> Visitors { get; set; }
-        public virtual ICollection<BuildingType> BuildingTypes { get; set; }
-        public virtual ICollection<Extra> Extras { get; set; }
-        public virtual ICollection<KitchenType> KitchenTypes { get; set; }
-        public virtual ICollection<MusicType> MusicTypes { get; set; }
-        public virtual ICollection<OccasionType> OccasionTypes { get; set; }
-        public virtual ICollection<PaymentType> PaymentTypes { get; set; }
+        public virtual ICollection<Nom> Noms { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 
@@ -131,58 +122,13 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Version).HasColumnName("Version");
 
             // Relationships
-            this.HasMany(t => t.BuildingTypes)
+            this.HasMany(t => t.Noms)
                 .WithMany(t => t.Buildings)
                 .Map(m =>
                 {
-                    m.ToTable("BuildingBuildingTypes");
+                    m.ToTable("BuildingNoms");
                     m.MapLeftKey("BuildingId");
-                    m.MapRightKey("BuildingTypeId");
-                });
-
-            this.HasMany(t => t.Extras)
-                .WithMany(t => t.Buildings)
-                .Map(m =>
-                {
-                    m.ToTable("BuildingExtras");
-                    m.MapLeftKey("BuildingId");
-                    m.MapRightKey("ExtraId");
-                });
-
-            this.HasMany(t => t.KitchenTypes)
-                .WithMany(t => t.Buildings)
-                .Map(m =>
-                {
-                    m.ToTable("BuildingKitchenTypes");
-                    m.MapLeftKey("BuildingId");
-                    m.MapRightKey("KitchenTypeId");
-                });
-
-            this.HasMany(t => t.MusicTypes)
-                .WithMany(t => t.Buildings)
-                .Map(m =>
-                {
-                    m.ToTable("BuildingMusicTypes");
-                    m.MapLeftKey("BuildingId");
-                    m.MapRightKey("MusicTypeId");
-                });
-
-            this.HasMany(t => t.OccasionTypes)
-                .WithMany(t => t.Buildings)
-                .Map(m =>
-                {
-                    m.ToTable("BuildingOccasionTypes");
-                    m.MapLeftKey("BuildingId");
-                    m.MapRightKey("OccasionTypeId");
-                });
-
-            this.HasMany(t => t.PaymentTypes)
-                .WithMany(t => t.Buildings)
-                .Map(m =>
-                {
-                    m.ToTable("BuildingPaymentTypes");
-                    m.MapLeftKey("BuildingId");
-                    m.MapRightKey("PaymentTypeId");
+                    m.MapRightKey("NomId");
                 });
 
             this.HasMany(t => t.Users)

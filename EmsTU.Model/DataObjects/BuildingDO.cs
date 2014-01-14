@@ -24,29 +24,29 @@ namespace EmsTU.Model.DataObjects
         {
             if (b != null)
             {
-                if (b.BuildingTypes != null && b.BuildingTypes.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "KitchenTypes"))
                 {
-                    this.BuildingTypes.AddRange(b.BuildingTypes.Select(e => new NomDO(e, "BuildingTypes")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "KitchenTypes").Select(e => new NomDO(e)));
                 }
-                if (b.KitchenTypes != null && b.KitchenTypes.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "Extras"))
                 {
-                    this.KitchenTypes.AddRange(b.KitchenTypes.Select(e => new NomDO(e, "KitchenTypes")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "Extras").Select(e => new NomDO(e)));
                 }
-                if (b.MusicTypes != null && b.MusicTypes.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "PaymentTypes"))
                 {
-                    this.MusicTypes.AddRange(b.MusicTypes.Select(e => new NomDO(e, "MusicTypes")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "PaymentTypes").Select(e => new NomDO(e)));
                 }
-                if (b.OccasionTypes != null && b.OccasionTypes.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "OccasionTypes"))
                 {
-                    this.OccasionTypes.AddRange(b.OccasionTypes.Select(e => new NomDO(e, "OccasionTypes")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "OccasionTypes").Select(e => new NomDO(e)));
                 }
-                if (b.PaymentTypes != null && b.PaymentTypes.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "BuildingTypes"))
                 {
-                    this.PaymentTypes.AddRange(b.PaymentTypes.Select(e => new NomDO(e, "PaymentTypes")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "BuildingTypes").Select(e => new NomDO(e)));
                 }
-                if (b.Extras != null && b.Extras.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "MusicTypes"))
                 {
-                    this.Extras.AddRange(b.Extras.Select(e => new NomDO(e, "Extras")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "MusicTypes").Select(e => new NomDO(e)));
                 }
 
                 this.HasLogo = b.ImagePath == "app\\img\\nopic.jpg" ? false : true;

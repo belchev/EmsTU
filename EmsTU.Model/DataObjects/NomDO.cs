@@ -9,54 +9,14 @@ namespace EmsTU.Model.DataObjects
 {
     public class NomDO
     {
-        public NomDO(object obj, string type)
+        public NomDO(Nom nom)
         {
-            switch (type)
+            if (nom != null)
             {
-                case "BuildingTypes":
-                    var bt = (BuildingType)obj;
-                    this.NomId = bt.BuildingTypeId;
-                    this.Name = bt.Name;
-                    this.Alias = bt.Alias;
-                    this.IsActive = bt.IsActive;
-                    break;
-                case "KitchenTypes":
-                    var kt = (KitchenType)obj;
-                    this.NomId = kt.KitchenTypeId;
-                    this.Name = kt.Name;
-                    this.Alias = kt.Alias;
-                    this.IsActive = kt.IsActive;
-                    break;
-                case "MusicTypes":
-                    var mt = (MusicType)obj;
-                    this.NomId = mt.MusicTypeId;
-                    this.Name = mt.Name;
-                    this.Alias = mt.Alias;
-                    this.IsActive = mt.IsActive;
-                    break;
-                case "OccasionTypes":
-                    var ot = (OccasionType)obj;
-                    this.NomId = ot.OccasionTypeId;
-                    this.Name = ot.Name;
-                    this.Alias = ot.Alias;
-                    this.IsActive = ot.IsActive;
-                    break;
-                case "PaymentTypes":
-                    var pt = (PaymentType)obj;
-                    this.NomId = pt.PaymentTypeId;
-                    this.Name = pt.Name;
-                    this.Alias = pt.Alias;
-                    this.IsActive = pt.IsActive;
-                    break;
-                case "Extras":
-                    var e = (Extra)obj;
-                    this.NomId = e.ExtraId;
-                    this.Name = e.Name;
-                    this.Alias = e.Alias;
-                    this.IsActive = e.IsActive;
-                    break;
-                default:
-                    break;
+                this.NomId = nom.NomId;
+                this.Name = nom.Name;
+                this.Alias = nom.Alias;
+                this.IsActive = nom.IsActive;
             }
         }
 

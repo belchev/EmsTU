@@ -59,8 +59,8 @@
             self._isInDialog = ko.observable(false);
             self._showErrors = ko.observable(false);
             self._saveButtonClicked = ko.observable(false);
-            self._isActive = ko.observable(building.isActive ? '1' : '2')
-            self._isDeleted = ko.observable(building.isDeleted ? '1' : '2')
+            self._isActive = ko.observable(building.isActive ? '1' : '2');
+            self._isDeleted = ko.observable(building.isDeleted ? '1' : '2');
 
             self._building = ko.observable();
             self._setBuilding(building);
@@ -121,6 +121,17 @@
             if (inEditMode) {
                 self._enterEditMode();
             }
+
+            self._isInsidePTIds = ko.observableArray(self._splitQueryArray('1;2;3'));
+        },
+        _splitQueryArray: function (queryArray) {
+            queryArray = queryArray || '';
+            queryArray = queryArray.split(';');
+            return queryArray.map(function (i) {
+                return parseInt(i, 10);
+            }).filter(function (i) {
+                return !isNaN(i);
+            });
         },
         _deleteFile: function () {
             var self = this;

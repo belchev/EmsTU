@@ -19,9 +19,9 @@ namespace EmsTU.Model.DataObjects
         {
             if (b != null)
             {
-                if (b.BuildingTypes != null && b.BuildingTypes.Any())
+                if (b.Noms.Any(e => e.NomType.Alias == "BuildingTypes"))
                 {
-                    this.BuildingTypes.AddRange(b.BuildingTypes.Select(e => new NomDO(e, "BuildingTypes")));
+                    this.BuildingTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "BuildingTypes").Select(e => new NomDO(e)));
                 }
                 if (b.Settlement != null)
                 {

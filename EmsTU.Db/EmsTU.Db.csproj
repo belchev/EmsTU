@@ -74,15 +74,12 @@
     <Content Include="Create\Tables\Audit\ActionErrorLogs.sql" />
     <Content Include="Create\Tables\Audit\ActionLogs.sql" />
     <Content Include="Create\Tables\BuildingTypes.sql" />
-    <Content Include="Create\Tables\BuildingBuildingTypes.sql" />
-    <Content Include="Create\Tables\BuildingExtras.sql" />
-    <Content Include="Create\Tables\BuildingKitchenTypes.sql" />
-    <Content Include="Create\Tables\BuildingMusicTypes.sql" />
-    <Content Include="Create\Tables\BuildingOccasionTypes.sql" />
-    <Content Include="Create\Tables\BuildingPaymentTypes.sql" />
     <Content Include="Create\Tables\Albums.sql" />
     <Content Include="Create\Tables\AlbumPhotos.sql" />
     <Content Include="Create\Tables\BuildingRequests.sql" />
+    <Content Include="Create\Tables\BuildingNoms.sql" />
+    <Content Include="Create\Tables\NomTypes.sql" />
+    <Content Include="Create\Tables\Noms.sql" />
     <Content Include="Create\Tables\UserRoles.sql" />
     <Content Include="Create\Tables\Events.sql" />
     <Content Include="Create\Tables\MenuCategories.sql" />
@@ -90,12 +87,6 @@
     <Content Include="Create\Tables\Comments.sql" />
     <Content Include="Create\Tables\Visitors.sql" />
     <Content Include="Create\Tables\Ratings.sql" />
-    <Content Include="Create\Tables\Offers.sql" />
-    <Content Include="Create\Tables\Extras.sql" />
-    <Content Include="Create\Tables\KitchenTypes.sql" />
-    <Content Include="Create\Tables\MusicTypes.sql" />
-    <Content Include="Create\Tables\OccasionTypes.sql" />
-    <Content Include="Create\Tables\PaymentTypes.sql" />
     <Content Include="Create\Tables\Users.sql" />
     <Content Include="Create\Tables\BuildingUsers.sql" />
     <Content Include="Create\Tables\Roles.sql" />
@@ -108,12 +99,9 @@
     <Content Include="Insert\Tables\AddressData\Municipalities.sql" />
     <Content Include="Insert\Tables\AddressData\Settlements.sql" />
     <Content Include="Insert\Tables\ConfigFinalize.sql" />
-    <Content Include="Insert\Tables\BuildingTypes.sql" />
     <Content Include="Insert\Tables\Buildings.sql" />
-    <Content Include="Insert\Tables\Extras.sql" />
-    <Content Include="Insert\Tables\KitchenTypes.sql" />
-    <Content Include="Insert\Tables\MusicTypes.sql" />
-    <Content Include="Insert\Tables\OccasionTypes.sql" />
+    <Content Include="Insert\Tables\NomTypes.sql" />
+    <Content Include="Insert\Tables\Noms.sql" />
     <Content Include="Insert\Tables\Roles.sql" />
     <Content Include="Insert\Tables\Users.sql" />
   </ItemGroup>

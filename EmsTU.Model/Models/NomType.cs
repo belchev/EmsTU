@@ -4,27 +4,27 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace EmsTU.Model.Models
 {
-    public partial class Extra
+    public partial class NomType
     {
-        public Extra()
+        public NomType()
         {
-            this.Buildings = new List<Building>();
+            this.Noms = new List<Nom>();
         }
 
-        public int ExtraId { get; set; }
+        public int NomTypeId { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
-        public virtual ICollection<Building> Buildings { get; set; }
+        public virtual ICollection<Nom> Noms { get; set; }
     }
 
-    public class ExtraMap : EntityTypeConfiguration<Extra>
+    public class NomTypeMap : EntityTypeConfiguration<NomType>
     {
-        public ExtraMap()
+        public NomTypeMap()
         {
             // Primary Key
-            this.HasKey(t => t.ExtraId);
+            this.HasKey(t => t.NomTypeId);
 
             // Properties
             this.Property(t => t.Name)
@@ -40,8 +40,8 @@ namespace EmsTU.Model.Models
                 .IsRowVersion();
 
             // Table & Column Mappings
-            this.ToTable("Extras");
-            this.Property(t => t.ExtraId).HasColumnName("ExtraId");
+            this.ToTable("NomTypes");
+            this.Property(t => t.NomTypeId).HasColumnName("NomTypeId");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Alias).HasColumnName("Alias");
             this.Property(t => t.IsActive).HasColumnName("IsActive");

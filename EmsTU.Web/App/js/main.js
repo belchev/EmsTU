@@ -445,11 +445,11 @@ define([
             'municipalities': 'api/noms/municipalities?districtId={0}',
             'settlements': 'api/noms/settlements?municipalityId={0}',
 
-            'buildingTypes': 'api/noms/buildingTypes',
-            'kitchenTypes': 'api/noms/kitchenTypes',
-            'musicTypes': 'api/noms/musicTypes',
-            'occasionTypes': 'api/noms/occasionTypes',
-            'extras': 'api/noms/extras',
+            'buildingTypes': 'api/noms/noms?type=BuildingTypes',
+            'kitchenTypes': 'api/noms/noms?type=KitchenTypes',
+            'musicTypes': 'api/noms/noms?type=MusicTypes',
+            'occasionTypes': 'api/noms/noms?type=OccasionTypes',
+            'extras': 'api/noms/noms?type=Extras',
 
             'roles': 'api/noms/roles'
         }, 5 * 60 /*cacheTimeoutSeconds*/)

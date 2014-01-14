@@ -31,12 +31,12 @@ namespace EmsTU.Web.Controllers
         #region Load Noms
 
         [HttpGet]
-        public HttpResponseMessage GetNomBuildingTypes(string type, string name, int? limit, int? offset)
+        public HttpResponseMessage GetPopNoms(string type, string name, int? limit, int? offset)
         {
-            var query = this.unitOfWork.Repo<BuildingType>().Query()
-                .Where(e => e.IsActive);
+            var query = this.unitOfWork.Repo<Nom>().Query()
+                .Where(e => e.IsActive && e.NomType.Alias == type);
             
-            query = query.OrderByDescending(e => e.BuildingTypeId);
+            query = query.OrderByDescending(e => e.NomId);
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -52,167 +52,7 @@ namespace EmsTU.Web.Controllers
 
             List<NomDO> returnValue = query
                 .ToList()
-                .Select(e => new NomDO(e, type))
-                .ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
-            {
-                noms = returnValue,
-                nomsCount = totalCounts
-            });
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetNomKitchenTypes(string type, string name, int? limit, int? offset)
-        {
-            var query = this.unitOfWork.Repo<KitchenType>().Query()
-                .Where(e => e.IsActive);
-
-            query = query.OrderByDescending(e => e.KitchenTypeId);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(e => e.Name.Contains(name));
-            }
-
-            int totalCounts = query.Count();
-
-            if (limit.HasValue && offset.HasValue)
-            {
-                query = query.Skip(offset.Value).Take(limit.Value);
-            }
-
-            List<NomDO> returnValue = query
-                .ToList()
-                .Select(e => new NomDO(e, type))
-                .ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
-            {
-                noms = returnValue,
-                nomsCount = totalCounts
-            });
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetMusicTypes(string type, string name, int? limit, int? offset)
-        {
-            var query = this.unitOfWork.Repo<MusicType>().Query()
-                .Where(e => e.IsActive);
-
-            query = query.OrderByDescending(e => e.MusicTypeId);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(e => e.Name.Contains(name));
-            }
-
-            int totalCounts = query.Count();
-
-            if (limit.HasValue && offset.HasValue)
-            {
-                query = query.Skip(offset.Value).Take(limit.Value);
-            }
-
-            List<NomDO> returnValue = query
-                .ToList()
-                .Select(e => new NomDO(e, type))
-                .ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
-            {
-                noms = returnValue,
-                nomsCount = totalCounts
-            });
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetNomOccasionTypes(string type, string name, int? limit, int? offset)
-        {
-            var query = this.unitOfWork.Repo<OccasionType>().Query()
-                .Where(e => e.IsActive);
-
-            query = query.OrderByDescending(e => e.OccasionTypeId);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(e => e.Name.Contains(name));
-            }
-
-            int totalCounts = query.Count();
-
-            if (limit.HasValue && offset.HasValue)
-            {
-                query = query.Skip(offset.Value).Take(limit.Value);
-            }
-
-            List<NomDO> returnValue = query
-                .ToList()
-                .Select(e => new NomDO(e, type))
-                .ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
-            {
-                noms = returnValue,
-                nomsCount = totalCounts
-            });
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetNomPaymentTypes(string type, string name, int? limit, int? offset)
-        {
-            var query = this.unitOfWork.Repo<PaymentType>().Query()
-                .Where(e => e.IsActive);
-
-            query = query.OrderByDescending(e => e.PaymentTypeId);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(e => e.Name.Contains(name));
-            }
-
-            int totalCounts = query.Count();
-
-            if (limit.HasValue && offset.HasValue)
-            {
-                query = query.Skip(offset.Value).Take(limit.Value);
-            }
-
-            List<NomDO> returnValue = query
-                .ToList()
-                .Select(e => new NomDO(e, type))
-                .ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
-            {
-                noms = returnValue,
-                nomsCount = totalCounts
-            });
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetNomExtras(string type, string name, int? limit, int? offset)
-        {
-            var query = this.unitOfWork.Repo<Extra>().Query()
-                .Where(e => e.IsActive);
-
-            query = query.OrderByDescending(e => e.ExtraId);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(e => e.Name.Contains(name));
-            }
-
-            int totalCounts = query.Count();
-
-            if (limit.HasValue && offset.HasValue)
-            {
-                query = query.Skip(offset.Value).Take(limit.Value);
-            }
-
-            List<NomDO> returnValue = query
-                .ToList()
-                .Select(e => new NomDO(e, type))
+                .Select(e => new NomDO(e))
                 .ToList();
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
@@ -225,78 +65,14 @@ namespace EmsTU.Web.Controllers
         #endregion
 
         [HttpGet]
-        public HttpResponseMessage GetBuildingTypes()
+        public HttpResponseMessage GetNoms(string type)
         {
             var returnValue =
-                this.unitOfWork.Repo<BuildingType>().Query()
-                .Where(e => e.IsActive)
+                this.unitOfWork.Repo<Nom>().Query()
+                .Where(e => e.IsActive && e.NomType.Alias == type)
                 .Select(n => new
                 {
-                    buildingTypeId = n.BuildingTypeId,
-                    name = n.Name,
-                    isActive = n.IsActive
-                }).ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetKitchenTypes()
-        {
-            var returnValue =
-                this.unitOfWork.Repo<KitchenType>().Query()
-                .Where(e => e.IsActive)
-                .Select(n => new
-                {
-                    kitchenTypeId = n.KitchenTypeId,
-                    name = n.Name,
-                    isActive = n.IsActive
-                }).ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetMusicTypes()
-        {
-            var returnValue =
-                this.unitOfWork.Repo<MusicType>().Query()
-                .Where(e => e.IsActive)
-                .Select(n => new
-                {
-                    musicTypeId = n.MusicTypeId,
-                    name = n.Name,
-                    isActive = n.IsActive
-                }).ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetOccasionTypes()
-        {
-            var returnValue =
-                this.unitOfWork.Repo<OccasionType>().Query()
-                .Where(e => e.IsActive)
-                .Select(n => new
-                {
-                    occasionTypeId = n.OccasionTypeId,
-                    name = n.Name,
-                    isActive = n.IsActive
-                }).ToList();
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetExtras()
-        {
-            var returnValue =
-                this.unitOfWork.Repo<Extra>().Query()
-                .Where(e => e.IsActive)
-                .Select(n => new
-                {
-                    extraId = n.ExtraId,
+                    nomId = n.NomId,
                     name = n.Name,
                     isActive = n.IsActive
                 }).ToList();

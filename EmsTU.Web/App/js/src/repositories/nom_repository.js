@@ -27,27 +27,7 @@
                 'offset': offset
             });
             
-            switch (type) {
-                case 'BuildingTypes':
-                    url = 'api/noms/getNomBuildingTypes?' + apiQuery;
-                    break;
-                case 'KitchenTypes':
-                    url = 'api/noms/getNomKitchenTypes?' + apiQuery;
-                    break;
-                case 'MusicTypes':
-                    url = 'api/noms/getNomMusicTypes?' + apiQuery;
-                    break;
-                case 'OccasionTypes':
-                    url = 'api/noms/getNomOccasionTypes?' + apiQuery;
-                    break;
-                case 'PaymentTypes':
-                    url = 'api/noms/getNomPaymentTypes?' + apiQuery;
-                    break;
-                case 'Extras':
-                    url = 'api/noms/getNomExtras?' + apiQuery;
-                    break;
-                default:
-            }
+            url = 'api/noms/getPopNoms?' + apiQuery;
 
             return self.get(url);
         }

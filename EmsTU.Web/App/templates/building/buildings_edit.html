@@ -302,13 +302,13 @@
               </div>
             </div>
 
-            <!--<div class="span5" style="margin-bottom: 5px;">
-              <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: $parent._array1, idProperty: 'buildingTypeId' }">
-                <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'buildingTypeId', chosenOptions: { placeholder_text_multiple: 'asd' } }"></select>
-                <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+            <div class="span5" style="margin-bottom: 5px;">
+              <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: $parent._isInsidePTIds, idProperty: 'nomId' }">
+                <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { placeholder_text_multiple: 'asd' } }"></select>
+                 <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
               </div>
             </div>
-            <div class="dropdown-container span5">
+           <!-- <div class="dropdown-container span5">
                 <select style="width: 356px;" data-bind="chosen: { options: $parent._yesNoOptions, value: $parent._isActive, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
             </div>-->
 

@@ -31,43 +31,15 @@ namespace EmsTU.Web
 
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/noms/getNomBuildingTypes",
-                defaults: new { controller = "Nom", action = "GetNomBuildingTypes", type = "", name = "", limit = "", offset = "" },
+                routeTemplate: "api/noms/getPopNoms",
+                defaults: new { controller = "Nom", action = "GetPopNoms", type = "", name = "", limit = "", offset = "" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/noms/getNomKitchenTypes",
-                defaults: new { controller = "Nom", action = "GetNomKitchenTypes", type = "", name = "", limit = "", offset = "" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/getNomMusicTypes",
-                defaults: new { controller = "Nom", action = "GetMusicTypes", type = "", name = "", limit = "", offset = "" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/getNomOccasionTypes",
-                defaults: new { controller = "Nom", action = "GetNomOccasionTypes", type = "", name = "", limit = "", offset = "" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/getNomPaymentTypes",
-                defaults: new { controller = "Nom", action = "GetNomPaymentTypes", type = "", name = "", limit = "", offset = "" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/getNomExtras",
-                defaults: new { controller = "Nom", action = "GetNomExtras", type = "", name = "", limit = "", offset = "" },
+                routeTemplate: "api/noms/noms",
+                defaults: new { controller = "Nom", action = "GetNoms", type = "" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 
@@ -77,37 +49,6 @@ namespace EmsTU.Web
                 name: null,
                 routeTemplate: "api/noms/buildings",
                 defaults: new { controller = "Nom", action = "GetBuildings", name = "", limit = "", offset = "" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/buildingTypes",
-                defaults: new { controller = "Nom", action = "GetBuildingTypes" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/kitchenTypes",
-                defaults: new { controller = "Nom", action = "GetKitchenTypes" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/musicTypes",
-                defaults: new { controller = "Nom", action = "GetMusicTypes" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/occasionTypes",
-                defaults: new { controller = "Nom", action = "GetOccasionTypes" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-            );
-            config.Routes.MapHttpRoute(
-                name: null,
-                routeTemplate: "api/noms/extras",
-                defaults: new { controller = "Nom", action = "GetExtras" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 

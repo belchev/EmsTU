@@ -33,23 +33,15 @@ GO
 --Users
 :r "Create\Tables\Roles.sql"
 :r "Create\Tables\Users.sql"
---:r "Create\Tables\UserRoles.sql"
 
 --
 :r "Create\Tables\Buildings.sql"
 :r "Create\Tables\BuildingUsers.sql"
-:r "Create\Tables\BuildingTypes.sql"
-:r "Create\Tables\Extras.sql"
-:r "Create\Tables\KitchenTypes.sql"
-:r "Create\Tables\MusicTypes.sql"
-:r "Create\Tables\OccasionTypes.sql"
-:r "Create\Tables\PaymentTypes.sql"
-:r "Create\Tables\BuildingBuildingTypes.sql"
-:r "Create\Tables\BuildingExtras.sql"
-:r "Create\Tables\BuildingKitchenTypes.sql"
-:r "Create\Tables\BuildingMusicTypes.sql"
-:r "Create\Tables\BuildingOccasionTypes.sql"
-:r "Create\Tables\BuildingPaymentTypes.sql"
+
+:r "Create\Tables\NomTypes.sql"
+:r "Create\Tables\Noms.sql"
+:r "Create\Tables\BuildingNoms.sql"
+
 :r "Create\Tables\Visitors.sql"
 :r "Create\Tables\Ratings.sql"
 :r "Create\Tables\Offers.sql"

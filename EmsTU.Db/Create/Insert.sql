@@ -20,11 +20,8 @@ GO
 :r "Insert\Tables\Roles.sql"
 :r "Insert\Tables\Users.sql"
 
-:r "Insert\Tables\BuildingTypes.sql"
-:r "Insert\Tables\Extras.sql"
-:r "Insert\Tables\KitchenTypes.sql"
-:r "Insert\Tables\MusicTypes.sql"
-:r "Insert\Tables\OccasionTypes.sql"
+:r "Insert\Tables\NomTypes.sql"
+:r "Insert\Tables\Noms.sql"
 
 :r "Insert\Tables\ConfigFinalize.sql"
 

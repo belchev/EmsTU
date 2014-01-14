@@ -51,12 +51,7 @@ namespace EmsTU.Web.Controllers
 
                     var oldBuilding = this.unitOfWork.Repo<Building>().
                         Find(id,
-                            u => u.BuildingTypes,
-                            u => u.KitchenTypes,
-                            u => u.MusicTypes,
-                            u => u.PaymentTypes,
-                            u => u.Extras,
-                            u => u.OccasionTypes
+                            u => u.Noms.Select( e=> e.NomType)
                         );
 
                     if (oldBuilding == null)
@@ -91,77 +86,77 @@ namespace EmsTU.Web.Controllers
 
                     bool newType;
                     bool oldType;
-                    foreach (var buildingType in this.unitOfWork.Repo<BuildingType>().Query())
+                    foreach (var buildingType in this.unitOfWork.Repo<Nom>().Query().Where(e => e.NomType.Alias == "BuildingTypes"))
                     {
-                        newType = building.BuildingTypes.Any(e => e.NomId == buildingType.BuildingTypeId && !e.IsDeleted);
-                        oldType = oldBuilding.BuildingTypes.Any(e => e.BuildingTypeId == buildingType.BuildingTypeId);
+                        newType = building.BuildingTypes.Any(e => e.NomId == buildingType.NomId && !e.IsDeleted);
+                        oldType = oldBuilding.Noms.Any(e => e.NomId == buildingType.NomId);
 
                         if (newType && !oldType)
-                            oldBuilding.BuildingTypes.Add(this.unitOfWork.Repo<BuildingType>().Find(buildingType.BuildingTypeId));
+                            oldBuilding.Noms.Add(this.unitOfWork.Repo<Nom>().Find(buildingType.NomId));
 
                         if (!newType && oldType)
-                            oldBuilding.BuildingTypes.Remove(this.unitOfWork.Repo<BuildingType>().Find(buildingType.BuildingTypeId));
+                            oldBuilding.Noms.Remove(this.unitOfWork.Repo<Nom>().Find(buildingType.NomId));
                     }
 
-                    foreach (var kitchenType in this.unitOfWork.Repo<KitchenType>().Query())
-                    {
-                        newType = building.KitchenTypes.Any(e => e.NomId == kitchenType.KitchenTypeId && !e.IsDeleted);
-                        oldType = oldBuilding.KitchenTypes.Any(e => e.KitchenTypeId == kitchenType.KitchenTypeId);
+                    //foreach (var kitchenType in this.unitOfWork.Repo<KitchenType>().Query())
+                    //{
+                    //    newType = building.KitchenTypes.Any(e => e.NomId == kitchenType.KitchenTypeId && !e.IsDeleted);
+                    //    oldType = oldBuilding.KitchenTypes.Any(e => e.KitchenTypeId == kitchenType.KitchenTypeId);
 
-                        if (newType && !oldType)
-                            oldBuilding.KitchenTypes.Add(this.unitOfWork.Repo<KitchenType>().Find(kitchenType.KitchenTypeId));
+                    //    if (newType && !oldType)
+                    //        oldBuilding.KitchenTypes.Add(this.unitOfWork.Repo<KitchenType>().Find(kitchenType.KitchenTypeId));
 
-                        if (!newType && oldType)
-                            oldBuilding.KitchenTypes.Remove(this.unitOfWork.Repo<KitchenType>().Find(kitchenType.KitchenTypeId));
-                    }
+                    //    if (!newType && oldType)
+                    //        oldBuilding.KitchenTypes.Remove(this.unitOfWork.Repo<KitchenType>().Find(kitchenType.KitchenTypeId));
+                    //}
 
-                    foreach (var musicType in this.unitOfWork.Repo<MusicType>().Query())
-                    {
-                        newType = building.MusicTypes.Any(e => e.NomId == musicType.MusicTypeId && !e.IsDeleted);
-                        oldType = oldBuilding.MusicTypes.Any(e => e.MusicTypeId == musicType.MusicTypeId);
+                    //foreach (var musicType in this.unitOfWork.Repo<MusicType>().Query())
+                    //{
+                    //    newType = building.MusicTypes.Any(e => e.NomId == musicType.MusicTypeId && !e.IsDeleted);
+                    //    oldType = oldBuilding.MusicTypes.Any(e => e.MusicTypeId == musicType.MusicTypeId);
 
-                        if (newType && !oldType)
-                            oldBuilding.MusicTypes.Add(this.unitOfWork.Repo<MusicType>().Find(musicType.MusicTypeId));
+                    //    if (newType && !oldType)
+                    //        oldBuilding.MusicTypes.Add(this.unitOfWork.Repo<MusicType>().Find(musicType.MusicTypeId));
 
-                        if (!newType && oldType)
-                            oldBuilding.MusicTypes.Remove(this.unitOfWork.Repo<MusicType>().Find(musicType.MusicTypeId));
-                    }
+                    //    if (!newType && oldType)
+                    //        oldBuilding.MusicTypes.Remove(this.unitOfWork.Repo<MusicType>().Find(musicType.MusicTypeId));
+                    //}
 
-                    foreach (var occasionType in this.unitOfWork.Repo<OccasionType>().Query())
-                    {
-                        newType = building.OccasionTypes.Any(e => e.NomId == occasionType.OccasionTypeId && !e.IsDeleted);
-                        oldType = oldBuilding.OccasionTypes.Any(e => e.OccasionTypeId == occasionType.OccasionTypeId);
+                    //foreach (var occasionType in this.unitOfWork.Repo<OccasionType>().Query())
+                    //{
+                    //    newType = building.OccasionTypes.Any(e => e.NomId == occasionType.OccasionTypeId && !e.IsDeleted);
+                    //    oldType = oldBuilding.OccasionTypes.Any(e => e.OccasionTypeId == occasionType.OccasionTypeId);
 
-                        if (newType && !oldType)
-                            oldBuilding.OccasionTypes.Add(this.unitOfWork.Repo<OccasionType>().Find(occasionType.OccasionTypeId));
+                    //    if (newType && !oldType)
+                    //        oldBuilding.OccasionTypes.Add(this.unitOfWork.Repo<OccasionType>().Find(occasionType.OccasionTypeId));
 
-                        if (!newType && oldType)
-                            oldBuilding.OccasionTypes.Remove(this.unitOfWork.Repo<OccasionType>().Find(occasionType.OccasionTypeId));
-                    }
+                    //    if (!newType && oldType)
+                    //        oldBuilding.OccasionTypes.Remove(this.unitOfWork.Repo<OccasionType>().Find(occasionType.OccasionTypeId));
+                    //}
 
-                    foreach (var paymentType in this.unitOfWork.Repo<PaymentType>().Query())
-                    {
-                        newType = building.PaymentTypes.Any(e => e.NomId == paymentType.PaymentTypeId && !e.IsDeleted);
-                        oldType = oldBuilding.PaymentTypes.Any(e => e.PaymentTypeId == paymentType.PaymentTypeId);
+                    //foreach (var paymentType in this.unitOfWork.Repo<PaymentType>().Query())
+                    //{
+                    //    newType = building.PaymentTypes.Any(e => e.NomId == paymentType.PaymentTypeId && !e.IsDeleted);
+                    //    oldType = oldBuilding.PaymentTypes.Any(e => e.PaymentTypeId == paymentType.PaymentTypeId);
 
-                        if (newType && !oldType)
-                            oldBuilding.PaymentTypes.Add(this.unitOfWork.Repo<PaymentType>().Find(paymentType.PaymentTypeId));
+                    //    if (newType && !oldType)
+                    //        oldBuilding.PaymentTypes.Add(this.unitOfWork.Repo<PaymentType>().Find(paymentType.PaymentTypeId));
 
-                        if (!newType && oldType)
-                            oldBuilding.PaymentTypes.Remove(this.unitOfWork.Repo<PaymentType>().Find(paymentType.PaymentTypeId));
-                    }
+                    //    if (!newType && oldType)
+                    //        oldBuilding.PaymentTypes.Remove(this.unitOfWork.Repo<PaymentType>().Find(paymentType.PaymentTypeId));
+                    //}
 
-                    foreach (var extra in this.unitOfWork.Repo<Extra>().Query())
-                    {
-                        newType = building.Extras.Any(e => e.NomId == extra.ExtraId && !e.IsDeleted);
-                        oldType = oldBuilding.Extras.Any(e => e.ExtraId == extra.ExtraId);
+                    //foreach (var extra in this.unitOfWork.Repo<Extra>().Query())
+                    //{
+                    //    newType = building.Extras.Any(e => e.NomId == extra.ExtraId && !e.IsDeleted);
+                    //    oldType = oldBuilding.Extras.Any(e => e.ExtraId == extra.ExtraId);
 
-                        if (newType && !oldType)
-                            oldBuilding.Extras.Add(this.unitOfWork.Repo<Extra>().Find(extra.ExtraId));
+                    //    if (newType && !oldType)
+                    //        oldBuilding.Extras.Add(this.unitOfWork.Repo<Extra>().Find(extra.ExtraId));
 
-                        if (!newType && oldType)
-                            oldBuilding.Extras.Remove(this.unitOfWork.Repo<Extra>().Find(extra.ExtraId));
-                    }
+                    //    if (!newType && oldType)
+                    //        oldBuilding.Extras.Remove(this.unitOfWork.Repo<Extra>().Find(extra.ExtraId));
+                    //}
 
 
 
@@ -202,12 +197,13 @@ namespace EmsTU.Web.Controllers
             var query = this.unitOfWork.Repo<Building>()
                 .Find(id,
                     d => d.Settlement,
-                    d => d.BuildingTypes,
-                    d => d.KitchenTypes,
-                    d => d.MusicTypes,
-                    d => d.OccasionTypes,
-                    d => d.PaymentTypes,
-                    d => d.Extras
+                    d => d.Noms.Select(e => e.NomType)
+                    //d => d.BuildingTypes,
+                    //d => d.KitchenTypes,
+                    //d => d.MusicTypes,
+                    //d => d.OccasionTypes,
+                    //d => d.PaymentTypes,
+                    //d => d.Extras
                 );
 
             if (query == null)
@@ -320,27 +316,27 @@ namespace EmsTU.Web.Controllers
 
             if (buildingTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.BuildingTypes.Any(e => e.BuildingTypeId == buildingTypeId.Value));
+                predicate = predicate.And(d => d.Noms.Any(e => e.NomId == buildingTypeId.Value));
             }
 
             if (kitchenTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.KitchenTypes.Any(e => e.KitchenTypeId == kitchenTypeId.Value));
+                predicate = predicate.And(d => d.Noms.Any(e => e.NomId == kitchenTypeId.Value));
             }
 
             if (musicTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.MusicTypes.Any(e => e.MusicTypeId == musicTypeId.Value));
+                predicate = predicate.And(d => d.Noms.Any(e => e.NomId == musicTypeId.Value));
             }
 
             if (occasionTypeId.HasValue)
             {
-                predicate = predicate.And(d => d.OccasionTypes.Any(e => e.OccasionTypeId == occasionTypeId.Value));
+                predicate = predicate.And(d => d.Noms.Any(e => e.NomId == occasionTypeId.Value));
             }
 
             if (extraId.HasValue)
             {
-                predicate = predicate.And(d => d.Extras.Any(e => e.ExtraId == extraId.Value));
+                predicate = predicate.And(d => d.Noms.Any(e => e.NomId == extraId.Value));
             }
 
             var query = this.unitOfWork.Repo<Building>().Query();
@@ -359,7 +355,7 @@ namespace EmsTU.Web.Controllers
                .Include(e => e.Municipality)
                .Include(e => e.Settlement)
                .Include(e => e.Users)
-               .Include(e => e.BuildingTypes)
+               .Include(e => e.Noms.Select(k => k.NomType))
                .ToList()
                .Select(e => new BuildingsListItemDO(e))
                .ToList();
