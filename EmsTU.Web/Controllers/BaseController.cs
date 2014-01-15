@@ -1,12 +1,14 @@
-﻿using EmsTU.Common.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+
+using EmsTU.Common.Data;
 using EmsTU.Model.Infrastructure;
 using EmsTU.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
 
 namespace EmsTU.Web.Controllers
 {
@@ -17,6 +19,7 @@ namespace EmsTU.Web.Controllers
     {
         protected IUnitOfWork unitOfWork;
         protected IUserContextProvider userContextProvider;
+        protected UserContext userContext;
 
         /// <summary>
         /// Конструктор
@@ -27,6 +30,7 @@ namespace EmsTU.Web.Controllers
         {
             this.unitOfWork = unitOfWork;
             this.userContextProvider = userContextProvider;
+            this.userContext = userContextProvider.GetCurrentUserContext();
         }
 
         private User _systemUser;
@@ -47,6 +51,15 @@ namespace EmsTU.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Метод, който проверява дали текущият потребител е администратор
+        /// </summary>
+        /// <param name="u">Идентификатор на потребител</param>
+        /// <returns></returns>
+        protected bool HasAdminRights()
+        {
+            return this.userContext.Permissions.Contains("sys#admin");
+        }
 
     }
 }

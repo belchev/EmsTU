@@ -17,23 +17,23 @@ using System.Text.RegularExpressions;
 
 namespace EmsTU.Web.Controllers
 {
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
-        private IUnitOfWork unitOfWork;
-        private UserContext userContext;
         private Regex usernameRegex = new Regex(@"^[\w\.]{5,}$", RegexOptions.Singleline);
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="unitOfWork">Базов интерфейс за достъп до базата данни</param>
+        /// <param name="userContextProvider">Интерфейс за достъп до потребителските данни</param>
         public UserController(IUnitOfWork unitOfWork, IUserContextProvider userContextProvider)
+            : base(unitOfWork, userContextProvider)
         {
-            this.unitOfWork = unitOfWork;
-            this.userContext = userContextProvider.GetCurrentUserContext();
         }
 
         [HttpGet]
         public HttpResponseMessage GetRoles(string name)
         {
-            //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
-
             var roles = this.unitOfWork.Repo<Role>().FindByName(name);
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, roles);
@@ -42,7 +42,10 @@ namespace EmsTU.Web.Controllers
         [HttpGet]
         public HttpResponseMessage GetUsers(string username, string fullname, bool exact, bool? showActive)
         {
-            //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
 
             var returnValue =
                 this.unitOfWork.Repo<User>()
@@ -54,16 +57,10 @@ namespace EmsTU.Web.Controllers
         [HttpGet]
         public HttpResponseMessage GetUser(int userId)
         {
-            //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
-
-            List<Building> b = this.unitOfWork.Repo<Building>().Query()
-                .Include(e => e.Users)
-                .ToList();
-
-            List<User> ba = this.unitOfWork.Repo<User>().Query()
-                .Include(e => e.Buildings)
-                .ToList();
-
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
 
             User user = this.unitOfWork.Repo<User>().Find(userId, u => u.Buildings);
             if (user != null)
@@ -80,8 +77,6 @@ namespace EmsTU.Web.Controllers
         [HttpPut]
         public HttpResponseMessage PutUser(int userId, UserDO user)
         {
-            //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
-
             if (!string.IsNullOrEmpty(user.Password) && user.Password.Length < 8)
             {
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.BadRequest, "'Password' should be at least 8 characters long.");
@@ -129,6 +124,11 @@ namespace EmsTU.Web.Controllers
         [HttpPost]
         public HttpResponseMessage PostUser(UserDO user, int? buildingRqId)
         {
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
             if (string.IsNullOrWhiteSpace(user.Username) ||
                 !this.usernameRegex.IsMatch(user.Username))
             {

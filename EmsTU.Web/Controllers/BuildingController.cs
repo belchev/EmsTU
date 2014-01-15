@@ -19,15 +19,16 @@ using System.Transactions;
 
 namespace EmsTU.Web.Controllers
 {
-    public class BuildingController : ApiController
+    public class BuildingController : BaseController
     {
-        private IUnitOfWork unitOfWork;
-        private UserContext userContext;
-
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="unitOfWork">Базов интерфейс за достъп до базата данни</param>
+        /// <param name="userContextProvider">Интерфейс за достъп до потребителските данни</param>
         public BuildingController(IUnitOfWork unitOfWork, IUserContextProvider userContextProvider)
+            : base(unitOfWork, userContextProvider)
         {
-            this.unitOfWork = unitOfWork;
-            this.userContext = userContextProvider.GetCurrentUserContext();
         }
 
         [HttpGet]
@@ -39,15 +40,7 @@ namespace EmsTU.Web.Controllers
             int offset
             )
         {
-            User user = unitOfWork.Repo<User>()
-               .Query()
-               .Include(e => e.Role)
-               .Include(e => e.Buildings)
-               .SingleOrDefault(e => e.UserId == this.userContext.UserId);
-
-            bool isAdmin = this.userContext.Permissions.Contains("sys#admin");
-
-            if (!isAdmin)
+            if (!HasAdminRights())
             {
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
             }
@@ -300,15 +293,14 @@ namespace EmsTU.Web.Controllers
         [HttpGet]
         public HttpResponseMessage GetBuilding(int id)
         {
+            bool isAdmin = HasAdminRights();
             User user = unitOfWork.Repo<User>()
                .Query()
                .Include(e => e.Role)
                .Include(e => e.Buildings)
                .SingleOrDefault(e => e.UserId == this.userContext.UserId);
 
-            bool isAdmin = this.userContext.Permissions.Contains("sys#admin");
-
-            if (!user.Buildings.Any(e => e.BuildingId == id && !e.IsDeleted) && !isAdmin)
+            if (!user.Buildings.Any(e => e.BuildingId == id && !e.IsDeleted) && !HasAdminRights())
             {
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
             }
@@ -325,7 +317,7 @@ namespace EmsTU.Web.Controllers
                 return ControllerContext.Request.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            var returnValue = new BuildingDO(query, isAdmin);
+            var returnValue = new BuildingDO(query, HasAdminRights());
 
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
         }
@@ -337,12 +329,10 @@ namespace EmsTU.Web.Controllers
         [HttpGet]
         public HttpResponseMessage GetNewBuilding()
         {
-            User user = unitOfWork.Repo<User>()
-               .Query()
-               .Include(e => e.Role)
-               .SingleOrDefault(e => e.UserId == this.userContext.UserId);
-
-            //todo has permissions to get new building
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
 
             var returnValue = new NewBuildingDO();
 
