@@ -35,7 +35,7 @@
     'use strict';
 
     var NewBuildingVM = Corium.Class.extend({
-        constructor: function (newBuilding) {
+        constructor: function (newBuilding, details) {
             var self = this;
 
             self.templateId = 'templates:building:buildings_new.html';
@@ -51,6 +51,7 @@
             self._saveButtonClicked = ko.observable(false);
 
             self._settlementId = ko.observable();
+            self._buildingRqId = ko.observable();
 
             self._contactPhone = ko.observable();
             self._contactPhoneError = undefined;
@@ -108,6 +109,14 @@
 
             self._buildingRepository = new BuildingRepository();
             self._addBuildingValidationExtenders();
+
+
+            if (details) {
+                self._buildingRqId(details.buildingRequestId());
+                self._name(details.buildingName());
+                self._building().webSite(details.webSite());
+                self._building().contactName(details.contactName());
+            }
         },
         _addBuildingValidationExtenders: function () {
             var self = this;
@@ -161,8 +170,13 @@
 
                     building.settlementId(self._settlementId());
 
-                    self._buildingRepository.save(ko_mapping.toJS(building)).then(function () {
-                        Corium.navigation.navigateAction('building#search');
+                    self._buildingRepository.save(ko_mapping.toJS(building), self._buildingRqId()).then(function (bRq) {
+                        if (bRq.bRq) {
+                            Corium.navigation.navigateAction('building#requests');
+                        }
+                        else {
+                            Corium.navigation.navigateAction('building#search');
+                        }
                     });
                 }
             }

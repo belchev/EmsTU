@@ -1,0 +1,101 @@
+﻿<div class="container page-container">
+  <h4>Заявки за регистрация на заведение</h4>
+
+  <form class="well">
+    <div class="row">
+      <div class="span4">
+        <label class="control-label">Заведение:</label>
+      </div>
+      <div class="span4">
+        <label class="control-label">Лице за контакт:</label>
+      </div>
+      <div class="span4">
+        <label class="control-label">Потребител:</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4">
+        <input type="text" class="span4" data-bind="value: _buildingName " />
+      </div>
+      <div class="span4">
+        <input type="text" class="span4" data-bind="value: _contactName " />
+      </div>
+      <div class="span4">
+        <input type="text" class="span4" data-bind="value: _userName " />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="pull-right">
+        <button type="button" class="btn" data-bind="click: reset">Изчисти</button>
+        <button type="submit" class="btn" data-bind="click: search"><i class="icon-search"></i>Търси</button>
+      </div>
+    </div>
+  </form>
+
+  <div data-bind="if: _resultCount > 0">
+    <br />
+    <div class="alert alert-info" data-bind="visible: _msgString(), html: _msgString">
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Заведение</th>
+          <th>Лице за контакт</th>
+          <th>Потребител</th>
+          <th>Телефон</th>
+          <th>Email</th>
+          <th>Уеб сайт</th>
+          <th style="text-align: center;">Регистрирани</th>
+          <th style="width: 150px; text-align: center;">Регистрирай</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: _buildingRequests">
+        <tr>
+          <td data-bind="text: buildingName"></td>
+          <td data-bind="text: contactName"></td>
+          <td data-bind="text: userName"></td>
+          <td data-bind="text: phone"></td>
+          <td data-bind="text: email"></td>
+          <td data-bind="text: webSite"></td>
+          <td>
+            <span data-bind="if: hasRegisteredUser() && !hasRegisteredBuilding()" class="text-warning">Потребител</span>
+            <span data-bind="if: hasRegisteredUser() && hasRegisteredBuilding()" class="text-success">Потребител и заведение</span>
+            <span data-bind="if: hasRegisteredBuilding() && !hasRegisteredUser() " class="text-warning">Заведение</span>
+            <span data-bind="if: !hasRegisteredUser() && !hasRegisteredBuilding()" class="text-error">Нерегистрирани</span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-mini btn-info" data-bind="click: $parent._newBuilding, enable: !hasRegisteredBuilding()">
+              Заведение
+            </button>
+            <button type="button" class="btn btn-mini btn-info" data-bind="click: $parent._newUser, enable: !hasRegisteredUser()">
+              Потребител
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination pagination-centered" data-bind="if: _pager.isPaged">
+      <ul>
+        <li data-bind="css: { 'disabled': _pager.noPrevPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.firstPage)" style="cursor: pointer"><<</a>
+        </li>
+        <li data-bind="css: { 'disabled': _pager.noPrevPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.prevPage)" style="cursor: pointer"><</a>
+        </li>
+        <!-- ko foreach: { data: _pager.pages, as: 'page' } -->
+        <li data-bind="css: { 'active': page.isCurrentPage }">
+          <a data-bind="text: page.pageNumber, click: $parent.goToPage.bind($parent, $data.pageNumber)" style="cursor: pointer"></a>
+        </li>
+        <!-- /ko -->
+        <li data-bind="css: { 'disabled': _pager.noNextPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.nextPage)" style="cursor: pointer">></a>
+        </li>
+        <li data-bind="css: { 'disabled': _pager.noNextPage }">
+          <a data-bind="click: goToPage.bind($data, _pager.lastPage)" style="cursor: pointer">>></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

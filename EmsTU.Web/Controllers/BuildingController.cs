@@ -30,6 +30,73 @@ namespace EmsTU.Web.Controllers
             this.userContext = userContextProvider.GetCurrentUserContext();
         }
 
+        [HttpGet]
+        public HttpResponseMessage GetBuildingRequests(
+            string buildingName, 
+            string contactName, 
+            string userName,
+            int limit,
+            int offset
+            )
+        {
+            User user = unitOfWork.Repo<User>()
+               .Query()
+               .Include(e => e.Role)
+               .Include(e => e.Buildings)
+               .SingleOrDefault(e => e.UserId == this.userContext.UserId);
+
+            bool isAdmin = this.userContext.Permissions.Contains("sys#admin");
+
+            if (!isAdmin)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            int totalCounts;
+            var predicate = PredicateBuilder.True<BuildingRequest>();
+
+            if (!String.IsNullOrWhiteSpace(buildingName))
+            {
+                predicate = predicate.And(d => d.BuildingName.Contains(buildingName.Trim()));
+            }
+            if (!String.IsNullOrWhiteSpace(contactName))
+            {
+                predicate = predicate.And(d => d.ContactName.Contains(contactName.Trim()));
+            }
+            if (!String.IsNullOrWhiteSpace(userName))
+            {
+                predicate = predicate.And(d => d.UserName.Contains(userName.Trim()));
+            }
+
+            var query = this.unitOfWork.Repo<BuildingRequest>().Query();
+
+            query = query
+                .Where(predicate)
+                .OrderByDescending(e => e.BuildingRequestId)
+                .Take(10000);
+
+            totalCounts = query.Count();
+
+            List<BuildingRequest> returnValue = query
+                .Skip(offset)
+                .Take(limit)
+                .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            if (totalCounts >= 10000)
+            {
+                sb.Append("Има повече от 10000 резултата, моля, въведете допълнителни филтри.");
+            }
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                buildingRequests = returnValue,
+                buildingRequestsCount = totalCounts,
+                msg = sb.ToString(),
+            });
+        }
+
         /// <summary>
         /// Генерира нова меню категория
         /// </summary>
@@ -283,7 +350,7 @@ namespace EmsTU.Web.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage PostBuilding(NewBuildingDO building)
+        public HttpResponseMessage PostBuilding(NewBuildingDO building, int? buildingRqId)
         {
             try
             {
@@ -314,12 +381,26 @@ namespace EmsTU.Web.Controllers
                     newBuilding.ModifyDate = DateTime.Now;
                     newBuilding.ModifyUserId = this.userContext.UserId;
 
+                    newBuilding.MenuCategories.Add(new MenuCategory { Name = "Предястия", IsActive = true });
+                    newBuilding.MenuCategories.Add(new MenuCategory { Name = "Основни ястия", IsActive = true });
+                    newBuilding.MenuCategories.Add(new MenuCategory { Name = "Десерти", IsActive = true });
+
                     this.unitOfWork.Repo<Building>().Add(newBuilding);
+
+                    if (buildingRqId.HasValue)
+                    {
+                        BuildingRequest buildingRequest = this.unitOfWork.Repo<BuildingRequest>().Find(buildingRqId.Value);
+
+                        if (buildingRequest != null)
+                        {
+                            buildingRequest.HasRegisteredBuilding = true;
+                        }
+                    }
 
                     this.unitOfWork.Save();
                     transactionScope.Complete();
 
-                    return ControllerContext.Request.CreateResponse(HttpStatusCode.OK);
+                    return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { bRq = buildingRqId });
                 }
             }
             catch (Exception ex)

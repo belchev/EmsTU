@@ -55,8 +55,9 @@
 
             return self.post(url, passwords);
         },
-        save: function (user) {
+        save: function (user, buildingRqId) {
             var self = this,
+                rqId = parseInt(buildingRqId, 10),
                 id = user.userId,
                 url,
                 promise;
@@ -65,7 +66,7 @@
                 url = 'api/users/' + id;
                 promise = self.put(url, user);
             } else {
-                url = 'api/users';
+                url = 'api/users/' + rqId;
                 promise = self.post(url, user);
             }
 

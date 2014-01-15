@@ -14,8 +14,7 @@
     //src
     'src/validation_utils',
     'src/repositories/building_repository',
-    'src/view_models/upload_file_vm',
-    'src/view_models/building/nom_pop_list_vm'
+    'src/view_models/upload_file_vm'
 ], function (
     $,
     ko,
@@ -25,8 +24,7 @@
     Corium,
     ValidationUtils,
     BuildingRepository,
-    UploadFileVM,
-    NomPopListVM
+    UploadFileVM
     ) {
     'use strict';
 

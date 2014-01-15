@@ -9,6 +9,8 @@ CREATE TABLE [dbo].[BuildingRequests](
 	[Phone] [nvarchar](50) NULL,
 	[Email] [nvarchar](100) NULL,
 	[WebSite] [nvarchar](50) NULL,
+	[HasRegisteredUser] [bit],
+	[HasRegisteredBuilding] [bit],
 	[Version] [timestamp] NULL,
  CONSTRAINT [PK_BuildingRequests] PRIMARY KEY CLUSTERED 
 (

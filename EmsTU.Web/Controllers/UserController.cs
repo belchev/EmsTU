@@ -127,10 +127,8 @@ namespace EmsTU.Web.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage PostUser(UserDO user)
+        public HttpResponseMessage PostUser(UserDO user, int? buildingRqId)
         {
-            //this.userContext.AssertPermissions(PermissionKey.CanAdministrateSystem);
-
             if (string.IsNullOrWhiteSpace(user.Username) ||
                 !this.usernameRegex.IsMatch(user.Username))
             {
@@ -161,9 +159,19 @@ namespace EmsTU.Web.Controllers
 
             this.unitOfWork.Repo<User>().Add(newUser);
 
+            if (buildingRqId.HasValue)
+            {
+                BuildingRequest buildingRequest = this.unitOfWork.Repo<BuildingRequest>().Find(buildingRqId.Value);
+                
+                if (buildingRequest != null)
+                {
+                    buildingRequest.HasRegisteredUser = true;
+                }
+            }
+
             this.unitOfWork.Save();
 
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK);
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { bRq = buildingRqId });
         }
 
         [HttpPost]

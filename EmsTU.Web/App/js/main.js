@@ -385,7 +385,7 @@ define([
             {
                 text: 'Заведения',
                 action: 'building#search',
-                icon: 'icon-file',
+                icon: 'icon-tasks',
                 aliases: [
                     'building#search',
                     'building#edit'
@@ -399,7 +399,14 @@ define([
                 aliases: [
                     'building#newBuilding'
                 ]
-                //execute: true
+            }, {
+                text: 'Чакащи заявки',
+                action: 'building#requests',
+                icon: 'icon-time',
+                permissions: ['sys#admin'],
+                aliases: [
+                    'building#requests'
+                ]
             }, {
                 text: 'Администриране',
                 icon: 'icon-wrench',
@@ -496,6 +503,11 @@ define([
             }, {
                 pattern: 'h',
                 action: 'building#home'
+            },
+            //buildingRqs
+            {
+                pattern: 'rq/:?query:',
+                action: 'building#requests'
             }
             ]
         },

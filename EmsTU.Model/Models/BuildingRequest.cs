@@ -13,6 +13,8 @@ namespace EmsTU.Model.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string WebSite { get; set; }
+        public bool HasRegisteredUser { get; set; }
+        public bool HasRegisteredBuilding { get; set; }
         public byte[] Version { get; set; }
     }
 
@@ -56,7 +58,10 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Phone).HasColumnName("Phone");
             this.Property(t => t.Email).HasColumnName("Email");
             this.Property(t => t.WebSite).HasColumnName("WebSite");
+            this.Property(t => t.HasRegisteredUser).HasColumnName("HasRegisteredUser");
+            this.Property(t => t.HasRegisteredBuilding).HasColumnName("HasRegisteredBuilding");
             this.Property(t => t.Version).HasColumnName("Version");
+
         }
     }
 }

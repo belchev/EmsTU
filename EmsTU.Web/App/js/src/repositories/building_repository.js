@@ -10,6 +10,28 @@
     var BuildingRepository = Corium.Repository.extend({
         constructor: function () {
         },
+        getBuildingRqs: function (
+            buildingName,
+            contactName,
+            userName,
+            limit,
+            offset
+            ) {
+            var self = this,
+               apiQuery,
+               urlQuery;
+
+            apiQuery = Utils.Uri.createQuery({
+                'buildingName': buildingName,
+                'contactName': contactName,
+                'userName': userName,
+                'limit': limit,
+                'offset': offset
+            });
+
+            urlQuery = 'api/buildings/requests?' + apiQuery;
+            return self.get(urlQuery);
+        },
         newMenuCategory: function(id) {
             var self = this,
                   buildingId = parseInt(id, 10),
@@ -24,16 +46,18 @@
 
             return self.get(url);
         },
-        save: function (buildingData) {
+        save: function (buildingData, buildingRqId) {
             var self = this,
-                url,
-                id = buildingData.buildingId;
+                rqId = parseInt(buildingRqId, 10),
+                id = buildingData.buildingId,
+                url;
+                
 
             if (id) {
                 url = 'api/buildings/' + id;
                 return self.put(url, buildingData);
             } else {
-                url = 'api/buildings/';
+                url = 'api/buildings/' + rqId;
                 return self.post(url, buildingData);
             }
         },

@@ -16,10 +16,17 @@
     'use strict';
 
     var EditUserVM = Corium.Class.extend({
-        constructor: function (user) {
+        constructor: function (user, details) {
             var self = this;
 
             self.templateId = 'templates:edit_user.html';
+            self._addBuilding = self._addBuilding.bind(self);
+            self._editBuildings = self._editBuildings.bind(self);
+            self._getBuildings = self._getBuildings.bind(self);
+            self._removeBuilding = self._removeBuilding.bind(self);
+            self.save = self.save.bind(self);
+            self.cancel = self.cancel.bind(self);
+
             self._isEdit = !!user;
             self._user = undefined;
 
@@ -31,11 +38,9 @@
             self._secondPassword = ko.observable();
             self._secondPasswordError = undefined;
             self._secondPasswordChanged = ko.observable(false);
-
             self._email = ko.observable();
             self._emailError = undefined;
             self._emailChanged = ko.observable(false);
-
             self._username = ko.observable();
             self._usernameError = undefined;
             self._usernameExistsError = ko.observable(false);
@@ -43,12 +48,8 @@
 
             self._saveButtonClicked = ko.observable(false);
 
-            //self._checkedRoles = undefined;
-
             self._roleId = ko.observable();
-
-            self.save = self.save.bind(self);
-            self.cancel = self.cancel.bind(self);
+            self._buildingRqId = ko.observable();
 
             self._showErrors = ko.observable(false);
 
@@ -74,14 +75,18 @@
                     isActive: false,
                     role: undefined
                 };
+
+                if (details) {
+                    self._buildingRqId(details.buildingRequestId());
+                    self._user.username = details.userName();
+                    self._user.fullname = details.contactName();
+                    self._user.email = details.email();
+                    self._roleId(2); //todo get with alias
+                    self._user.isActive = true;
+                }
             }
 
             self._setPassword = ko.observable(self._user.hasPassword);
-
-            //self._checkedRoles = ko.observableArray(self._user.roles.map(function (value) {
-            //    return value.roleId.toString();
-            //}));
-
             self._username(self._user.username);
             self._email(self._user.email);
 
@@ -89,15 +94,12 @@
                 self._usernameChanged(true);
                 self._usernameExistsError(false);
             });
-
             self._password.subscribe(function () {
                 self._passwordChanged(true);
             });
-
             self._secondPassword.subscribe(function () {
                 self._secondPasswordChanged(true);
             });
-
             self._email.subscribe(function () {
                 self._emailChanged(true);
             });
@@ -113,7 +115,6 @@
                     return false;
                 }
             });
-
             self._usernameError = ko.computed(function () {
                 var username = self._username();
 
@@ -124,7 +125,6 @@
                     return false;
                 }
             });
-
             self._passwordError = ko.computed(function () {
                 var password = self._password() || '',
                     shouldValidatePassword = self._setPassword() &&
@@ -138,7 +138,6 @@
                     return false;
                 }
             });
-
             self._secondPasswordError = ko.computed(function () {
                 var password = self._password() || '',
                     secondPass = self._secondPassword() || '';
@@ -153,17 +152,12 @@
             });
 
             self._addUserValidationExtenders();
-
-            self._addBuilding = self._addBuilding.bind(self);
-            self._editBuildings = self._editBuildings.bind(self);
-            self._getBuildings = self._getBuildings.bind(self);
-            self._removeBuilding = self._removeBuilding.bind(self);
         },
         _addBuilding: function () {
             var self = this,
                 building = {
                     buildingId: 1,
-                    name: '12',
+                    name: '',
                     isSelected: true,
                     isNew: true,
                     isDeleted: false
@@ -269,8 +263,13 @@
                         self._user.buildings = ko_mapping.toJS(self._buildings);
                         self._user.roleId = self._roleId();
 
-                        userRepository.save(self._user).then(function () {
-                            Corium.navigation.navigateAction('user#search');
+                        userRepository.save(self._user, self._buildingRqId()).then(function (bRq) {
+                            if (bRq.bRq) {
+                                Corium.navigation.navigateAction('building#requests');
+                            }
+                            else {
+                                Corium.navigation.navigateAction('user#search');
+                            }
                         });
                     }
                 });

@@ -58,8 +58,8 @@ define([
         },
         newUser: {
             dependencies: ['app#root'],
-            action: function () {
-                Corium.app.rootView().pageView(new EditUserVM());
+            action: function (params) {
+                Corium.app.rootView().pageView(new EditUserVM(undefined, params.details));
             }
         }
     });

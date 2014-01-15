@@ -225,9 +225,10 @@
     <Content Include="App\js\src\validation_extenders.js" />
     <Content Include="App\js\src\validation_utils.js" />
     <Content Include="App\js\src\view_models\building\buildings_pop_list_vm.js" />
-    <Content Include="App\js\src\view_models\building\buildings_list_vm.js" />
+    <Content Include="App\js\src\view_models\building\buildings_requests_vm.js" />
     <Content Include="App\js\src\view_models\building\buildings_new_vm.js" />
     <Content Include="App\js\src\view_models\building\buildings_edit_vm.js" />
+    <Content Include="App\js\src\view_models\building\buildings_list_vm.js" />
     <Content Include="App\js\src\view_models\building\nom_pop_list_vm.js" />
     <Content Include="App\js\src\view_models\upload_file_vm.js" />
     <Content Include="App\js\src\view_models\user_change_password_vm.js" />
@@ -240,6 +241,7 @@
     <Content Include="App\templates\building\buildings_pop_list.html" />
     <Content Include="App\templates\building\buildings_new.html" />
     <Content Include="App\templates\building\buildings_edit.html" />
+    <Content Include="App\templates\building\buildings_requests_list.html" />
     <Content Include="App\templates\building\nom_pop_list.html" />
     <Content Include="App\templates\upload_file.html" />
     <Content Include="App\templates\user_change_pass.html" />

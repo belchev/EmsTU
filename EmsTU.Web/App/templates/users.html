@@ -1,74 +1,74 @@
 ﻿<div class="container page-container">
-    <h4>Потребители</h4>
+  <h4>Потребители</h4>
 
-    <form class="well form-inline">
-        <div class="row">
-            <div class="span3">
-                <label class="control-label">Потребителско име</label>  
-            </div>
+  <form class="well form-inline">
+    <div class="row">
+      <div class="span3">
+        <label class="control-label">Потребителско име</label>
+      </div>
 
-            <div class="span4">
-                <label class="control-label">Име</label>
-            </div>
-        </div>
+      <div class="span4">
+        <label class="control-label">Име</label>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="span3">
-                <input type="text" class="span3" data-bind="value: _username" />
-            </div>
-            <div class="span4">
-                <input type="text" class="input-xlarge" data-bind="value: _fullname" />
-            </div>
-            <div  class="span2">
-                  <select style="width:auto;" data-bind="options:['', 'true', 'false'], 
-                   optionsText: function(item) {
-                    if (item == 'true')
-                       return 'Само активни'
-                    else if (item == 'false')
-                       return 'Само неактивни'
-                    else
-                       return ''
-                   },
-                   value: _showActive"></select>
-            </div>
-            <div class="pull-right">
-                <button type="button" class="btn" data-bind="click: search"><i class="icon-search"></i>&nbsp;Търси</button>
-                <button type="button" class="btn" data-bind="click: newUser"><i class="icon-user"></i>&nbsp;Нов потребител</button>
-            </div>
-        </div>
-    </form>
+    <div class="row">
+      <div class="span3">
+        <input type="text" class="span3" data-bind="value: _username" />
+      </div>
+      <div class="span4">
+        <input type="text" class="input-xlarge" data-bind="value: _fullname" />
+      </div>
+      <div class="span2">
+        <select style="width: auto;" data-bind="options: ['', 'true', 'false'],
+  optionsText: function (item) {
+    if (item == 'true')
+      return 'Само активни'
+    else if (item == 'false')
+      return 'Само неактивни'
+    else
+      return ''
+  },
+  value: _showActive">
+        </select>
+      </div>
+      <div class="pull-right">
+        <button type="button" class="btn" data-bind="click: search"><i class="icon-search"></i>&nbsp;Търси</button>
+        <button type="button" class="btn" data-bind="click: newUser"><i class="icon-user"></i>&nbsp;Нов потребител</button>
+      </div>
+    </div>
+  </form>
 
-    <table class="table table-bordered table-striped" data-bind="visible: _hasUsers">
-        <thead>
-            <tr>
-                <th>Потребителско име</th>
-                <th>Име</th>
-                <th>Роля</th>
-                <th>Активен</th>
-                <th style="width:1px"></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: _users">
-            <tr>
-                <td data-bind="text: username"></td>
-                <td data-bind="text: fullname"></td>
-                <td data-bind="text: role"></td>
-                <!-- ko if: isActive -->
-                <td>Да</td>
-                <!-- /ko -->
-                 <!-- ko if: !isActive -->
-                <td>Не</td>
-                <!-- /ko -->
-                <td>
-                    <button type="button" class="btn btn-mini btn-info" data-bind="click: $parent.editUser">
-                        Редакция
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table table-bordered table-striped" data-bind="visible: _hasUsers">
+    <thead>
+      <tr>
+        <th>Потребителско име</th>
+        <th>Име</th>
+        <th>Роля</th>
+        <th>Активен</th>
+        <th style="width: 1px"></th>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: _users">
+      <tr>
+        <td data-bind="text: username"></td>
+        <td data-bind="text: fullname"></td>
+        <td data-bind="text: role"></td>
+        <!-- ko if: isActive -->
+        <td>Да</td>
+        <!-- /ko -->
+        <!-- ko if: !isActive -->
+        <td>Не</td>
+        <!-- /ko -->
+        <td>
+          <button type="button" class="btn btn-mini btn-info" data-bind="click: $parent.editUser">
+            Редакция
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    <span data-bind="visible: !_hasUsers()">
-        Няма намерени потребители
-    </span>
+  <span data-bind="visible: !_hasUsers()">Няма намерени потребители
+  </span>
 </div>

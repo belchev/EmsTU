@@ -100,7 +100,7 @@ namespace EmsTU.Web
             );
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/users",
+                routeTemplate: "api/users/{buildingRqId}",
                 defaults: new { controller = "user", action = "PostUser" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) }
             );
@@ -143,6 +143,13 @@ namespace EmsTU.Web
 
             config.Routes.MapHttpRoute(
                name: null,
+               routeTemplate: "api/buildings/requests",
+               defaults: new { controller = "Building", action = "GetBuildingRequests", buildingName = "", contactName = "", userName = "", limit = "", offset = "" },
+               constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+
+            config.Routes.MapHttpRoute(
+               name: null,
                routeTemplate: "api/buildings/{id}",
                defaults: new { controller = "Building", action = "GetBuilding" },
                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
@@ -157,7 +164,7 @@ namespace EmsTU.Web
 
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/buildings",
+                routeTemplate: "api/buildings/{buildingRqId}",
                 defaults: new { controller = "Building", action = "PostBuilding" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) }
             );

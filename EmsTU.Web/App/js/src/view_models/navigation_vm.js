@@ -17,7 +17,7 @@
 
             function mapItems(items) {
                 return items
-                    .filter(function (item) {  //bim or dkh or anything else
+                    .filter(function (item) {
                         if (item.visible === false) {
                             return false;
                         }
