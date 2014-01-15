@@ -274,11 +274,79 @@
 
           </div>
           <div class="tab-pane" id="buildingMenu" data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
-            <div style="width: 520px; float: left;">
+            <div data-bind="with: $parent._currMenuCat" style="width: 550px; float: left;">
               <div>
-                <h3 style="line-height: 16px;">Предястия</h3>
-                <hr style="margin-right: 30px;" />
+                <h3 style="line-height: 16px;" data-bind="text: name"></h3>
+                <hr />
               </div>
+
+              <!-- ko if: $parents[1]._inMenuEditMode() -->
+              <div data-bind="with: $parents[1]._currMenu">
+                <div class="row">
+                  <div class="span4">Име:</div>
+                  <div class="span2" style="width: 100px;">Грамаж:</div>
+                  <div class="span2" style="width: 100px;">Цена:</div>
+                </div>
+                <div class="row">
+                  <div class="span4">
+                    <input type="text" class="input-xlarge" data-bind="value: name">
+                  </div>
+                  <div class="span1 input-append" style="width: 100px;">
+                    <input type="text" class="input-mini" data-bind="intValue: size"><span class="add-on">гр.</span>
+                  </div>
+                  <div class="span1 input-append" style="width: 100px;">
+                    <input type="text" class="input-mini" data-bind="decimalValue: price"><span class="add-on">лв.</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span4">Състав:</div>
+                  <div class="span2">Снимка:</div>
+                </div>
+                <div class="row">
+                  <div class="span4">
+                    <textarea rows="3" class="input-xlarge span4" data-bind="value: info"></textarea>
+                  </div>
+                  <div class="span2"></div>
+                </div>
+                <button class="btn" data-bind="click: $parents[2]._exitMenuEditMode"><i class="icon-ok"></i>&nbsp; Запази</button>
+              </div>
+              <!-- /ko-->
+
+              <!-- ko if: !$parents[1]._inMenuEditMode() -->
+              <table class="table table-list">
+                <tbody data-bind="foreach: menus">
+                  <tr data-bind="css: { 'del': isDeleted() }">
+                    <td style="width: 55px; text-align: center;"></td>
+                    <td>
+                      <b><span data-bind="text: name"></span></b><br />
+                      <i><span data-bind="text: info"></span></i>
+
+                    </td>
+                    <td style="vertical-align: bottom; width: 100px;"><i><span data-bind="text: size"></span> гр .. <span data-bind="  text: price"></span> лв</i></td>
+                    <td style="text-align: right;">
+                      <!-- ko if: !isDeleted() -->
+                        <button class="btn btn-mini" data-bind="click: $parents[2]._deleteMenuItem, enable: $parents[2]._inEditMode()"><i class="icon-remove"></i></button>
+                      <!-- /ko-->
+                       <!-- ko if: isDeleted() -->
+                        <button class="btn btn-mini" data-bind="click: $parents[2]._unDeleteMenuCat, enable: $parents[2]._inEditMode()"><i class="icon-plus"></i></button>
+                      <!-- /ko-->
+                      <br />
+                      <button class="btn btn-mini" data-bind="click: $parents[2]._enterMenuEditMode, enable: $parents[2]._inEditMode()"><i class="icon-edit"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody style="border-top: 1px solid #dddddd;">
+                  <tr>
+                    <td colspan="4" style="text-align: right; border: 0px;">
+                      <button class="btn btn-mini" data-bind="click: $parents[1]._addMenuItem, enable: $parents[1]._inEditMode()"><i class="icon-plus"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+
+              <!-- /ko-->
+
 
             </div>
 
@@ -291,24 +359,24 @@
               <div class="menu-cat">
                 <div data-bind="foreach: menuCategories">
                   <!-- ko if: !$parents[1]._inEditMode() -->
-                  <a data-bind="">
+                  <a data-bind="click: $parents[1]._loadSingleMenuCat" style="cursor: pointer;">
                     <h4 data-bind="text: name"></h4>
                   </a>
                   <!-- /ko-->
 
                   <!-- ko if: $parents[1]._inEditMode() -->
-                    <div data-bind="if: !isDeleted()">
-                      <div class="input-append" style="margin-bottom: 1px;">
-                        <input type="text" class="input-large" data-bind="value: name">
-                        <button class="btn" data-bind="click: $parents[1]._deleteMenuCat"><i class="icon-minus-sign"></i></button>
-                      </div>
+                  <div data-bind="if: !isDeleted()">
+                    <div class="input-append" style="margin-bottom: 1px;">
+                      <input type="text" class="input-large" data-bind="value: name">
+                      <button class="btn" data-bind="click: $parents[1]._deleteMenuCat"><i class="icon-remove"></i></button>
                     </div>
-                    <div data-bind="if: isDeleted()">
-                      <div class="input-append" style="margin-bottom: 1px;">
-                        <input type="text" class="input-large" data-bind="value: name" style="background-color: indianred;">
-                        <button class="btn" data-bind="click: $parents[1]._unDeleteMenuCat"><i class="icon-plus-sign"></i></button>
-                      </div>
+                  </div>
+                  <div data-bind="if: isDeleted()">
+                    <div class="input-append" style="margin-bottom: 1px;">
+                      <input type="text" class="input-large" data-bind="value: name" style="background-color: indianred;">
+                      <button class="btn" data-bind="click: $parents[1]._unDeleteMenuCat"><i class="icon-plus"></i></button>
                     </div>
+                  </div>
                   <!-- /ko-->
 
                 </div>

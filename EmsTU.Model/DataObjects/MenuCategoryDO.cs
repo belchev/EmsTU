@@ -24,7 +24,6 @@ namespace EmsTU.Model.DataObjects
                     this.Menus.AddRange(mc.Menus.Select(e => new MenuDO(e)));
                 }
 
-
                 this.MenuCategoryId = mc.MenuCategoryId;
                 this.BuildingId = mc.BuildingId;
                 this.Name = mc.Name;
@@ -36,7 +35,6 @@ namespace EmsTU.Model.DataObjects
         }
 
         public List<MenuDO> Menus { get; set; }
-
         public int MenuCategoryId { get; set; }
         public int BuildingId { get; set; }
         public string Name { get; set; }

@@ -4,7 +4,7 @@ GO
 CREATE TABLE [dbo].[Buildings](
 	[BuildingId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](200) NOT NULL,
-	[ImagePath] [nvarchar](50) NULL,
+	[ImagePath] [nvarchar](100) NULL,
 	[Slogan] [nvarchar](50) NULL,
 	[WebSite] [nvarchar](100) NULL,
 	[ModifyUserId] [int] NULL,

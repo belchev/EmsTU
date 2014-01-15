@@ -32,13 +32,6 @@
             urlQuery = 'api/buildings/requests?' + apiQuery;
             return self.get(urlQuery);
         },
-        newMenuCategory: function(id) {
-            var self = this,
-                  buildingId = parseInt(id, 10),
-                  url = 'api/buildings/' + buildingId + '/menuCategory/new';
-
-            return self.get(url);
-        },
         getBuilding: function (id) {
             var self = this,
                 buildingId = parseInt(id, 10),

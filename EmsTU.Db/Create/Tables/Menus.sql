@@ -8,14 +8,14 @@ CREATE TABLE [dbo].[Menus](
 	[Info] [nvarchar](200) NULL,
 	[Size] [int] NULL,
 	[Price] [decimal](15, 3) NULL,
-	[Image] [image] NULL,
+	[ImagePath] [nvarchar](100) NULL,
 	[IsActive] [bit] NOT NULL,
 	[Version] [timestamp] NOT NULL,
  CONSTRAINT [PK_Menus] PRIMARY KEY CLUSTERED 
 (
 	[MenuId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]
 
 GO
 

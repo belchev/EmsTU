@@ -91,27 +91,6 @@ namespace EmsTU.Web.Controllers
         }
 
         /// <summary>
-        /// Генерира нова меню категория
-        /// </summary>
-        /// <param name="id">Идентификатор на заведение</param>
-        /// <returns></returns>
-        [HttpGet]
-        public HttpResponseMessage GetNewMenuCategory(int id)
-        {
-            var building = this.unitOfWork.Repo<Building>().Find(id);
-
-            var returnValue = new MenuCategoryDO
-            {
-                BuildingId = building.BuildingId,
-                Name = "",
-                IsActive = true,
-                IsNew = true
-            };
-
-            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
-        }
-
-        /// <summary>
         /// Редакция на заведение
         /// </summary>
         /// <param name="id">Идентификатор на заведение</param>
@@ -261,6 +240,36 @@ namespace EmsTU.Web.Controllers
                         {
                             var oldMenuCat = oldBuilding.MenuCategories.FirstOrDefault(e => e.MenuCategoryId == mc.MenuCategoryId);
                             oldMenuCat.Name = mc.Name;
+                            foreach (var menu in mc.Menus)
+                            {
+                                if (!menu.IsNew && menu.IsDeleted)
+                                {
+                                    Menu m = this.unitOfWork.Repo<Menu>().Find(menu.MenuId);
+                                    this.unitOfWork.Repo<Menu>().Remove(m); 
+                                }
+                                else if (!menu.IsNew && !menu.IsDeleted)
+                                {
+                                    var oldMenu = oldMenuCat.Menus.FirstOrDefault(e => e.MenuId == menu.MenuId);
+                                    oldMenu.Name = menu.Name;
+                                    oldMenu.Info = menu.Info;
+                                    oldMenu.Price = menu.Price;
+                                    oldMenu.ImagePath = menu.ImagePath;
+                                    oldMenu.Size = menu.Size;
+                                }
+                                else
+                                {
+                                    Menu m = new Menu();
+                                    m.MenuCategoryId = menu.MenuCategoryId;
+                                    m.Name = menu.Name;
+                                    m.Info = menu.Info;
+                                    m.Price = menu.Price;
+                                    m.ImagePath = menu.ImagePath;
+                                    m.Size = menu.Size;
+                                    m.IsActive = true;
+
+                                    this.unitOfWork.Repo<Menu>().Add(m);
+                                }
+                            }
                         }
                         else
                         {

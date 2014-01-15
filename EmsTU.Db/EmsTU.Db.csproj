@@ -50,9 +50,9 @@
   <ItemGroup>
     <None Include="CreateAll.bat" />
     <None Include="CreateAll.log">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>CreateAll.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </None>
     <None Include="CreateAll.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

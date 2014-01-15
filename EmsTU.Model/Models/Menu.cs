@@ -12,7 +12,7 @@ namespace EmsTU.Model.Models
         public string Info { get; set; }
         public Nullable<int> Size { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public byte[] Image { get; set; }
+        public string ImagePath { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
         public virtual MenuCategory MenuCategory { get; set; }
@@ -33,6 +33,9 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Info)
                 .HasMaxLength(200);
 
+            this.Property(t => t.ImagePath)
+                .HasMaxLength(100);
+
             this.Property(t => t.Version)
                 .IsRequired()
                 .IsFixedLength()
@@ -47,7 +50,7 @@ namespace EmsTU.Model.Models
             this.Property(t => t.Info).HasColumnName("Info");
             this.Property(t => t.Size).HasColumnName("Size");
             this.Property(t => t.Price).HasColumnName("Price");
-            this.Property(t => t.Image).HasColumnName("Image");
+            this.Property(t => t.ImagePath).HasColumnName("ImagePath");
             this.Property(t => t.IsActive).HasColumnName("IsActive");
             this.Property(t => t.Version).HasColumnName("Version");
 

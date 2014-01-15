@@ -4,6 +4,7 @@
     'knockout',
     'knockout.mapping',
     'q',
+    'lodash',
 
     //*globals
     'document',
@@ -20,6 +21,7 @@
     ko,
     ko_mapping,
     Q,
+    _,
     document,
     Corium,
     ValidationUtils,
@@ -43,19 +45,32 @@
             self._addMenuCat = self._addMenuCat.bind(self);
             self._deleteMenuCat = self._deleteMenuCat.bind(self);
             self._unDeleteMenuCat = self._unDeleteMenuCat.bind(self);
+            self._loadSingleMenuCat = self._loadSingleMenuCat.bind(self);
+
+            self._enterMenuEditMode = self._enterMenuEditMode.bind(self);
+            self._exitMenuEditMode = self._exitMenuEditMode.bind(self);
+            self._deleteMenuItem = self._deleteMenuItem.bind(self);
+            self._addMenuItem = self._addMenuItem.bind(self);
+            //self._unDeleteMenuItem = self._unDeleteMenuItem.bind(self);
+
             self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingMenu'));
 
             self._buildingRepository = new BuildingRepository();
 
             self._inEditMode = ko.observable(inEditMode);
+            self._inMenuEditMode = ko.observable(false);
             self._isInDialog = ko.observable(false);
             self._showErrors = ko.observable(false);
             self._saveButtonClicked = ko.observable(false);
             self._isActive = ko.observable(building.isActive ? '1' : '2');
             self._isDeleted = ko.observable(building.isDeleted ? '1' : '2');
 
+            self._currMenu = ko.observable();
+            self._currMenuCat = ko.observable();
             self._building = ko.observable();
             self._setBuilding(building);
+
+
 
             self._nameError = undefined;
             self._nameChanged = ko.observable(false);
@@ -107,12 +122,64 @@
                 { name: 'Не', value: '2' }
             ]);
 
-            
+
 
 
             if (inEditMode) {
                 self._enterEditMode();
             }
+        },
+        _addMenuItem: function () {
+            var self = this,
+                menu = {
+                    menuCategoryId: self._currMenuCat().menuCategoryId(),
+                    name: '',
+                    info: '',
+                    size: '',
+                    price: '',
+                    isActive: true,
+                    isDeleted: false,
+                    isEdited: false,
+                    isNew: true
+                };
+
+            self._enterMenuEditMode(ko_mapping.fromJS(menu));
+        },
+        _deleteMenuItem: function (target) {
+            var self = this,
+                idx;
+
+            if (target.isNew() === true) {
+                idx = self._currMenuCat().menus.indexOf(target);
+
+                if (idx > -1) {
+                    self._currMenuCat().menus.splice(idx, 1);
+                }
+            }
+            else {
+                target.isDeleted(true);
+            }
+        },
+        _exitMenuEditMode: function (target) {
+            var self = this;
+
+            if (target.isNew()) {
+                self._currMenuCat().menus.push(target);
+            }
+
+            self._inMenuEditMode(false);
+        },
+        _enterMenuEditMode: function (target) {
+            var self = this;
+
+            self._currMenu(target);
+
+            self._inMenuEditMode(true);
+        },
+        _loadSingleMenuCat: function (target) {
+            var self = this;
+
+            self._currMenuCat(target);
         },
         _unDeleteMenuCat: function (target) {
             target.isDeleted(false);
@@ -132,12 +199,19 @@
                 target.isDeleted(true);
             }
         },
-        _addMenuCat: function() {
-            var self = this;
+        _addMenuCat: function () {
+            var self = this,
+                menuCategory = {
+                    buildingId: self._building().buildingId(),
+                    name: '',
+                    isActive: true,
+                    isDeleted: false,
+                    isEdited: false,
+                    isNew: true,
+                    menus: []
+                };
 
-            self._buildingRepository.newMenuCategory(self._building().buildingId()).then(function (menuCategory) {
-                self._building().menuCategories.push(ko_mapping.fromJS(menuCategory));
-            });
+            self._building().menuCategories.push(ko_mapping.fromJS(menuCategory));
         },
         _chooseFile: function () {
             var self = this,
@@ -180,6 +254,8 @@
             building = ko_mapping.fromJS(building);
             self._addBuildingValidationExtenders(building);
             self._building(building);
+
+            self._currMenuCat = ko.observable(_.first(self._building().menuCategories())); //todo when have 0 ?
         },
         _addBuildingValidationExtenders: function (building) {
             var self = this;

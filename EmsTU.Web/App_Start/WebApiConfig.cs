@@ -128,13 +128,6 @@ namespace EmsTU.Web
             #region Buildings
 
             config.Routes.MapHttpRoute(
-              name: null,
-              routeTemplate: "api/buildings/{id}/menuCategory/new",
-              defaults: new { controller = "Building", action = "GetNewMenuCategory" },
-              constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
-           );
-
-            config.Routes.MapHttpRoute(
                 name: null,
                 routeTemplate: "api/buildings/newBuilding",
                 defaults: new { controller = "Building", action = "GetNewBuilding" },

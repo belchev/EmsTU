@@ -19,9 +19,9 @@ namespace EmsTU.Model.DataObjects
                 this.Info = m.Info;
                 this.Size = m.Size;
                 this.Price = m.Price;
-                //this.ImagePath = m.ImagePath;
-
+                this.ImagePath = m.ImagePath;
                 this.IsActive = m.IsActive;
+                this.IsDeleted = false;
 
                 this.Version = m.Version;
             }
@@ -36,6 +36,11 @@ namespace EmsTU.Model.DataObjects
         public string ImagePath { get; set; }
 
         public bool IsActive { get; set; }
+
+        //
+        public bool IsNew { get; set; }
+        public bool IsEdited { get; set; }
+        public bool IsDeleted { get; set; }
 
         public byte[] Version { get; set; }
     }
