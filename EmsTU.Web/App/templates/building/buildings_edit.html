@@ -249,12 +249,12 @@
                 </div>
               </div>
               <div class="span5">
-                <div data-bind="visible: hasLogo()" style="float: left; margin-right: 5px;">
+                <div data-bind="visible: hasImage()" style="float: left; margin-right: 5px;">
                   <img data-bind="attr: { src: imagePath() }">
                 </div>
                 <div style="float: left;">
-                  <button class="btn" data-bind="click: $parent._deleteFile, visible: hasLogo(), enable: $parent._inEditMode()"><i class="icon-remove"></i>&nbsp; изтрий</button>
-                  <button class="btn" data-bind="visible: !hasLogo(), enable: $parent._inEditMode(), click: $parent._chooseFile"><i class="icon-plus"></i>&nbsp; добави</button>
+                  <button class="btn" data-bind="click: $parent._deleteBuildingImage, visible: hasImage(), enable: $parent._inEditMode()"><i class="icon-remove"></i>&nbsp; Изтрий</button>
+                  <button class="btn" data-bind="visible: !hasImage(), enable: $parent._inEditMode(), click: $parent._buildingImage"><i class="icon-plus"></i>&nbsp; Добави</button>
                 </div>
               </div>
             </div>
@@ -300,13 +300,23 @@
                 </div>
                 <div class="row">
                   <div class="span4">Състав:</div>
-                  <div class="span2">Снимка:</div>
+                  <div class="span3">Снимка:</div>
                 </div>
                 <div class="row">
                   <div class="span4">
                     <textarea rows="3" class="input-xlarge span4" data-bind="value: info"></textarea>
                   </div>
-                  <div class="span2"></div>
+                  <div class="span3">
+
+                    <div data-bind="visible: hasImage()" style="float: left; margin-right: 5px;">
+                      <img data-bind="attr: { src: imagePath() }">
+                    </div>
+                    <div style="float: left;">
+                      <button class="btn" data-bind="click: $parents[2]._deleteMenuItemImage, visible: hasImage()"><i class="icon-remove"></i>&nbsp; Изтрий</button>
+                      <button class="btn" data-bind="visible: !hasImage(), click: $parents[2]._menuItemImage"><i class="icon-plus"></i>&nbsp; Добави</button>
+                    </div>
+
+                  </div>
                 </div>
                 <button class="btn" data-bind="click: $parents[2]._exitMenuEditMode"><i class="icon-ok"></i>&nbsp; Запази</button>
               </div>
@@ -316,19 +326,22 @@
               <table class="table table-list">
                 <tbody data-bind="foreach: menus">
                   <tr data-bind="css: { 'del': isDeleted() }">
-                    <td style="width: 55px; text-align: center;"></td>
+                    <td style="width: 55px; text-align: center;">
+                      <img data-bind="attr: { src: imagePath }">
+                    </td>
                     <td>
-                      <b><span data-bind="text: name"></span></b><br />
+                      <b><span data-bind="text: name"></span></b>
+                      <br />
                       <i><span data-bind="text: info"></span></i>
 
                     </td>
-                    <td style="vertical-align: bottom; width: 100px;"><i><span data-bind="text: size"></span> гр .. <span data-bind="  text: price"></span> лв</i></td>
+                    <td style="vertical-align: bottom; width: 100px;"><i><span data-bind="text: size"></span>гр .. <span data-bind="  text: price"></span>лв</i></td>
                     <td style="text-align: right;">
                       <!-- ko if: !isDeleted() -->
-                        <button class="btn btn-mini" data-bind="click: $parents[2]._deleteMenuItem, enable: $parents[2]._inEditMode()"><i class="icon-remove"></i></button>
+                      <button class="btn btn-mini" data-bind="click: $parents[2]._deleteMenuItem, enable: $parents[2]._inEditMode()"><i class="icon-remove"></i></button>
                       <!-- /ko-->
-                       <!-- ko if: isDeleted() -->
-                        <button class="btn btn-mini" data-bind="click: $parents[2]._unDeleteMenuCat, enable: $parents[2]._inEditMode()"><i class="icon-plus"></i></button>
+                      <!-- ko if: isDeleted() -->
+                      <button class="btn btn-mini" data-bind="click: $parents[2]._unDelete, enable: $parents[2]._inEditMode()"><i class="icon-plus"></i></button>
                       <!-- /ko-->
                       <br />
                       <button class="btn btn-mini" data-bind="click: $parents[2]._enterMenuEditMode, enable: $parents[2]._inEditMode()"><i class="icon-edit"></i></button>
@@ -374,7 +387,7 @@
                   <div data-bind="if: isDeleted()">
                     <div class="input-append" style="margin-bottom: 1px;">
                       <input type="text" class="input-large" data-bind="value: name" style="background-color: indianred;">
-                      <button class="btn" data-bind="click: $parents[1]._unDeleteMenuCat"><i class="icon-plus"></i></button>
+                      <button class="btn" data-bind="click: $parents[1]._unDelete"><i class="icon-plus"></i></button>
                     </div>
                   </div>
                   <!-- /ko-->
@@ -383,7 +396,7 @@
                 <br />
 
 
-                <button class="btn" data-bind="click: $parent._addMenuCat, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; добави категория</button>
+                <button class="btn" data-bind="click: $parent._addMenuCat, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; Добави категория</button>
               </div>
 
 

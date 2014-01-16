@@ -61,7 +61,7 @@ namespace EmsTU.Model.DataObjects
                     this.MusicTypes.AddRange(b.Noms.Where(e => e.NomType.Alias == "MusicTypes").Select(e => e.NomId));
                 }
 
-                this.HasLogo = b.ImagePath == "app\\img\\nopic.jpg" ? false : true;
+                this.HasImage = b.ImagePath == "app\\img\\nopic.jpg" ? false : true;
                 this.BuildingId = b.BuildingId;
                 this.Name = b.Name;
                 this.ImagePath = b.ImagePath;
@@ -115,7 +115,7 @@ namespace EmsTU.Model.DataObjects
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public bool HasLogo { get; set; }
+        public bool HasImage { get; set; }
         public string ErrorString { get; set; }
 
         public byte[] Version { get; set; }

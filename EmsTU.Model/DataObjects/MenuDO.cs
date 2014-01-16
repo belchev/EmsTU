@@ -21,6 +21,7 @@ namespace EmsTU.Model.DataObjects
                 this.Price = m.Price;
                 this.ImagePath = m.ImagePath;
                 this.IsActive = m.IsActive;
+                this.HasImage = m.ImagePath == "app\\img\\nopicsmall.jpg" ? false : true;
                 this.IsDeleted = false;
 
                 this.Version = m.Version;
@@ -41,6 +42,7 @@ namespace EmsTU.Model.DataObjects
         public bool IsNew { get; set; }
         public bool IsEdited { get; set; }
         public bool IsDeleted { get; set; }
+        public bool HasImage { get; set; }
 
         public byte[] Version { get; set; }
     }

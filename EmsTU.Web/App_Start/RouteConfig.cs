@@ -20,8 +20,8 @@ namespace EmsTU.Web
 
             routes.MapRoute(
                name: null,
-               url: "file",
-               defaults: new { controller = "File", action = "Index" });
+               url: "file/{type}",
+               defaults: new { controller = "File", action = "Index", type = UrlParameter.Optional });
 
             routes.MapRoute(
                name: null,

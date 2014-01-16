@@ -23,14 +23,14 @@
 
     <div class="row" data-bind="visible: !imagePath()">
       <div class="span5">
-        <button class="btn" data-bind="visible: !imagePath(), click: $parent._chooseFile">Добави лого</button>
+        <button class="btn" data-bind="visible: !imagePath(), click: $parent._buildingImage">Добави лого</button>
       </div>
     </div>
 
     <div class="row" data-bind="visible: imagePath()">
       <div class="span5">
         <img data-bind="attr: { src: imagePath() }" style="margin-bottom: 10px;"><br />
-        <button class="btn" data-bind="click: $parent._deleteFile"><i class="icon-remove"></i>&nbsp; изтрий</button>
+        <button class="btn" data-bind="click: $parent._deleteBuildingImage"><i class="icon-remove"></i>&nbsp; изтрий</button>
       </div>
     </div>
 

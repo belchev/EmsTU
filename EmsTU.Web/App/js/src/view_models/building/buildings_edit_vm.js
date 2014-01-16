@@ -40,18 +40,19 @@
             self._cancel = self._cancel.bind(self);
             self._enterEditMode = self._enterEditMode.bind(self);
             self._exitEditMode = self._exitEditMode.bind(self);
-            self._deleteFile = self._deleteFile.bind(self);
-            self._chooseFile = self._chooseFile.bind(self);
+            self._deleteBuildingImage = self._deleteBuildingImage.bind(self);
+            self._deleteMenuItemImage = self._deleteMenuItemImage.bind(self);
+            self._buildingImage = self._buildingImage.bind(self);
             self._addMenuCat = self._addMenuCat.bind(self);
             self._deleteMenuCat = self._deleteMenuCat.bind(self);
-            self._unDeleteMenuCat = self._unDeleteMenuCat.bind(self);
+            self._unDelete = self._unDelete.bind(self);
             self._loadSingleMenuCat = self._loadSingleMenuCat.bind(self);
 
             self._enterMenuEditMode = self._enterMenuEditMode.bind(self);
             self._exitMenuEditMode = self._exitMenuEditMode.bind(self);
             self._deleteMenuItem = self._deleteMenuItem.bind(self);
             self._addMenuItem = self._addMenuItem.bind(self);
-            //self._unDeleteMenuItem = self._unDeleteMenuItem.bind(self);
+            self._menuItemImage = self._menuItemImage.bind(self);
 
             self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingMenu'));
 
@@ -134,6 +135,8 @@
                 menu = {
                     menuCategoryId: self._currMenuCat().menuCategoryId(),
                     name: '',
+                    imagePath: 'app\\img\\nopicsmall.jpg',
+                    hasImage: false,
                     info: '',
                     size: '',
                     price: '',
@@ -163,7 +166,8 @@
         _exitMenuEditMode: function (target) {
             var self = this;
 
-            if (target.isNew()) {
+            if (target.isNew() && !target.isEdited()) {
+                target.isEdited(true);
                 self._currMenuCat().menus.push(target);
             }
 
@@ -181,7 +185,7 @@
 
             self._currMenuCat(target);
         },
-        _unDeleteMenuCat: function (target) {
+        _unDelete: function (target) {
             target.isDeleted(false);
         },
         _deleteMenuCat: function (target) {
@@ -213,7 +217,28 @@
 
             self._building().menuCategories.push(ko_mapping.fromJS(menuCategory));
         },
-        _chooseFile: function () {
+        _menuItemImage: function () {
+            var self = this,
+                uploadFileVM = new UploadFileVM();
+
+            Corium.dialogs.show({
+                header: 'Добавяне на снимка',
+                acceptText: 'Добави',
+                cancelText: 'Отказ',
+                accepting: function (event) {
+                    event.preventDefault();
+                    uploadFileVM.attach('ImageMenuItem').then(function (result) {
+                        if (result) {
+                            self._currMenu().imagePath(result);
+                            self._currMenu().hasImage(true);
+                            Corium.dialogs.hide();
+                        }
+                    });
+                },
+                viewModel: uploadFileVM
+            });
+        },
+        _buildingImage: function () {
             var self = this,
                 building = self._building(),
                 uploadFileVM = new UploadFileVM();
@@ -224,10 +249,10 @@
                 cancelText: 'Отказ',
                 accepting: function (event) {
                     event.preventDefault();
-                    uploadFileVM.attach().then(function (result) {
+                    uploadFileVM.attach('ImageBuilding').then(function (result) {
                         if (result) {
                             building.imagePath(result);
-                            building.hasLogo(true);
+                            building.hasImage(true);
                             Corium.dialogs.hide();
                         }
                     });
@@ -235,11 +260,17 @@
                 viewModel: uploadFileVM
             });
         },
-        _deleteFile: function () {
+        _deleteMenuItemImage: function () {
+            var self = this;
+
+            self._currMenu().imagePath('app\\img\\nopicsmall.jpg');
+            self._currMenu().hasImage(false);
+        },
+        _deleteBuildingImage: function () {
             var self = this;
 
             self._building().imagePath('app\\img\\nopic.jpg');
-            self._building().hasLogo(false);
+            self._building().hasImage(false);
         },
         _innerNavigation: function (tabName) {
             var self = this;

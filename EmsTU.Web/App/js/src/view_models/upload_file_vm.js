@@ -28,7 +28,7 @@
 
             self._fileRepository = new FileRepository();
         },
-        attach: function () {
+        attach: function (type) {
             var self = this,
                 $fileInput = $('#file_input', document),
                 fileName = $fileInput.val(),
@@ -39,7 +39,7 @@
             if (ValidationUtils.isValid(self) && fileName) {
                 promise =
                     self._fileRepository
-                    .upload($fileInput)
+                    .upload($fileInput, type)
                     .then(function (result) {
                         return result;
                     });

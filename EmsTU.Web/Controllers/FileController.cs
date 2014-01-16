@@ -24,31 +24,54 @@ namespace EmsTU.Web.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string type)
         {
             HttpPostedFileBase postedFile = this.Request.Files[0];
             string postedFileName = Path.GetFileName(postedFile.FileName);
             string postedFileExtension = Path.GetExtension(Request.Files[0].FileName);
             byte[] content = new byte[postedFile.InputStream.Length];
 
-            string imageName, path;
+            int x, y;
+            string returnValue, fullPath, shortPath, imageName;
+
+            switch (type)
+            {
+                case "ImageBuilding":
+                    x = 117; 
+                    y = 87;
+                    fullPath = Statics.PathStorage + Statics.PathImageBuilding;
+                    shortPath = Statics.PathImageBuilding;
+                    break;
+                case "ImageMenuItem":
+                    x = 55;
+                    y = 41;
+                    fullPath = Statics.PathStorage + Statics.PathImageThumb;
+                    shortPath = Statics.PathImageThumb;
+                    break;
+                default:
+                    x = 100;
+                    y = 100;
+                    fullPath = Statics.PathStorage + Statics.PathImageThumb;
+                    shortPath = Statics.PathImageThumb;
+                    break;
+            }
 
             using (MemoryStream ms = new MemoryStream(content))
             {
                 postedFile.InputStream.CopyTo(ms);
 
                 var image = Image.FromStream(ms);
-
-                var newImage = ScaleImage(image, 117, 87);
+                var newImage = ScaleImage(image, x, y);
 
                 imageName = GenerateImageName();
 
-                path = Statics.PathStorage + Statics.PathImageBuilding + imageName + ".jpg";
+                fullPath = fullPath + imageName + ".jpg";
 
-                newImage.Save(path, ImageFormat.Jpeg);
+                newImage.Save(fullPath, ImageFormat.Jpeg);
             }
 
-            var returnValue = Statics.PathImageBuilding + imageName + ".jpg";
+            returnValue = shortPath + imageName + ".jpg";
+
 
             return Content(JsonConvert.SerializeObject(returnValue, System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings));
         }

@@ -13,9 +13,9 @@
     var FileRepository = Corium.Repository.extend({
         constructor: function () {
         },
-        upload: function ($fileInput) {
+        upload: function ($fileInput, type) {
             var self = this,
-                url = 'file';
+                url = 'file/' + type;
 
             return self.postFile(url, $fileInput);
         }

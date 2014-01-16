@@ -41,8 +41,8 @@
             self.templateId = 'templates:building:buildings_new.html';
             self._save = self._save.bind(self);
             self._cancel = self._cancel.bind(self);
-            self._chooseFile = self._chooseFile.bind(self);
-            self._deleteFile = self._deleteFile.bind(self);
+            self._buildingImage = self._buildingImage.bind(self);
+            self._deleteBuildingImage = self._deleteBuildingImage.bind(self);
 
             self._building = ko.observable(ko_mapping.fromJS(newBuilding));
 
@@ -126,12 +126,12 @@
         _cancel: function () {
             Corium.navigation.navigateAction('building#search');
         },
-        _deleteFile: function () {
+        _deleteBuildingImage: function () {
             var self = this;
 
             self._building().imagePath(undefined);
         },
-        _chooseFile: function () {
+        _buildingImage: function () {
             var self = this,
                 building = self._building(),
                 uploadFileVM = new UploadFileVM();
@@ -142,7 +142,7 @@
                 cancelText: 'Отказ',
                 accepting: function (event) {
                     event.preventDefault();
-                    uploadFileVM.attach().then(function (result) {
+                    uploadFileVM.attach('ImageBuilding').then(function (result) {
                         if (result) {
                             building.imagePath(result);
                             Corium.dialogs.hide();
