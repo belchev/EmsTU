@@ -268,7 +268,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Storage\buildings\" />
-    <Folder Include="Storage\images\" />
+    <Folder Include="Storage\images\thumbs\" />
     <Folder Include="Storage\thumbs\" />
   </ItemGroup>
   <ItemGroup>

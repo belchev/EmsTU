@@ -31,49 +31,42 @@ namespace EmsTU.Web.Controllers
             string postedFileExtension = Path.GetExtension(Request.Files[0].FileName);
             byte[] content = new byte[postedFile.InputStream.Length];
 
-            int x, y;
-            string returnValue, fullPath, shortPath, imageName;
+            int x = 100, y = 100;
+            string imageName = GenerateImageName();
+
+            string fullImagePath = string.Format("{0}{1}{2}.jpg", Statics.PathStorage, Statics.PathImage, imageName);
+            string fullImageThumbPath = string.Format("{0}{1}{2}.jpg", Statics.PathStorage, Statics.PathImageThumb, imageName);
+            string imagePath = string.Format("{0}{1}.jpg", Statics.PathImage, imageName);
+            string imageThumbPath = string.Format("{0}{1}.jpg", Statics.PathImageThumb, imageName);
 
             switch (type)
             {
                 case "ImageBuilding":
                     x = 117; 
                     y = 87;
-                    fullPath = Statics.PathStorage + Statics.PathImageBuilding;
-                    shortPath = Statics.PathImageBuilding;
                     break;
                 case "ImageMenuItem":
                     x = 55;
                     y = 41;
-                    fullPath = Statics.PathStorage + Statics.PathImageThumb;
-                    shortPath = Statics.PathImageThumb;
                     break;
-                default:
-                    x = 100;
-                    y = 100;
-                    fullPath = Statics.PathStorage + Statics.PathImageThumb;
-                    shortPath = Statics.PathImageThumb;
+                case "AlbumPhoto":
+                    x = 150;
+                    y = 112;
                     break;
             }
 
             using (MemoryStream ms = new MemoryStream(content))
             {
                 postedFile.InputStream.CopyTo(ms);
-
                 var image = Image.FromStream(ms);
+
                 var newImage = ScaleImage(image, x, y);
-
-                imageName = GenerateImageName();
-
-                fullPath = fullPath + imageName + ".jpg";
-
-                newImage.Save(fullPath, ImageFormat.Jpeg);
+                newImage.Save(fullImageThumbPath, ImageFormat.Jpeg);
+                newImage = ScaleImage(image, 500, 500);
+                newImage.Save(fullImagePath, ImageFormat.Jpeg);
             }
 
-            returnValue = shortPath + imageName + ".jpg";
-
-
-            return Content(JsonConvert.SerializeObject(returnValue, System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings));
+            return Content(JsonConvert.SerializeObject(new { imagePath = imagePath, imageThumbPath = imageThumbPath }, System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings));
         }
 
         #region Protected

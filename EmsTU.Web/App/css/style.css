@@ -736,6 +736,15 @@ ul.tree {
     cursor: pointer;
 }
 
+.building-edit-left {
+    width: 550px;
+    float: left;
+}
+
+    .building-edit-left h3 {
+        line-height: 16px;
+    }
+
 .building-edit-right {
     width: 300px;
     float: right;
@@ -772,3 +781,24 @@ ul.tree {
 .del {
     background-color: indianred;
 }
+
+.album-photo {
+    position: relative;
+    float: left;
+    margin: 5px;
+    width: 150px;
+    height: 112px;
+    border: 2px solid #333;
+}
+
+    .album-photo:hover button {
+        display: block;
+    }
+
+    .album-photo button {
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        left: 116px;
+        display: none;
+    }

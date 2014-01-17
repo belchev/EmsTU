@@ -40,6 +40,9 @@
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
           <a data-toggle="tab" data-target="#buildingMenu" data-bind="click: function () { $parent._innerNavigation('buildingMenu'); }">Меню</a>
         </li>
+        <li data-bind="css: { 'active': $parent._currentTab() === 'buildingAlbums' }">
+          <a data-toggle="tab" data-target="#buildingAlbums" data-bind="click: function () { $parent._innerNavigation('buildingAlbums'); }">Снимки</a>
+        </li>
       </ul>
 
       <div class="tabbable">
@@ -254,7 +257,7 @@
                 </div>
                 <div style="float: left;">
                   <button class="btn" data-bind="click: $parent._deleteBuildingImage, visible: hasImage(), enable: $parent._inEditMode()"><i class="icon-remove"></i>&nbsp; Изтрий</button>
-                  <button class="btn" data-bind="visible: !hasImage(), enable: $parent._inEditMode(), click: $parent._buildingImage"><i class="icon-plus"></i>&nbsp; Добави</button>
+                  <button class="btn" data-bind="visible: !hasImage(), enable: $parent._inEditMode(), click: $parent._addBuildingImage"><i class="icon-plus"></i>&nbsp; Добави</button>
                 </div>
               </div>
             </div>
@@ -274,9 +277,9 @@
 
           </div>
           <div class="tab-pane" id="buildingMenu" data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
-            <div data-bind="with: $parent._currMenuCat" style="width: 550px; float: left;">
+            <div class="building-edit-left" data-bind="with: $parent._currMenuCat">
               <div>
-                <h3 style="line-height: 16px;" data-bind="text: name"></h3>
+                <h3 data-bind="text: name"></h3>
                 <hr />
               </div>
 
@@ -313,7 +316,7 @@
                     </div>
                     <div style="float: left;">
                       <button class="btn" data-bind="click: $parents[2]._deleteMenuItemImage, visible: hasImage()"><i class="icon-remove"></i>&nbsp; Изтрий</button>
-                      <button class="btn" data-bind="visible: !hasImage(), click: $parents[2]._menuItemImage"><i class="icon-plus"></i>&nbsp; Добави</button>
+                      <button class="btn" data-bind="visible: !hasImage(), click: $parents[2]._addMenuItemImage"><i class="icon-plus"></i>&nbsp; Добави</button>
                     </div>
 
                   </div>
@@ -359,8 +362,6 @@
               </table>
 
               <!-- /ko-->
-
-
             </div>
 
             <div class="building-edit-right">
@@ -372,7 +373,7 @@
               <div class="menu-cat">
                 <div data-bind="foreach: menuCategories">
                   <!-- ko if: !$parents[1]._inEditMode() -->
-                  <a data-bind="click: $parents[1]._loadSingleMenuCat" style="cursor: pointer;">
+                  <a data-bind="click: function () { $parents[1]._loadSingleCat(this, 'MenuCat') }" style="cursor: pointer;">
                     <h4 data-bind="text: name"></h4>
                   </a>
                   <!-- /ko-->
@@ -393,19 +394,86 @@
                   <!-- /ko-->
 
                 </div>
-                <br />
+                <hr />
 
-
-                <button class="btn" data-bind="click: $parent._addMenuCat, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; Добави категория</button>
+                <div style="text-align: center;">
+                  <button class="btn" data-bind="click: $parent._addMenuCat, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; Добави категория</button>
+                </div>
               </div>
-
-
-
             </div>
 
             <div style="clear: both;"></div>
 
           </div>
+
+          <div class="tab-pane" id="buildingAlbums" data-bind="css: { 'active': $parent._currentTab() === 'buildingAlbums' }">
+            <div class="building-edit-left" data-bind="with: $parent._currAlbum">
+              <div>
+                <h3 data-bind="text: name"></h3>
+                <hr />
+              </div>
+
+              <div data-bind="foreach: albumPhotos">
+                <!-- ko if: !isDeleted() -->
+                  <div class="album-photo">
+                    <a style="cursor: pointer;">
+                      <img data-bind="attr: { src: imageThumbPath() }"></a>
+                    <button class="btn btn-inverse" data-bind="click: $parents[2]._deleteAlbumPhoto, enable: $parents[2]._inEditMode">X</button>
+                  </div>
+                <!-- /ko-->
+              </div>
+              <div style="clear: both;"></div>
+
+              <hr />
+              <div style="text-align: center;">
+                <button class="btn" data-bind="click: $parents[1]._addAlbumPhoto, enable: $parents[1]._inEditMode"><i class="icon-plus"></i>&nbsp; Добави</button>
+              </div>
+
+            </div>
+
+            <div class="building-edit-right">
+              <div style="text-align: center;">
+                <h3>Албуми</h3>
+                <hr />
+              </div>
+
+              <div class="menu-cat">
+                <div data-bind="foreach: albums">
+                  <!-- ko if: !$parents[1]._inEditMode() -->
+                  <a data-bind="click: function () { $parents[1]._loadSingleCat(this, 'Album') }" style="cursor: pointer;">
+                    <h4 data-bind="text: name"></h4>
+                  </a>
+                  <!-- /ko-->
+
+                  <!-- ko if: $parents[1]._inEditMode() -->
+                  <div data-bind="if: !isDeleted()">
+                    <div class="input-append" style="margin-bottom: 1px;">
+                      <input type="text" class="input-large" data-bind="value: name">
+                      <button class="btn" data-bind="click: $parents[1]._deleteAlbumCat"><i class="icon-remove"></i></button>
+                    </div>
+                  </div>
+                  <div data-bind="if: isDeleted()">
+                    <div class="input-append" style="margin-bottom: 1px;">
+                      <input type="text" class="input-large" data-bind="value: name" style="background-color: indianred;">
+                      <button class="btn" data-bind="click: $parents[1]._unDelete"><i class="icon-plus"></i></button>
+                    </div>
+                  </div>
+                  <!-- /ko-->
+
+                </div>
+                <hr />
+
+                <div style="text-align: center;">
+                  <button class="btn" data-bind="click: $parent._addAlbumCat, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; Добави албум</button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+
         </div>
       </div>
     </form>

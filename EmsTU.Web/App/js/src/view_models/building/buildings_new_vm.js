@@ -41,7 +41,7 @@
             self.templateId = 'templates:building:buildings_new.html';
             self._save = self._save.bind(self);
             self._cancel = self._cancel.bind(self);
-            self._buildingImage = self._buildingImage.bind(self);
+            self._addBuildingImage = self._addBuildingImage.bind(self);
             self._deleteBuildingImage = self._deleteBuildingImage.bind(self);
 
             self._building = ko.observable(ko_mapping.fromJS(newBuilding));
@@ -131,7 +131,7 @@
 
             self._building().imagePath(undefined);
         },
-        _buildingImage: function () {
+        _addBuildingImage: function () {
             var self = this,
                 building = self._building(),
                 uploadFileVM = new UploadFileVM();
@@ -143,8 +143,8 @@
                 accepting: function (event) {
                     event.preventDefault();
                     uploadFileVM.attach('ImageBuilding').then(function (result) {
-                        if (result) {
-                            building.imagePath(result);
+                        if (result.imageThumbPath) {
+                            building.imagePath(result.imageThumbPath);
                             Corium.dialogs.hide();
                         }
                     });

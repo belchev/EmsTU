@@ -33,8 +33,8 @@ namespace EmsTU.Web.Controllers
 
         [HttpGet]
         public HttpResponseMessage GetBuildingRequests(
-            string buildingName, 
-            string contactName, 
+            string buildingName,
+            string contactName,
             string userName,
             int limit,
             int offset
@@ -112,7 +112,8 @@ namespace EmsTU.Web.Controllers
                     var oldBuilding = this.unitOfWork.Repo<Building>().
                         Find(id,
                             u => u.Noms.Select(e => e.NomType),
-                            u => u.MenuCategories.Select(e => e.Menus)
+                            u => u.MenuCategories.Select(e => e.Menus),
+                            u => u.Albums.Select(e => e.AlbumPhotos)
                         );
 
                     if (oldBuilding == null)
@@ -228,46 +229,52 @@ namespace EmsTU.Web.Controllers
                         if (!mc.IsNew && mc.IsDeleted)
                         {
                             MenuCategory mCat = this.unitOfWork.Repo<MenuCategory>().Find(mc.MenuCategoryId, u => u.Menus);
-                            foreach (var menu in mCat.Menus.ToList())
+                            if (mCat != null)
                             {
-                                Menu m = this.unitOfWork.Repo<Menu>().Find(menu.MenuId);
-                                this.unitOfWork.Repo<Menu>().Remove(m);
-                            }
+                                foreach (var menu in mCat.Menus.ToList())
+                                {
+                                    Menu m = this.unitOfWork.Repo<Menu>().Find(menu.MenuId);
+                                    this.unitOfWork.Repo<Menu>().Remove(m);
+                                }
 
-                            this.unitOfWork.Repo<MenuCategory>().Remove(mCat);
+                                this.unitOfWork.Repo<MenuCategory>().Remove(mCat);
+                            }
                         }
                         else if (!mc.IsNew && !mc.IsDeleted)
                         {
                             var oldMenuCat = oldBuilding.MenuCategories.FirstOrDefault(e => e.MenuCategoryId == mc.MenuCategoryId);
-                            oldMenuCat.Name = mc.Name;
-                            foreach (var menu in mc.Menus)
+                            if (oldMenuCat != null)
                             {
-                                if (!menu.IsNew && menu.IsDeleted)
+                                oldMenuCat.Name = mc.Name;
+                                foreach (var menu in mc.Menus)
                                 {
-                                    Menu m = this.unitOfWork.Repo<Menu>().Find(menu.MenuId);
-                                    this.unitOfWork.Repo<Menu>().Remove(m); 
-                                }
-                                else if (!menu.IsNew && !menu.IsDeleted)
-                                {
-                                    var oldMenu = oldMenuCat.Menus.FirstOrDefault(e => e.MenuId == menu.MenuId);
-                                    oldMenu.Name = menu.Name;
-                                    oldMenu.Info = menu.Info;
-                                    oldMenu.Price = menu.Price;
-                                    oldMenu.ImagePath = menu.ImagePath;
-                                    oldMenu.Size = menu.Size;
-                                }
-                                else
-                                {
-                                    Menu m = new Menu();
-                                    m.MenuCategoryId = menu.MenuCategoryId;
-                                    m.Name = menu.Name;
-                                    m.Info = menu.Info;
-                                    m.Price = menu.Price;
-                                    m.ImagePath = menu.ImagePath;
-                                    m.Size = menu.Size;
-                                    m.IsActive = true;
+                                    if (!menu.IsNew && menu.IsDeleted)
+                                    {
+                                        Menu m = this.unitOfWork.Repo<Menu>().Find(menu.MenuId);
+                                        this.unitOfWork.Repo<Menu>().Remove(m);
+                                    }
+                                    else if (!menu.IsNew && !menu.IsDeleted)
+                                    {
+                                        var oldMenu = oldMenuCat.Menus.FirstOrDefault(e => e.MenuId == menu.MenuId);
+                                        oldMenu.Name = menu.Name;
+                                        oldMenu.Info = menu.Info;
+                                        oldMenu.Price = menu.Price;
+                                        oldMenu.ImagePath = menu.ImagePath;
+                                        oldMenu.Size = menu.Size;
+                                    }
+                                    else
+                                    {
+                                        Menu m = new Menu();
+                                        m.MenuCategoryId = menu.MenuCategoryId;
+                                        m.Name = menu.Name;
+                                        m.Info = menu.Info;
+                                        m.Price = menu.Price;
+                                        m.ImagePath = menu.ImagePath;
+                                        m.Size = menu.Size;
+                                        m.IsActive = true;
 
-                                    this.unitOfWork.Repo<Menu>().Add(m);
+                                        this.unitOfWork.Repo<Menu>().Add(m);
+                                    }
                                 }
                             }
                         }
@@ -280,6 +287,62 @@ namespace EmsTU.Web.Controllers
                             this.unitOfWork.Repo<MenuCategory>().Add(mCat);
                         }
                     }
+
+                    foreach (var ab in building.Albums)
+                    {
+                        if (!ab.IsNew && ab.IsDeleted)
+                        {
+                            Album alb = this.unitOfWork.Repo<Album>().Find(ab.AlbumId, u => u.AlbumPhotos);
+                            if (alb != null)
+                            {
+                                foreach (var ap in alb.AlbumPhotos.ToList())
+                                {
+                                    AlbumPhoto apD = this.unitOfWork.Repo<AlbumPhoto>().Find(ap.AlbumPhotoId);
+                                    this.unitOfWork.Repo<AlbumPhoto>().Remove(apD);
+                                }
+
+                                this.unitOfWork.Repo<Album>().Remove(alb);
+                            }
+                        }
+                        else if (!ab.IsNew && !ab.IsDeleted)
+                        {
+                            var oldAlbum = oldBuilding.Albums.FirstOrDefault(e => e.AlbumId == ab.AlbumId);
+                            if (oldAlbum != null)
+                            {
+                                oldAlbum.Name = ab.Name;
+
+                                foreach (var albumPhoto in ab.AlbumPhotos)
+                                {
+                                    if (albumPhoto.IsDeleted)
+                                    {
+                                        AlbumPhoto apD = this.unitOfWork.Repo<AlbumPhoto>().Find(albumPhoto.AlbumPhotoId);
+                                        if (apD != null)
+                                        {
+                                            this.unitOfWork.Repo<AlbumPhoto>().Remove(apD);
+                                        }
+                                    }
+                                    else if (albumPhoto.IsNew)
+                                    {
+                                        AlbumPhoto apA = new AlbumPhoto();
+                                        apA.AlbumId = albumPhoto.AlbumId;
+                                        apA.ImagePath = albumPhoto.ImagePath;
+                                        apA.ImageThumbPath = albumPhoto.ImageThumbPath;
+
+                                        this.unitOfWork.Repo<AlbumPhoto>().Add(apA);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Album aAdd = new Album();
+                            aAdd.BuildingId = building.BuildingId;
+                            aAdd.Name = ab.Name;
+                            aAdd.IsActive = true;
+                            this.unitOfWork.Repo<Album>().Add(aAdd);
+                        }
+                    }
+
 
                     this.unitOfWork.Save();
 
@@ -318,7 +381,8 @@ namespace EmsTU.Web.Controllers
                 .Find(id,
                     d => d.Settlement,
                     d => d.Noms.Select(e => e.NomType),
-                    d => d.MenuCategories.Select(e => e.Menus)
+                    d => d.MenuCategories.Select(e => e.Menus),
+                    d => d.Albums.Select(e => e.AlbumPhotos)
                 );
 
             if (query == null)
@@ -383,6 +447,10 @@ namespace EmsTU.Web.Controllers
                     newBuilding.MenuCategories.Add(new MenuCategory { Name = "Предястия", IsActive = true });
                     newBuilding.MenuCategories.Add(new MenuCategory { Name = "Основни ястия", IsActive = true });
                     newBuilding.MenuCategories.Add(new MenuCategory { Name = "Десерти", IsActive = true });
+
+                    newBuilding.Albums.Add(new Album { Name = "Главен албум", IsActive = true });
+                    newBuilding.Albums.Add(new Album { Name = "Меню", IsActive = true });
+                    newBuilding.Albums.Add(new Album { Name = "Интериор", IsActive = true });
 
                     this.unitOfWork.Repo<Building>().Add(newBuilding);
 

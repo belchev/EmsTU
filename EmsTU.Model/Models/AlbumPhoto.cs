@@ -8,8 +8,8 @@ namespace EmsTU.Model.Models
     {
         public int AlbumPhotoId { get; set; }
         public int AlbumId { get; set; }
-        public byte[] Image { get; set; }
-        public byte[] ImageThumb { get; set; }
+        public string ImagePath { get; set; }
+        public string ImageThumbPath { get; set; }
         public byte[] Version { get; set; }
         public virtual Album Album { get; set; }
     }
@@ -22,11 +22,11 @@ namespace EmsTU.Model.Models
             this.HasKey(t => t.AlbumPhotoId);
 
             // Properties
-            this.Property(t => t.Image)
-                .IsRequired();
+            this.Property(t => t.ImagePath)
+                .HasMaxLength(100);
 
-            this.Property(t => t.ImageThumb)
-                .IsRequired();
+            this.Property(t => t.ImageThumbPath)
+                .HasMaxLength(100);
 
             this.Property(t => t.Version)
                 .IsRequired()
@@ -38,8 +38,8 @@ namespace EmsTU.Model.Models
             this.ToTable("AlbumPhotos");
             this.Property(t => t.AlbumPhotoId).HasColumnName("AlbumPhotoId");
             this.Property(t => t.AlbumId).HasColumnName("AlbumId");
-            this.Property(t => t.Image).HasColumnName("Image");
-            this.Property(t => t.ImageThumb).HasColumnName("ImageThumb");
+            this.Property(t => t.ImagePath).HasColumnName("ImagePath");
+            this.Property(t => t.ImageThumbPath).HasColumnName("ImageThumbPath");
             this.Property(t => t.Version).HasColumnName("Version");
 
             // Relationships

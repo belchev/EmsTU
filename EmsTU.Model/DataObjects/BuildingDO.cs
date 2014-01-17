@@ -19,6 +19,7 @@ namespace EmsTU.Model.DataObjects
             this.Extras = new List<int>();
 
             this.MenuCategories = new List<MenuCategoryDO>();
+            this.Albums = new List<AlbumDO>();
         }
 
         public BuildingDO(Building b, bool isAdmin)
@@ -26,6 +27,11 @@ namespace EmsTU.Model.DataObjects
         {
             if (b != null)
             {
+                if (b.Albums != null && b.Albums.Any())
+                {
+                    this.Albums.AddRange(b.Albums.Select(e => new AlbumDO(e)));
+                }
+
                 if (b.MenuCategories != null && b.MenuCategories.Any())
                 {
                     this.MenuCategories.AddRange(b.MenuCategories.Select(e => new MenuCategoryDO(e)));
@@ -86,6 +92,7 @@ namespace EmsTU.Model.DataObjects
             }
         }
 
+        public List<AlbumDO> Albums { get; set; }
         public List<MenuCategoryDO> MenuCategories { get; set; }
 
         public List<int> BuildingTypes { get; set; }
