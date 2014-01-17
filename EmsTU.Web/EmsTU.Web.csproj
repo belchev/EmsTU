@@ -267,9 +267,7 @@
     <Folder Include="App\build\debug\js\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Storage\buildings\" />
-    <Folder Include="Storage\images\thumbs\" />
-    <Folder Include="Storage\thumbs\" />
+    <Folder Include="storage\images\thumbs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -791,7 +791,7 @@ ul.tree {
     border: 2px solid #333;
 }
 
-    .album-photo:hover button {
+    .album-photo:hover button, .album-photo-medium:hover button {
         display: block;
     }
 
@@ -802,3 +802,24 @@ ul.tree {
         left: 116px;
         display: none;
     }
+
+.album-photo-medium {
+    position: relative;
+    float: left;
+    margin: 5px;
+    width: 105px;
+    border: 2px solid #333;
+}
+
+    .album-photo-medium button {
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        left: 71px;
+        display: none;
+    }
+
+.h4c {
+    font-size: 14px;
+    font-weight: bold;
+}

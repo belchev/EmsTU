@@ -113,7 +113,8 @@ namespace EmsTU.Web.Controllers
                         Find(id,
                             u => u.Noms.Select(e => e.NomType),
                             u => u.MenuCategories.Select(e => e.Menus),
-                            u => u.Albums.Select(e => e.AlbumPhotos)
+                            u => u.Albums.Select(e => e.AlbumPhotos),
+                            u => u.Events
                         );
 
                     if (oldBuilding == null)
@@ -146,7 +147,7 @@ namespace EmsTU.Web.Controllers
                     oldBuilding.ModifyDate = DateTime.Now;
                     oldBuilding.ModifyUserId = this.userContext.UserId;
 
-                    #region manage noms
+                    #region Manage Noms
 
                     bool newType;
                     bool oldType;
@@ -224,6 +225,8 @@ namespace EmsTU.Web.Controllers
 
                     #endregion
 
+                    #region Manage Menu Categories
+
                     foreach (var mc in building.MenuCategories)
                     {
                         if (!mc.IsNew && mc.IsDeleted)
@@ -288,6 +291,10 @@ namespace EmsTU.Web.Controllers
                         }
                     }
 
+                    #endregion
+
+                    #region Manage Albums
+
                     foreach (var ab in building.Albums)
                     {
                         if (!ab.IsNew && ab.IsDeleted)
@@ -343,6 +350,51 @@ namespace EmsTU.Web.Controllers
                         }
                     }
 
+                    #endregion
+
+                    #region Manage Events
+
+                    foreach (var ev in building.Events)
+                    {
+                        if (ev.IsDeleted)
+                        {
+                            Event evD = this.unitOfWork.Repo<Event>().Find(ev.EventId);
+                            if (evD != null)
+                            {
+                                this.unitOfWork.Repo<Event>().Remove(evD);
+                            }
+                        }
+                        else if (ev.IsEdited && !ev.IsNew)
+                        {
+                            Event oldEvent = this.unitOfWork.Repo<Event>().Find(ev.EventId);
+
+                            if (oldEvent != null)
+                            {
+                                oldEvent.Name = ev.Name;
+                                oldEvent.Info = ev.Info;
+                                oldEvent.IsActive = ev.IsActive;
+                                oldEvent.ImagePath = ev.ImagePath;
+                                oldEvent.ImageThumbPath = ev.ImageThumbPath;
+                                oldEvent.Date = ev.Date;
+                            }
+                        }
+                        else if (ev.IsNew)
+                        {
+                            Event eAdd = new Event();
+
+                            eAdd.BuildingId = building.BuildingId;
+                            eAdd.Name = ev.Name;
+                            eAdd.Info = ev.Info;
+                            eAdd.IsActive = ev.IsActive;
+                            eAdd.ImagePath = ev.ImagePath;
+                            eAdd.ImageThumbPath = ev.ImageThumbPath;
+                            eAdd.Date = ev.Date;
+
+                            this.unitOfWork.Repo<Event>().Add(eAdd);
+                        }
+                    }
+
+                    #endregion
 
                     this.unitOfWork.Save();
 
@@ -382,7 +434,8 @@ namespace EmsTU.Web.Controllers
                     d => d.Settlement,
                     d => d.Noms.Select(e => e.NomType),
                     d => d.MenuCategories.Select(e => e.Menus),
-                    d => d.Albums.Select(e => e.AlbumPhotos)
+                    d => d.Albums.Select(e => e.AlbumPhotos),
+                    d => d.Events
                 );
 
             if (query == null)

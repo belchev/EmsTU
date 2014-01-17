@@ -43,6 +43,9 @@
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingAlbums' }">
           <a data-toggle="tab" data-target="#buildingAlbums" data-bind="click: function () { $parent._innerNavigation('buildingAlbums'); }">Снимки</a>
         </li>
+        <li data-bind="css: { 'active': $parent._currentTab() === 'buildingEvents' }">
+          <a data-toggle="tab" data-target="#buildingEvents" data-bind="click: function () { $parent._innerNavigation('buildingEvents'); }">Събития</a>
+        </li>
       </ul>
 
       <div class="tabbable">
@@ -51,35 +54,35 @@
 
 
             <div class="row">
-              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">Име:</div>
+              <div class="span6" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">Име:</div>
               <div class="span5">Слоган:</div>
             </div>
             <div class="row">
-              <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">
-                <input type="text" class="input-xlarge" data-bind="value: name, enable: $parent._inEditMode()">
+              <div class="span6" data-bind="css: { 'error': ($parent._showErrors() && $parent._nameError()) || $parent._nameError() }">
+                <input type="text" class="span5" data-bind="value: name, enable: $parent._inEditMode()">
               </div>
               <div class="span5">
-                <input type="text" class="input-xlarge" data-bind="value: slogan, enable: $parent._inEditMode()">
+                <input type="text" class="span5" data-bind="value: slogan, enable: $parent._inEditMode()">
               </div>
             </div>
 
             <div class="row">
-              <div class="span5">Уеб сайт:</div>
+              <div class="span6">Уеб сайт:</div>
               <div class="span5">Работно време:</div>
             </div>
             <div class="row">
-              <div class="span5">
-                <input type="text" class="input-xlarge" data-bind="value: webSite, enable: $parent._inEditMode()">
+              <div class="span6">
+                <input type="text" class="span5" data-bind="value: webSite, enable: $parent._inEditMode()">
               </div>
               <div class="span5">
-                <input type="text" class="input-xlarge" data-bind="value: workingTime, enable: $parent._inEditMode()">
+                <input type="text" class="span5" data-bind="value: workingTime, enable: $parent._inEditMode()">
               </div>
             </div>
 
             <br />
 
             <div class="row">
-              <div class="span5" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+              <div class="span6" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
                 <label class="control-label">Област:</label>
               </div>
               <div class="span5" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
@@ -87,23 +90,23 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
-                <div class="dropdown-container span4" data-bind="nomenclatureContext: { nomenclatureKey: 'districts', value: districtId, idProperty: 'districtId' }">
-                  <select class="span4" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'districtId', chosenOptions: { allow_single_deselect: true } }"></select>
+              <div class="span6" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <div class="dropdown-container" data-bind="nomenclatureContext: { nomenclatureKey: 'districts', value: districtId, idProperty: 'districtId' }">
+                  <select style="width: 356px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'districtId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
 
               <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
-                <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'municipalities', value: municipalityId, idProperty: 'municipalityId', parent: districtId }">
-                  <select class="span4" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'municipalityId', chosenOptions: { allow_single_deselect: true } }"></select>
+                <div class="dropdown-container" data-bind="childNomenclatureContext: { nomenclatureKey: 'municipalities', value: municipalityId, idProperty: 'municipalityId', parent: districtId }">
+                  <select style="width: 356px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'municipalityId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <i data-bind="visible: nomenclatureContext.loading"></i>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="span5" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+              <div class="span6" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
                 <label class="control-label">Населено място:</label>
               </div>
               <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._addressError()) || $parent._addressError() }">
@@ -111,53 +114,60 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5" style="margin-bottom: 5px;" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
-                <div class="dropdown-container span4" data-bind="childNomenclatureContext: { nomenclatureKey: 'settlements', value: settlementId, idProperty: 'settlementId', parent: municipalityId }">
-                  <select class="span4" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'settlementId', chosenOptions: { allow_single_deselect: true } }"></select>
+              <div class="span6" data-bind="css: { 'error': $parent._showErrors() && settlementId.hasErrors() }">
+                <div class="dropdown-container" data-bind="childNomenclatureContext: { nomenclatureKey: 'settlements', value: settlementId, idProperty: 'settlementId', parent: municipalityId }">
+                  <select style="width: 356px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'settlementId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <i data-bind="visible: nomenclatureContext.loading"></i>
                 </div>
               </div>
               <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._addressError()) || $parent._addressError() }">
-                <input type="text" class="input-xlarge" data-bind="value: address, enable: $parent._inEditMode()">
+                <input type="text" class="span5" data-bind="value: address, enable: $parent._inEditMode()">
               </div>
             </div>
 
             <br />
 
             <div class="row">
-              <div class="span5">Лице за контакт:</div>
+              <div class="span6">Лице за контакт:</div>
               <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._contactPhoneError()) || $parent._contactPhoneError() }">Телефон за контакт:</div>
             </div>
             <div class="row">
-              <div class="span5">
-                <input type="text" class="input-xlarge" data-bind="value: contactName, enable: $parent._inEditMode()">
+              <div class="span6">
+                <input type="text" class="span5" data-bind="value: contactName, enable: $parent._inEditMode()">
               </div>
               <div class="span5" data-bind="css: { 'error': ($parent._showErrors() && $parent._contactPhoneError()) || $parent._contactPhoneError() }">
-                <input type="text" class="input-xlarge" data-bind="value: contactPhone, enable: $parent._inEditMode()">
+                <input type="text" class="span5" data-bind="value: contactPhone, enable: $parent._inEditMode()">
               </div>
             </div>
 
             <div class="row">
-              <div class="span2">Места вътре:</div>
+              <div class="span3">Места вътре:</div>
               <div class="span3">Места вън:</div>
-              <div class="span2">Ценови клас:</div>
+              <div class="span3">Ценови клас:</div>
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">Активен:</div>
             </div>
             <div class="row">
-              <div class="span2 input-append">
+              <div class="span3 input-append">
                 <input type="text" class="input-small" data-bind="value: seatsInside, enable: $parent._inEditMode()"><span class="add-on">бр.</span>
               </div>
               <div class="span3 input-append">
                 <input type="text" class="input-small" data-bind="value: seatsOutside, enable: $parent._inEditMode()"><span class="add-on">бр.</span>
               </div>
-              <div class="span2 input-append">
+              <div class="span3 input-append">
                 <input type="text" class="input-small" data-bind="value: price, enable: $parent._inEditMode()"><span class="add-on">лв.</span>
+              </div>
+              <div class="span2">
+                <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isActive, idProperty: 'value' }">
+                  <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                </div>
               </div>
             </div>
 
             <br />
 
             <div class="row">
-              <div class="span5">
+              <div class="span6">
                 <label class="control-label">Тип заведение:</label>
               </div>
               <div class="span5">
@@ -165,22 +175,22 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: buildingTypes, idProperty: 'nomId' }">
-                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+              <div class="span6" style="margin-bottom: 10px;">
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: buildingTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
               <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'kitchenTypes', value: kitchenTypes, idProperty: 'nomId' }">
-                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'kitchenTypes', value: kitchenTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="span5">
+              <div class="span6">
                 <label class="control-label">Тип музика:</label>
               </div>
               <div class="span5">
@@ -188,22 +198,22 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'musicTypes', value: musicTypes, idProperty: 'nomId' }">
-                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+              <div class="span6" style="margin-bottom: 10px;">
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'musicTypes', value: musicTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
               <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'occasionTypes', value: occasionTypes, idProperty: 'nomId' }">
-                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'occasionTypes', value: occasionTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="span5">
+              <div class="span6">
                 <label class="control-label">Начин на плащане:</label>
               </div>
               <div class="span5">
@@ -211,39 +221,37 @@
               </div>
             </div>
             <div class="row">
-              <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'paymentTypes', value: paymentTypes, idProperty: 'nomId' }">
-                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+              <div class="span6" style="margin-bottom: 10px;">
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'paymentTypes', value: paymentTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
               <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container span4" data-bind="multiNomenclatureContext: { nomenclatureKey: 'extras', value: extras, idProperty: 'nomId' }">
-                  <select class="span4" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'extras', value: extras, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">
-                <label class="control-label">Активен:</label>
-              </div>
-              <div class="span3">
-                <label class="control-label" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">Изтрит:</label>
-              </div>
-              <div class="span5">
-                <label class="control-label">Лого:</label>
-              </div>
+              <div class="span6">Доп. информация:</div>
+              <div class="span3">Лого:</div>
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">Изтрит:</div>
             </div>
             <div class="row">
-              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">
-                <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isActive, idProperty: 'value' }">
-                  <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
-                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
-                </div>
+              <div class="span6">
+                <textarea rows="6" class="span5" data-bind="value: info, enable: $parent._inEditMode()"></textarea>
               </div>
               <div class="span3">
+                <div class="album-photo-medium" data-bind="visible: hasImage()">
+                  <img data-bind="attr: { src: imagePath() }">
+                  <button class="btn btn-inverse" data-bind="click: $parent._deleteBuildingImage, enable: $parent._inEditMode()">X</button>
+                </div>
+                <button class="btn" data-bind="visible: !hasImage(), enable: $parent._inEditMode(), click: $parent._addBuildingImage"><i class="icon-plus"></i>&nbsp; Добави</button>
+              </div>
+              <div class="span2" data-bind="css: { 'error': $parent._showErrors() && $parent._isActive.hasErrors() }">
                 <div data-bind="css: { 'error': $parent._showErrors() && $parent._isDeleted.hasErrors() }, visible: isAdmin">
                   <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parent._isDeleted, idProperty: 'value' }">
                     <select class="" style="width: 134px;" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
@@ -251,40 +259,17 @@
                   </div>
                 </div>
               </div>
-              <div class="span5">
-                <div data-bind="visible: hasImage()" style="float: left; margin-right: 5px;">
-                  <img data-bind="attr: { src: imagePath() }">
-                </div>
-                <div style="float: left;">
-                  <button class="btn" data-bind="click: $parent._deleteBuildingImage, visible: hasImage(), enable: $parent._inEditMode()"><i class="icon-remove"></i>&nbsp; Изтрий</button>
-                  <button class="btn" data-bind="visible: !hasImage(), enable: $parent._inEditMode(), click: $parent._addBuildingImage"><i class="icon-plus"></i>&nbsp; Добави</button>
-                </div>
-              </div>
             </div>
 
-            <br />
-
-            <div class="row">
-              <div class="span9">
-                <label class="control-label">Доп. информация:</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="span9">
-                <textarea rows="6" class="span9" data-bind="value: info, enable: $parent._inEditMode()"></textarea>
-              </div>
-            </div>
 
           </div>
           <div class="tab-pane" id="buildingMenu" data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
             <div class="building-edit-left" data-bind="with: $parent._currMenuCat">
-              <div>
-                <h3 data-bind="text: name"></h3>
-                <hr />
-              </div>
 
               <!-- ko if: $parents[1]._inMenuEditMode() -->
               <div data-bind="with: $parents[1]._currMenu">
+                <h3>Редакция</h3>
+                <hr />
                 <div class="row">
                   <div class="span4">Име:</div>
                   <div class="span2" style="width: 100px;">Грамаж:</div>
@@ -310,7 +295,6 @@
                     <textarea rows="3" class="input-xlarge span4" data-bind="value: info"></textarea>
                   </div>
                   <div class="span3">
-
                     <div data-bind="visible: hasImage()" style="float: left; margin-right: 5px;">
                       <img data-bind="attr: { src: imagePath() }">
                     </div>
@@ -318,14 +302,20 @@
                       <button class="btn" data-bind="click: $parents[2]._deleteMenuItemImage, visible: hasImage()"><i class="icon-remove"></i>&nbsp; Изтрий</button>
                       <button class="btn" data-bind="visible: !hasImage(), click: $parents[2]._addMenuItemImage"><i class="icon-plus"></i>&nbsp; Добави</button>
                     </div>
-
                   </div>
                 </div>
-                <button class="btn" data-bind="click: $parents[2]._exitMenuEditMode"><i class="icon-ok"></i>&nbsp; Запази</button>
+                <hr />
+                <div style="text-align: center;">
+                  <button class="btn" data-bind="click: $parents[2]._exitMenuEditMode"><i class="icon-ok"></i>&nbsp; Запази</button>
+                </div>
               </div>
               <!-- /ko-->
 
               <!-- ko if: !$parents[1]._inMenuEditMode() -->
+              <div>
+                <h3 data-bind="text: name"></h3>
+                <hr />
+              </div>
               <table class="table table-list">
                 <tbody data-bind="foreach: menus">
                   <tr data-bind="css: { 'del': isDeleted() }">
@@ -339,7 +329,7 @@
 
                     </td>
                     <td style="vertical-align: bottom; width: 100px;"><i><span data-bind="text: size"></span>гр .. <span data-bind="  text: price"></span>лв</i></td>
-                    <td style="text-align: right;">
+                    <td style="width: 25px;">
                       <!-- ko if: !isDeleted() -->
                       <button class="btn btn-mini" data-bind="click: $parents[2]._deleteMenuItem, enable: $parents[2]._inEditMode()"><i class="icon-remove"></i></button>
                       <!-- /ko-->
@@ -415,11 +405,11 @@
 
               <div data-bind="foreach: albumPhotos">
                 <!-- ko if: !isDeleted() -->
-                  <div class="album-photo">
-                    <a style="cursor: pointer;">
-                      <img data-bind="attr: { src: imageThumbPath() }"></a>
-                    <button class="btn btn-inverse" data-bind="click: $parents[2]._deleteAlbumPhoto, enable: $parents[2]._inEditMode">X</button>
-                  </div>
+                <div class="album-photo">
+                  <a style="cursor: pointer;">
+                    <img data-bind="attr: { src: imageThumbPath() }"></a>
+                  <button class="btn btn-inverse" data-bind="click: $parents[2]._deleteAlbumPhoto, enable: $parents[2]._inEditMode">X</button>
+                </div>
                 <!-- /ko-->
               </div>
               <div style="clear: both;"></div>
@@ -468,11 +458,115 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="tab-pane" id="buildingEvents" data-bind="css: { 'active': $parent._currentTab() === 'buildingEvents' }">
+
+            <!-- ko if: $parent._inEventEditMode() -->
+            <div>
+              <h3>Редакция</h3>
+              <hr />
+            </div>
+
+            <div data-bind="with: $parent._currEvent">
+              <div class="row">
+                <div class="span5">Име:</div>
+                <div class="span3">Активен</div>
+                <div class="span2">Дата:</div>
+              </div>
+              <div class="row">
+                <div class="span5">
+                  <input type="text" class="span5" data-bind="value: name">
+                </div>
+                <div class="span3">
+                  <div class="dropdown-container span2" data-bind="nomenclatureContext: { nomenclatureKey: 'yesNoOptions', value: $parents[1]._eventIsActive, idProperty: 'value' }">
+                    <select style="width: 134px;" data-bind="chosen: { options: nomenclatureContext.options, value: nomenclatureContext.value, optionsText: 'name', optionsValue: 'value', chosenOptions: { allow_single_deselect: true } }"></select>
+                    <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                  </div>
+                </div>
+                <div class="span2 input-append">
+                  <input style="width: 120px !important;" class="search-datepicker-input" type="text" data-bind="dateWithHourValue: date">
+                  <span class="add-on datepicker-button"
+                    data-bind="datePicker: { date: date, options: { todayHighlight: true } }">
+                    <i class="icon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="span8">Информация:</div>
+                <div class="span4">Снимка:</div>
+              </div>
+              <div class="row">
+                <div class="span8">
+                  <textarea rows="8" class="input-xxlarge" data-bind="value: info"></textarea>
+                </div>
+                <div class="span4">
+                  <div class="album-photo-medium" data-bind="visible: hasImage()">
+                    <img data-bind="attr: { src: imageThumbPath() }">
+                    <button class="btn btn-inverse" data-bind="click: $parents[1]._deleteEventItemImage">X</button>
+                  </div>
+
+                  <button class="btn" data-bind="visible: !hasImage(), click: $parents[1]._addEventItemImage"><i class="icon-plus"></i>&nbsp; Добави</button>
+                </div>
+              </div>
+
+              <div style="text-align: center;">
+                <hr />
+                <button class="btn" data-bind="click: function () { $parents[1]._exitEventEditMode(this); }"><i class="icon-ok"></i>&nbsp; Запази</button>
+              </div>
+            </div>
+            <!-- /ko-->
+
+            <!-- ko if: !$parent._inEventEditMode() -->
+            <table class="table table-list">
+              <thead>
+                <tr>
+                  <th style="width: 100px;"></th>
+                  <th style="width: 500px;"></th>
+                  <th style="width: 20px;"></th>
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: events">
+                <tr data-bind="css: { 'del': isDeleted() }">
+                  <td>
+                    <img data-bind="attr: { src: imageThumbPath }" alt="" title="" />
+                  </td>
+                  <td>
+                    <span class="h4c" data-bind="text: name"></span>
+                    <span class="h4c" data-bind="dateWithHourText: date"></span>
+                    <!-- ko if: !isActive() -->
+                    <span class="text-error h4c">НЕАКТИВНО</span>
+                    <!-- /ko-->
+                    <!-- ko if: isActive() -->
+                    <span class="text-success h4c">АКТИВНО</span>
+                    <!-- /ko-->
+                    <h4></h4>
+                    <span data-bind="text: info"></span>
+                  </td>
+                  <td>
+                    <!-- ko if: !isDeleted() -->
+                    <button class="btn btn-mini" data-bind="click: $parents[1]._deleteEvent, enable: $parents[1]._inEditMode()"><i class="icon-remove"></i></button>
+                    <!-- /ko-->
+                    <!-- ko if: isDeleted() -->
+                    <button class="btn btn-mini" data-bind="click: $parents[1]._unDelete, enable: $parents[1]._inEditMode()"><i class="icon-plus"></i></button>
+                    <!-- /ko-->
+                    <br />
+                    <button class="btn btn-mini" data-bind="click: $parents[1]._enterEventEditMode, enable: $parents[1]._inEditMode()"><i class="icon-edit"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+            <hr />
+            <div style="text-align: center;">
+              <button class="btn" data-bind="click: $parent._addEvent"><i class="icon-plus"></i>&nbsp; Добави</button>
+            </div>
+            <!-- /ko-->
 
 
           </div>
-
-
 
         </div>
       </div>

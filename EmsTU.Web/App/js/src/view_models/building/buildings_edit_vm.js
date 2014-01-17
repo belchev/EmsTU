@@ -59,7 +59,7 @@
             self._addAlbumCat = self._addAlbumCat.bind(self);
             self._deleteAlbumCat = self._deleteAlbumCat.bind(self);
 
-            self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingAlbums'));
+            self._currentTab = ko.observable(Corium.app.services.tabCache.loadTab(Corium.navigation._navigator.getHash(), 'buildingInfo'));
 
             self._inEditMode = ko.observable(inEditMode);
             self._isInDialog = ko.observable(false);
@@ -120,16 +120,97 @@
                     return false;
                 }
             });
-            self._yesNoOptions = ko.observableArray([
-                { name: 'Да', value: '1' },
-                { name: 'Не', value: '2' }
-            ]);
 
-
+            self._addEvent = self._addEvent.bind(self);
+            self._enterEventEditMode = self._enterEventEditMode.bind(self);
+            self._deleteEventItemImage = self._deleteEventItemImage.bind(self);
+            self._addEventItemImage = self._addEventItemImage.bind(self);
+            self._deleteEvent = self._deleteEvent.bind(self);
+            self._inEventEditMode = ko.observable(false);
+            self._currEvent = ko.observable();
+            self._eventIsActive = ko.observable();
 
             if (inEditMode) {
                 self._enterEditMode();
             }
+        },
+        _deleteEvent: function (target) {
+            var self = this,
+                idx = self._building().events.indexOf(target);
+
+            if (target.isNew() && idx > -1) {
+                self._building().events.splice(idx, 1);
+            }
+            else {
+                target.isDeleted(true);
+            }
+        },
+        _exitEventEditMode: function (target) {
+            var self = this;
+            target.isActive(self._eventIsActive() === '1' ? true : false);
+
+            if (target.isNew() && !target.isEdited()) {
+                target.isEdited(true);
+                self._building().events.push(target);
+            }
+
+            self._inEventEditMode(false);
+        },
+        _addEventItemImage: function () {
+            var self = this,
+                uploadFileVM = new UploadFileVM();
+
+            Corium.dialogs.show({
+                header: 'Добавяне на снимка',
+                acceptText: 'Добави',
+                cancelText: 'Отказ',
+                accepting: function (event) {
+                    event.preventDefault();
+                    uploadFileVM.attach('ImageBuilding').then(function (result) {
+                        if (result.imageThumbPath && result.imagePath) {
+                            self._currEvent().imageThumbPath(result.imageThumbPath);
+                            self._currEvent().imagePath(result.imagePath);
+                            self._currEvent().hasImage(true);
+                            Corium.dialogs.hide();
+                        }
+                    });
+                },
+                viewModel: uploadFileVM
+            });
+        },
+        _deleteEventItemImage: function () {
+            var self = this;
+
+            self._currEvent().imageThumbPath('app\\img\\nopic.jpg');
+            self._currEvent().hasImage(false);
+        },
+        _addEvent: function () {
+            var self = this,
+                event = {
+                    buildingId: self._building().buildingId(),
+                    name: '',
+                    imagePath: 'app\\img\\nopic.jpg',
+                    imageThumbPath: 'app\\img\\nopic.jpg',
+                    hasImage: false,
+                    info: '',
+                    date: undefined,
+                    isActive: false,
+                    isDeleted: false,
+                    isEdited: false,
+                    isNew: true
+                };
+
+            self._enterEventEditMode(ko_mapping.fromJS(event));
+        },
+        _enterEventEditMode: function (target) {
+            var self = this;
+
+            if (!target.isNew()) {
+                target.isEdited(true);
+            }
+            self._eventIsActive(target.isActive() ? '1' : '2');
+            self._currEvent(target);
+            self._inEventEditMode(true);
         },
         _deleteAlbumCat: function (target) {
             var self = this,

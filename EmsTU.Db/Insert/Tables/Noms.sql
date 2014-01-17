@@ -235,4 +235,7 @@ INSERT INTO Noms(NomId,NomTypeId,Name,Alias,IsActive)VALUES(225,5,N'фейс к�
 INSERT INTO Noms(NomId,NomTypeId,Name,Alias,IsActive)VALUES(226,5,N'хотел',NULL,1)
 INSERT INTO Noms(NomId,NomTypeId,Name,Alias,IsActive)VALUES(227,5,N'шоу кухня',NULL,1)
 
+INSERT INTO Noms(NomId,NomTypeId,Name,Alias,IsActive)VALUES(228,6,N'в брой',NULL,1)
+INSERT INTO Noms(NomId,NomTypeId,Name,Alias,IsActive)VALUES(229,6,N'кредитна карта',NULL,1)
+
 SET IDENTITY_INSERT Noms OFF
