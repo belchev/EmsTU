@@ -1,0 +1,95 @@
+﻿<div class="container page-container">
+    <h4>Номенклатури</h4>
+
+    <form class="well form-inline">
+        <div class="row">
+            <div class="span3">
+                <label class="control-label">Име</label>
+            </div>
+
+            <div class="span4">
+                <label class="control-label">Ключова дума</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span3">
+                <input type="text" class="span3" data-bind="value: _name" />
+            </div>
+            <div class="span4">
+                <input type="text" class="input-xlarge" data-bind="value: _alias" />
+            </div>
+            <div class="span2">
+                <select style="width: auto;" data-bind="options: ['', 'true', 'false'],
+  optionsText: function (item) {
+    if (item == 'true')
+      return 'Само активни'
+    else if (item == 'false')
+      return 'Само неактивни'
+    else
+      return ''
+  },
+  value: _isActive">
+                </select>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn" data-bind="click: search"><i class="icon-search"></i>&nbsp;Търси</button>
+                <button type="button" class="btn" data-bind="click: newNom"><i class="icon-plus"></i>&nbsp;Ново</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="alert alert-error" data-bind="visible: errorString(), text: errorString">
+    </div>
+
+    <table class="table table-bordered table-striped" data-bind="visible: _nomenclatures().length > 0">
+        <thead>
+            <tr>
+                <th>Име</th>
+                <th>Ключова дума</th>
+                <th>Активен</th>
+                <th style="width: 1px"></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: _nomenclatures">
+            <tr>
+                <td data-bind="text: name"></td>
+                <td data-bind="text: alias"></td>
+                <td data-bind="text: isActive() ? 'Да' : 'Не'"></td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-mini btn-info" data-bind="click: $parent.editNom">Редакция</a>
+                        <a class="btn btn-mini btn-info dropdown-toggle" data-toggle="dropdown" href="#" data-bind="bootstrap: { plugin: 'dropdown' }"><span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="min-width: 100px;">
+                            <li><a data-bind="click: $parent.editNom"><i class="icon-pencil"></i>&nbsp;Редакция</a></li>
+                            <li><a data-bind="click: $parent.deleteNom"><i class="icon-remove"></i>&nbsp;Изтриване</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pagination pagination-centered" data-bind="if: _pager.isPaged">
+        <ul>
+            <li data-bind="css: { 'disabled': _pager.noPrevPage }">
+                <a data-bind="click: goToPage.bind($data, _pager.firstPage)" style="cursor: pointer"><<</a>
+            </li>
+            <li data-bind="css: { 'disabled': _pager.noPrevPage }">
+                <a data-bind="click: goToPage.bind($data, _pager.prevPage)" style="cursor: pointer"><</a>
+            </li>
+            <!-- ko foreach: { data: _pager.pages, as: 'page' } -->
+            <li data-bind="css: { 'active': page.isCurrentPage }">
+                <a data-bind="text: page.pageNumber, click: $parent.goToPage.bind($parent, $data.pageNumber)" style="cursor: pointer"></a>
+            </li>
+            <!-- /ko -->
+            <li data-bind="css: { 'disabled': _pager.noNextPage }">
+                <a data-bind="click: goToPage.bind($data, _pager.nextPage)" style="cursor: pointer">></a>
+            </li>
+            <li data-bind="css: { 'disabled': _pager.noNextPage }">
+                <a data-bind="click: goToPage.bind($data, _pager.lastPage)" style="cursor: pointer">>></a>
+            </li>
+        </ul>
+    </div>
+    <span data-bind="visible: _nomenclatures().length === 0">Няма намерени данни
+    </span>
+</div>

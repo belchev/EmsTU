@@ -1,0 +1,39 @@
+﻿<div class="container page-container">
+    <h4>
+        <span data-bind="visible: !_isEdit">Ново</span>
+        <span data-bind="visible: _isEdit">Редакция</span>
+    </h4>
+
+    <div class="alert alert-error" data-bind="visible: errorString(), text: errorString">
+    </div>
+
+    <form class="form-horizontal well" data-bind="with: _nom">
+        <div class="control-group">
+            <label class="control-label">Име:</label>
+            <div class="controls" data-bind="attr: { 'title': name.validationMessage }, css: { 'error': $parent._showErrors() && name.hasErrors() }">
+                <input type="text" class="input-xlarge" data-bind="value: name">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Ключова дума:</label>
+            <div class="controls" data-bind="attr: { 'title': alias.validationMessage }, css: { 'error': $parent._showErrors() && alias.hasErrors() }">
+                <input type="text" class="input-xlarge" data-bind="value: alias">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Активен:</label>
+            <div class="controls">
+                <div class="checkbox">
+                    <input type="checkbox" data-bind="checked: isActive">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn btn-primary" data-bind="click: $parent.save">Запис</button>
+                <button type="button" class="btn" data-bind="click: $parent.cancel">Отказ</button>
+            </div>
+        </div>
+    </form>
+</div>

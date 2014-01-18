@@ -212,6 +212,7 @@
     <Content Include="App\js\main.js" />
     <Content Include="App\js\src\controllers\app_controller.js" />
     <Content Include="App\js\src\controllers\building_controller.js" />
+    <Content Include="App\js\src\controllers\nomenclature_controller.js" />
     <Content Include="App\js\src\controllers\user_controller.js" />
     <Content Include="App\js\src\ko_utils.js" />
     <Content Include="App\js\src\nomenclature_cache_service.js" />
@@ -231,6 +232,9 @@
     <Content Include="App\js\src\view_models\building\buildings_edit_vm.js" />
     <Content Include="App\js\src\view_models\building\buildings_list_vm.js" />
     <Content Include="App\js\src\view_models\building\nom_pop_list_vm.js" />
+    <Content Include="App\js\src\view_models\nomenclature\edit_nom_vm.js" />
+    <Content Include="App\js\src\view_models\nomenclature\nomenclatures_vm.js" />
+    <Content Include="App\js\src\view_models\nomenclature\nomtypes_vm.js" />
     <Content Include="App\js\src\view_models\upload_file_vm.js" />
     <Content Include="App\js\src\view_models\user_change_password_vm.js" />
     <Content Include="App\js\src\view_models\edit_user_vm.js" />
@@ -244,6 +248,9 @@
     <Content Include="App\templates\building\buildings_edit.html" />
     <Content Include="App\templates\building\buildings_requests_list.html" />
     <Content Include="App\templates\building\nom_pop_list.html" />
+    <Content Include="App\templates\nomenclature\nom_list.html" />
+    <Content Include="App\templates\nomenclature\edit_nom.html" />
+    <Content Include="App\templates\nomenclature\nomtypes.html" />
     <Content Include="App\templates\upload_file.html" />
     <Content Include="App\templates\user_change_pass.html" />
     <Content Include="App\templates\edit_user.html" />

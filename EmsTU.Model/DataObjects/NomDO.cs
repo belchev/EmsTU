@@ -13,14 +13,23 @@ namespace EmsTU.Model.DataObjects
         {
             if (nom != null)
             {
+                if (nom.NomType != null)
+                {
+                    this.NomTypeId = nom.NomType.NomTypeId;
+                    this.NomTypeAlias = nom.NomType.Alias;
+                }
+
                 this.NomId = nom.NomId;
                 this.Name = nom.Name;
                 this.Alias = nom.Alias;
                 this.IsActive = nom.IsActive;
+                this.Version = nom.Version;
             }
         }
 
         public int NomId { get; set; }
+        public int NomTypeId { get; set; }
+        public string NomTypeAlias { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
         public bool IsActive { get; set; }

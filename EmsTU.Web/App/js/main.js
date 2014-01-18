@@ -226,10 +226,10 @@ define([
     'src/validation_extenders',
     'src/utils',
 
-    //todo
     'src/controllers/app_controller',
     'src/controllers/user_controller',
     'src/controllers/building_controller',
+    'src/controllers/nomenclature_controller',
 
     'src/nomenclature_cache_service',
     'src/nomenclature_context_handler',
@@ -263,6 +263,7 @@ define([
     AppController,
     UserController,
     BuildingController,
+    NomenclatureController,
 
     NomenclatureCacheService,
     NomenclatureContextHandler,
@@ -422,12 +423,14 @@ define([
                 icon: 'icon-wrench',
                 permissions: ['sys#admin'],
                 items: [
-                    { text: 'Потребители', action: 'user#search' }
+                    { text: 'Потребители', action: 'user#search' },
+                    { text: 'Номенклатури', action: 'nomenclature#nomtypes' }
                 ],
                 aliases: [
                     'user#newUser',
                     'user#edit',
-                    'user#search'
+                    'user#search',
+                    'nomenclature#nomtypes'
                 ]
             },
             {
@@ -477,9 +480,8 @@ define([
         controllers: {
             app: AppController,
             user: UserController,
-            building: BuildingController
-            //corr: CorrController,
-            //dkhNomenclature: DkhNomenclatureController,
+            building: BuildingController,
+            nomenclature: NomenclatureController
         },
         navigation: {
             rootAction: 'building#home',
@@ -518,6 +520,63 @@ define([
             {
                 pattern: 'rq/:?query:',
                 action: 'building#requests'
+            },
+
+            //nomenclatures
+            {
+                pattern: 'n/l',
+                action: 'nomenclature#nomtypes'
+            }, {
+                pattern: 'n/bt/:?query:',
+                action: 'nomenclature#searchNoms',
+                params: { nomTypeId: 1 }
+            }, {
+                pattern: 'n/kt/:?query:',
+                action: 'nomenclature#searchNoms',
+                params: { nomTypeId: 2 }
+            }, {
+                pattern: 'n/mt/:?query:',
+                action: 'nomenclature#searchNoms',
+                params: { nomTypeId: 3 }
+            }, {
+                pattern: 'n/ot/:?query:',
+                action: 'nomenclature#searchNoms',
+                params: { nomTypeId: 4 }
+            }, {
+                pattern: 'n/e/:?query:',
+                action: 'nomenclature#searchNoms',
+                params: { nomTypeId: 5 }
+            }, {
+                pattern: 'n/pt/:?query:',
+                action: 'nomenclature#searchNoms',
+                params: { nomTypeId: 6 }
+            }, {
+                pattern: 'n/bt/n',
+                action: 'nomenclature#newNom',
+                params: { nomTypeId: 1 }
+            }, {
+                pattern: 'n/kt/n',
+                action: 'nomenclature#newNom',
+                params: { nomTypeId: 2 }
+            }, {
+                pattern: 'n/mt/n',
+                action: 'nomenclature#newNom',
+                params: { nomTypeId: 3 }
+            }, {
+                pattern: 'n/ot/n',
+                action: 'nomenclature#newNom',
+                params: { nomTypeId: 4 }
+            }, {
+                pattern: 'n/e/n',
+                action: 'nomenclature#newNom',
+                params: { nomTypeId: 5 }
+            }, {
+                pattern: 'n/pt/n',
+                action: 'nomenclature#newNom',
+                params: { nomTypeId: 6 }
+            }, {
+                pattern: 'n/{nomId}',
+                action: 'nomenclature#editNom'
             }
             ]
         },

@@ -27,23 +27,54 @@ namespace EmsTU.Web
         {
             #region Noms
 
-            #region Load Nom
+            config.Routes.MapHttpRoute(
+              name: null,
+              routeTemplate: "api/nomenclatures/{nomTypeId}/",
+              defaults: new { controller = "Nom", action = "GetNoms", name = "", alias = "", isActive = "" },
+              constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+
+            config.Routes.MapHttpRoute(
+               name: null,
+               routeTemplate: "api/nomenclatures/nom/{nomId}",
+               defaults: new { controller = "Nom", action = "GetNom" },
+               constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/nomenclatures/nom",
+                defaults: new { controller = "Nom", action = "PostNom" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) }
+            );
+            config.Routes.MapHttpRoute(
+                name: null,
+                routeTemplate: "api/nomenclatures/nom/{nomId}",
+                defaults: new { controller = "Nom", action = "PutNom" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Put) }
+            );
 
             config.Routes.MapHttpRoute(
                 name: null,
-                routeTemplate: "api/noms/getPopNoms",
-                defaults: new { controller = "Nom", action = "GetPopNoms", type = "", name = "", limit = "", offset = "" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+                routeTemplate: "api/nomenclatures/nom/{nomId}",
+                defaults: new { controller = "Nom", action = "DeleteNom" },
+                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Delete) }
             );
+
+            config.Routes.MapHttpRoute(
+              name: null,
+              routeTemplate: "api/nomenclatures",
+              defaults: new { controller = "Nom", action = "GetNomTypes" },
+              constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
+            );
+
+            /* ### */
 
             config.Routes.MapHttpRoute(
                 name: null,
                 routeTemplate: "api/noms/noms",
-                defaults: new { controller = "Nom", action = "GetNoms", type = "" },
+                defaults: new { controller = "Nom", action = "GetSelectOptionNoms", type = "" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
-
-            #endregion
 
             config.Routes.MapHttpRoute(
                 name: null,

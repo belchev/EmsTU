@@ -5,67 +5,219 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using EmsTU.Common.Data;
 using EmsTU.Model.Models;
 using EmsTU.Model.Utils;
+using EmsTU.Model.Data.RepositoryExtensions;
 using EmsTU.Model.DataObjects;
+using System.Transactions;
+using EmsTU.Common.Data;
+using EmsTU.Model.Infrastructure;
 
 namespace EmsTU.Web.Controllers
 {
     /// <summary>
     /// Контролер за извличане на номенклатури
     /// </summary>
-    public class NomController : ApiController
+    public class NomController : BaseController
     {
-        private IUnitOfWork unitOfWork;
-
         /// <summary>
         /// Конструктор
         /// </summary>
         /// <param name="unitOfWork">Базов интерфейс за достъп до базата данни</param>
-        public NomController(IUnitOfWork unitOfWork)
+        /// <param name="userContextProvider">Интерфейс за достъп до потребителските данни</param>
+        public NomController(IUnitOfWork unitOfWork, IUserContextProvider userContextProvider)
+            : base(unitOfWork, userContextProvider)
         {
-            this.unitOfWork = unitOfWork;
         }
 
-        #region Load Noms
-
         [HttpGet]
-        public HttpResponseMessage GetPopNoms(string type, string name, int? limit, int? offset)
+        public HttpResponseMessage GetNoms(int nomTypeId, string name, string alias, bool? isActive, int limit, int offset)
         {
-            var query = this.unitOfWork.Repo<Nom>().Query()
-                .Where(e => e.IsActive && e.NomType.Alias == type);
-            
-            query = query.OrderByDescending(e => e.NomId);
-
-            if (!string.IsNullOrEmpty(name))
+            if (!HasAdminRights())
             {
-                query = query.Where(e => e.Name.Contains(name));
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
             }
 
-            int totalCounts = query.Count();
+            var query =
+                this.unitOfWork.Repo<Nom>()
+                .FindByNomTypeIdNameAliasAndIsActive(nomTypeId, name, alias, isActive);
 
-            if (limit.HasValue && offset.HasValue)
-            {
-                query = query.Skip(offset.Value).Take(limit.Value);
-            }
-
-            List<NomDO> returnValue = query
+            var returnValue = query
+                .Skip(offset)
+                .Take(limit)
                 .ToList()
                 .Select(e => new NomDO(e))
                 .ToList();
 
+            int totalCount = query.Count();
+
             return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
             {
-                noms = returnValue,
-                nomsCount = totalCounts
+                returnValue = returnValue,
+                totalCount = totalCount
             });
         }
 
-        #endregion
+        [HttpPut]
+        public HttpResponseMessage PutNom(int nomId, NomDO nom)
+        {
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            try
+            {
+                using (TransactionScope transactionScope = this.unitOfWork.CreateTransactionScope())
+                {
+                    Nom oldNom = this.unitOfWork.Repo<Nom>().Find(nomId);
+                    if (oldNom == null)
+                    {
+                        return ControllerContext.Request.CreateResponse(HttpStatusCode.NotFound);
+                    }
+
+                    if (!oldNom.Version.SequenceEqual(nom.Version))
+                    {
+                        return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "Съществува нова версия на статуса на документ." });
+                    }
+
+                    oldNom.Name = nom.Name;
+                    oldNom.Alias = nom.Alias;
+                    oldNom.IsActive = nom.IsActive;
+
+                    this.unitOfWork.Save();
+
+                    transactionScope.Complete();
+
+                    return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage PostNom(NomDO nom)
+        {
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            try
+            {
+                using (TransactionScope transactionScope = this.unitOfWork.CreateTransactionScope())
+                {
+                    Nom newNom = new Nom();
+
+                    newNom.NomTypeId = nom.NomTypeId;
+                    newNom.Name = nom.Name;
+                    newNom.Alias = nom.Alias;
+                    newNom.IsActive = nom.IsActive;
+
+                    this.unitOfWork.Repo<Nom>().Add(newNom);
+
+                    this.unitOfWork.Save();
+
+                    transactionScope.Complete();
+
+                    return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteNom(int nomId)
+        {
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            try
+            {
+                using (TransactionScope transactionScope = this.unitOfWork.CreateTransactionScope())
+                {
+
+                    Nom nom = this.unitOfWork.Repo<Nom>().Find(nomId);
+                    if (nom != null)
+                    {
+                        this.unitOfWork.Repo<Nom>().Remove(nom);
+
+                        this.unitOfWork.Save();
+
+                        transactionScope.Complete();
+
+                        return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = "" });
+                    }
+                    else
+                    {
+                        return ControllerContext.Request.CreateResponse(HttpStatusCode.NotFound);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new { err = ex.Message });
+            }
+        }
 
         [HttpGet]
-        public HttpResponseMessage GetNoms(string type)
+        public HttpResponseMessage GetNom(int nomId)
+        {
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            Nom nom = this.unitOfWork.Repo<Nom>().Find(
+                nomId,
+                u => u.NomType
+            );
+
+            if (nom != null)
+            {
+                NomDO returnValue = new NomDO(nom);
+
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, returnValue);
+            }
+            else
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+        }
+
+        public HttpResponseMessage GetNomTypes()
+        {
+            if (!HasAdminRights())
+            {
+                return ControllerContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            var noms = new List<NomLinkDO>() 
+            {
+                new NomLinkDO { Name = "Тип заведения", Url = "#/n/bt" },
+                new NomLinkDO { Name = "Тип кухни", Url = "#/n/kt" },
+                new NomLinkDO { Name = "Тип музика", Url = "#/n/mt" },
+                new NomLinkDO { Name = "Поводи", Url = "#/n/ot" },
+                new NomLinkDO { Name = "Начини на плащане", Url = "#/n/pt" },
+                new NomLinkDO { Name = "Екстри", Url = "#/n/e" },
+            };
+
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                noms = noms
+            });
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetSelectOptionNoms(string type)
         {
             var returnValue =
                 this.unitOfWork.Repo<Nom>().Query()

@@ -68,6 +68,7 @@
     <Compile Include="DataObjects\BuildingDO.cs" />
     <Compile Include="DataObjects\AlbumDO.cs" />
     <Compile Include="DataObjects\AlbumPhotoDO.cs" />
+    <Compile Include="DataObjects\NomLinkDO.cs" />
     <Compile Include="DataObjects\EventDO.cs" />
     <Compile Include="DataObjects\MenuDO.cs" />
     <Compile Include="DataObjects\MenuCategoryDO.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="DataObjects\UserDO.cs" />
     <Compile Include="Data\EmsTUUnitOfWork.cs" />
     <Compile Include="Data\RepositoryExtensions\BuildingRepositoryExtensions.cs" />
+    <Compile Include="Data\RepositoryExtensions\NomRepositoryExtensions.cs" />
     <Compile Include="Data\RepositoryExtensions\RoleRepositoryExtensions.cs" />
     <Compile Include="Data\RepositoryExtensions\UserRepositoryExtensions.cs" />
     <Compile Include="EmsTUContext.cs" />
