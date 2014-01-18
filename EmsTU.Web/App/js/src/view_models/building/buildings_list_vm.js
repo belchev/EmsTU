@@ -29,6 +29,7 @@
             buildings,
             buildingsCount,
             msg,
+            buildingPage,
             name,
             buildingTypeId,
             kitchenTypeId,
@@ -55,6 +56,7 @@
             self.reset = self.reset.bind(self);
             self.editBuilding = self.editBuilding.bind(self);
 
+            self._buildingPage = ko.observable(buildingPage);
             self._name = ko.observable(name);
             self._buildingTypeId = ko.observable(buildingTypeId);
             self._kitchenTypeId = ko.observable(kitchenTypeId);
@@ -99,6 +101,7 @@
                 'building#search',
                 {
                     query: {
+                        'bp': self._buildingPage(),
                         'n': self._name(),
                         'bt': self._buildingTypeId(),
                         'kt': self._kitchenTypeId(),
@@ -123,6 +126,7 @@
                 'building#search',
                 {
                     query: {
+                        'bp': self._buildingPage(),
                         'n': self._name(),
                         'bt': self._buildingTypeId(),
                         'kt': self._kitchenTypeId(),

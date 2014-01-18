@@ -114,6 +114,62 @@
 
                 return buildingRepository
                     .getBuildings(
+                        query.bp,
+                        query.n,
+                        query.bt,
+                        query.kt,
+                        query.mt,
+                        query.ot,
+                        query.e,
+                        limit,
+                        offset
+                    )
+                    .then(function (b) {
+                        var buildings = b.buildings,
+                            buildingsCount = b.buildingsCount,
+                            msg = b.msg;
+
+                        if (cancelationToken.isCanceled) {
+                            return;
+                        }
+
+                        return Corium.app.rootView().pageView().right(new BuildingsVM(
+                            buildings,
+                            buildingsCount,
+                            msg,
+                            query.bp,
+                            query.n,
+                            query.bt,
+                            query.kt,
+                            query.mt,
+                            query.ot,
+                            query.e,
+                            limit,
+                            offset
+                            ));
+                    });
+            }
+        },
+        home: {
+            dependencies: ['app#root'],
+            action: function (params, cancelationToken) {
+                if (cancelationToken.isCanceled) {
+                    return;
+                }
+
+                return Corium.app.rootView().pageView(new HomeVM());
+            }
+        },
+        all: {
+            dependencies: ['app#leftBuilding'],
+            action: function (params, cancelationToken) {
+                var query = params.query || {},
+                    buildingRepository = new BuildingRepository(),
+                    limit = query.limit ? parseInt(query.limit, 10) : 10,
+                    offset = query.offset ? parseInt(query.offset, 10) : 0;
+
+                return buildingRepository
+                    .getBuildings(
                         query.n,
                         query.bt,
                         query.kt,
@@ -146,26 +202,6 @@
                             offset
                             ));
                     });
-            }
-        },
-        home: {
-            dependencies: ['app#root'],
-            action: function (params, cancelationToken) {
-                if (cancelationToken.isCanceled) {
-                    return;
-                }
-
-                return Corium.app.rootView().pageView(new HomeVM());
-            }
-        },
-        homeTest: {
-            dependencies: ['app#leftBuilding'],
-            action: function (params, cancelationToken) {
-                if (cancelationToken.isCanceled) {
-                    return;
-                }
-
-                return Corium.app.rootView().pageView().right(new HomeVM());
             }
         }
 

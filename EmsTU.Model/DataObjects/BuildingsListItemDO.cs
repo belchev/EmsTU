@@ -36,10 +36,23 @@ namespace EmsTU.Model.DataObjects
                 this.Slogan = b.Slogan;
                 this.ImagePath = b.ImagePath;
                 this.WebSite = b.WebSite;
-                this.Status = b.IsDeleted ? "Изтрит | " : "";
-                this.Status = this.Status + (b.IsActive ? "Активен" : "Неактивен");
+
+                if (b.IsDeleted)
+                {
+                    this.Status = "Изтрит";
+                }
+                else if (b.IsActive)
+                {
+                    this.Status = "Активен";
+                }
+                else
+                {
+                    this.Status = "Неактивен";
+                }
+
                 this.IsActive = b.IsActive;
                 this.IsSoftDeleted = b.IsDeleted;
+                this.ModifyDate = b.ModifyDate;
 
                 this.Version = b.Version;
             }
@@ -57,6 +70,7 @@ namespace EmsTU.Model.DataObjects
         public string ImagePath { get; set; }
         public string WebSite { get; set; }
         public string Status { get; set; }
+        public Nullable<DateTime> ModifyDate { get; set; }
 
         public bool IsActive { get; set; }
         public bool IsSoftDeleted { get; set; }

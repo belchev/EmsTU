@@ -38,13 +38,13 @@
           <a data-toggle="tab" data-target="#buildingInfo" data-bind="click: function () { $parent._innerNavigation('buildingInfo'); }">Инфо</a>
         </li>
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
-          <a data-toggle="tab" data-target="#buildingMenu" data-bind="click: function () { $parent._innerNavigation('buildingMenu'); }">Меню</a>
+          <a data-toggle="tab" data-target="#buildingMenu" data-bind="click: function () { $parent._innerNavigation('buildingMenu'); }">Меню (<span data-bind="text: menuItemsNum"></span>)</a>
         </li>
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingAlbums' }">
-          <a data-toggle="tab" data-target="#buildingAlbums" data-bind="click: function () { $parent._innerNavigation('buildingAlbums'); }">Снимки</a>
+          <a data-toggle="tab" data-target="#buildingAlbums" data-bind="click: function () { $parent._innerNavigation('buildingAlbums'); }">Снимки (<span data-bind="text: albumPhotosNum"></span>)</a>
         </li>
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingEvents' }">
-          <a data-toggle="tab" data-target="#buildingEvents" data-bind="click: function () { $parent._innerNavigation('buildingEvents'); }">Събития</a>
+          <a data-toggle="tab" data-target="#buildingEvents" data-bind="click: function () { $parent._innerNavigation('buildingEvents'); }">Събития (<span data-bind="text: eventsNum"></span>)</a>
         </li>
       </ul>
 
@@ -406,7 +406,7 @@
               <div data-bind="foreach: albumPhotos">
                 <!-- ko if: !isDeleted() -->
                 <div class="album-photo">
-                  <a style="cursor: pointer;">
+                  <a data-bind="attr: { href: imagePath() }" style="cursor: pointer;">
                     <img data-bind="attr: { src: imageThumbPath() }"></a>
                   <button class="btn btn-inverse" data-bind="click: $parents[2]._deleteAlbumPhoto, enable: $parents[2]._inEditMode">X</button>
                 </div>

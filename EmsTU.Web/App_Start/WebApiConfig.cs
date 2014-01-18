@@ -182,7 +182,7 @@ namespace EmsTU.Web
             config.Routes.MapHttpRoute(
                 name: null,
                 routeTemplate: "api/buildings",
-                defaults: new { controller = "Building", action = "GetBuildings", name = "", buildingTypeId = "", kitchenTypeId = "", musicTypeId = "", occasionTypeId = "", extraId = "", limit = "", offset = "" },
+                defaults: new { controller = "Building", action = "GetBuildings", buildingPage = "", name = "", buildingTypeId = "", kitchenTypeId = "", musicTypeId = "", occasionTypeId = "", extraId = "", limit = "", offset = "" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) }
             );
 

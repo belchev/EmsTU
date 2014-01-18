@@ -532,6 +532,7 @@ namespace EmsTU.Web.Controllers
 
         [HttpGet]
         public HttpResponseMessage GetBuildings(
+            string buildingPage,
             string name,
             int? buildingTypeId,
             int? kitchenTypeId,
@@ -556,6 +557,7 @@ namespace EmsTU.Web.Controllers
                 predicate = predicate.And(d => d.Users.Any(e => e.UserId == this.userContext.UserId));
                 predicate = predicate.And(d => !d.IsDeleted);
             }
+
 
             if (!String.IsNullOrWhiteSpace(name))
             {
@@ -589,9 +591,17 @@ namespace EmsTU.Web.Controllers
 
             var query = this.unitOfWork.Repo<Building>().Query();
 
+            if (buildingPage == "last")
+            {
+                query = query.OrderByDescending(e => e.ModifyDate);
+            }
+            else
+            {
+                query = query.OrderByDescending(e => e.BuildingId);
+            }
+
             query = query
                 .Where(predicate)
-                .OrderByDescending(e => e.BuildingId)
                 .Take(10000);
 
             totalCounts = query.Count();

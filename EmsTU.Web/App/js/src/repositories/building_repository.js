@@ -61,6 +61,7 @@
             return self.get(url);
         },
         getBuildings: function (
+            buildingPage,
             name,
             buildingTypeId,
             kitchenTypeId,
@@ -75,6 +76,7 @@
                 urlQuery;
 
             apiQuery = Utils.Uri.createQuery({
+                'buildingPage': buildingPage,
                 'name': name,
                 'buildingTypeId': buildingTypeId,
                 'kitchenTypeId': kitchenTypeId,

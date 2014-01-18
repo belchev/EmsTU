@@ -150,6 +150,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App\build\release\js\app.js" />
     <Content Include="App\css\bootstrap-chosen.css" />
     <Content Include="App\css\bootstrap.css" />
     <Content Include="App\css\datepicker.css" />
@@ -162,6 +163,9 @@
     <Content Include="App\img\glyphicons-halflings.png" />
     <Content Include="App\img\initial-loader.gif" />
     <Content Include="App\img\loading.gif" />
+    <Content Include="App\img\nopic.jpg" />
+    <Content Include="App\img\nopiclarge.jpg" />
+    <Content Include="App\img\nopicsmall.jpg" />
     <Content Include="App\img\pictograms-nps-misc-stay_back_from_edge.png" />
     <Content Include="App\img\tree-minus.png" />
     <Content Include="App\img\tree-plus.png" />
@@ -298,6 +302,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\EmsTU.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

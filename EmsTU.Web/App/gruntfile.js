@@ -94,6 +94,22 @@ module.exports = function (grunt) {
                     'build/debug/js/main.js': 'js/main.js'
                 }
             }
+        },
+        requirejs: {
+            ems_release: {
+                options: {
+                    baseUrl: 'js',
+                    mainConfigFile: 'js/main.js',
+                    out: 'build/release/js/app.js',
+                    include: 'requireLib',
+                    paths: {
+                        requireLib: 'lib/require',
+                        main: '../build/debug/js/main'
+                    },
+                    optimize: "uglify2",
+                    preserveLicenseComments: false
+                }
+            }
         }
     });
 
@@ -101,6 +117,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('debug', ['jshint', 'template:ems_debug']);
+    grunt.registerTask('release', ['jshint', 'template:ems_debug', 'requirejs:ems_release']);
 
     grunt.registerTask('default', ['debug']);
 };

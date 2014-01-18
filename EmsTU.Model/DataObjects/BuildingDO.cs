@@ -31,16 +31,19 @@ namespace EmsTU.Model.DataObjects
                 if (b.Events != null && b.Events.Any())
                 {
                     this.Events.AddRange(b.Events.Select(e => new EventDO(e)));
+                    this.EventsNum = b.Events.Count;
                 }
 
                 if (b.Albums != null && b.Albums.Any())
                 {
                     this.Albums.AddRange(b.Albums.Select(e => new AlbumDO(e)));
+                    this.AlbumPhotosNum = b.Albums.Sum(e => e.AlbumPhotos.Count);
                 }
 
                 if (b.MenuCategories != null && b.MenuCategories.Any())
                 {
                     this.MenuCategories.AddRange(b.MenuCategories.Select(e => new MenuCategoryDO(e)));
+                    this.MenuItemsNum = b.MenuCategories.Sum(e => e.Menus.Count);
                 }
 
                 if (b.Noms.Any(e => e.NomType.Alias == "KitchenTypes"))
@@ -90,6 +93,7 @@ namespace EmsTU.Model.DataObjects
                 this.Price = b.Price;
                 this.SeatsInside = b.SeatsInside;
                 this.SeatsOutside = b.SeatsOutside;
+                this.ModifyDate = b.ModifyDate;
                 this.IsActive = b.IsActive;
                 this.IsDeleted = b.IsDeleted;
                 this.IsAdmin = isAdmin;
@@ -101,6 +105,10 @@ namespace EmsTU.Model.DataObjects
         public List<EventDO> Events { get; set; }
         public List<AlbumDO> Albums { get; set; }
         public List<MenuCategoryDO> MenuCategories { get; set; }
+
+        public int EventsNum { get; set; }
+        public int AlbumPhotosNum { get; set; }
+        public int MenuItemsNum { get; set; }
 
         public List<int> BuildingTypes { get; set; }
         public List<int> KitchenTypes { get; set; }
@@ -125,6 +133,7 @@ namespace EmsTU.Model.DataObjects
         public Nullable<int> Price { get; set; }
         public Nullable<int> SeatsInside { get; set; }
         public Nullable<int> SeatsOutside { get; set; }
+        public Nullable<DateTime> ModifyDate { get; set; }
 
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }

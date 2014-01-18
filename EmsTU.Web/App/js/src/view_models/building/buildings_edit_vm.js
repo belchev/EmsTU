@@ -269,8 +269,6 @@
             });
         },
         _deleteAlbumPhoto: function (target) {
-            var self = this;
-
             target.isDeleted(true);
         },
         _deleteMenuItemImage: function () {

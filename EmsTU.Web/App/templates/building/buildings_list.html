@@ -95,7 +95,7 @@
             <img data-bind="attr: { src: imagePath }, click: $parent.editBuilding" style="" alt="Преглед" title="Преглед" />
           </td>
           <td>
-            <h4><a data-bind="text: name, click: $parent.editBuilding" style="" title="Преглед"></a></h4>
+            <span class="h4c"><a data-bind="text: name, click: $parent.editBuilding" style="" title="Преглед"></a></span>
 
             <div data-bind="visible: buildingTypes().length > 0">
               <i><span data-bind="foreach: buildingTypes"><span data-bind="text: name"></span>, </span></i><br />
@@ -110,7 +110,10 @@
             </div>
             
           </td>
-          <td style="text-align: center; vertical-align:middle;" data-bind="text: status, css: { 'text-error bolded': isSoftDeleted() }"></td>
+          <td style="text-align: right;">
+            <i class="icon-refresh"></i> <span data-bind="dateWithHourText: modifyDate"></span><br /><br />
+            <span class="bolded" data-bind="text: status, css: { 'text-success': isActive(), 'text-warning': !isActive(), 'text-error': isSoftDeleted() }"></span>
+          </td>
         </tr>
       </tbody>
     </table>

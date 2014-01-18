@@ -62,10 +62,10 @@
 
             function isActive(item) {
                 if (item.action === args.action) {
-                    if (!item.params || !item.params.query || !item.params.query.dp) {
-                        return !args.params || !args.params.query || !args.params.query.dp;
+                    if (!item.params || !item.params.query || !item.params.query.bp) {
+                        return !args.params || !args.params.query || !args.params.query.bp;
                     } else {
-                        return args.params && args.params.query && item.params.query.dp === args.params.query.dp;
+                        return args.params && args.params.query && item.params.query.bp === args.params.query.bp;
                     }
                 }
 

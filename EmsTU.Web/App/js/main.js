@@ -445,12 +445,13 @@ define([
         ],
         leftBuildingNavigationData: [
             {
-                text: 'Последни',
+                text: 'Всички',
                 action: 'building#search'
             },
             {
-                text: 'Всички',
-                action: 'building#homeTest'
+                text: 'Последни',
+                action: 'building#search',
+                params: { query: { bp: 'last' } }
             }
         ]
     };
@@ -509,9 +510,6 @@ define([
             }, {
                 pattern: 'b/{buildingId}',
                 action: 'building#edit'
-            }, {
-                pattern: 'ht',
-                action: 'building#homeTest'
             }, {
                 pattern: 'h',
                 action: 'building#home'
