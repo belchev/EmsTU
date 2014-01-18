@@ -6,9 +6,6 @@ CREATE TABLE Municipalities
     MunicipalityId		INT            IDENTITY (1, 1) NOT NULL,
 	DistrictId			INT            NOT NULL,
 	Code				NVARCHAR (10) NOT NULL,
-	Code2				NVARCHAR (10) NOT NULL,
-	MainSettlementCode  nvarchar(10) NULL,
-	Category			nvarchar (50) NULL,
     Name				NVARCHAR (200) NOT NULL,
 	Alias				NVARCHAR (200) NULL,
 	Description			NVARCHAR (MAX) NULL,
@@ -21,4 +18,3 @@ GO
 
 exec spDescTable  N'Municipalities', N'Номенклатура области'
 exec spDescColumn N'Municipalities', N'MunicipalityId', N'Уникален системно генериран идентификатор.'
-

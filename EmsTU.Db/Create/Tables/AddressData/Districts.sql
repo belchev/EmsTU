@@ -5,10 +5,7 @@ CREATE TABLE Districts
 (
     DistrictId		INT            IDENTITY (1, 1) NOT NULL,
 	Code				NVARCHAR (10) NOT NULL,
-	Code2				NVARCHAR (10) NOT NULL,
-	SecondLevelRegionCode nvarchar(10) NULL,
     Name				NVARCHAR (200) NOT NULL,
-	MainSettlementCode  nvarchar(10) NULL,
 	Alias				NVARCHAR (200) NULL,
 	Description			NVARCHAR (MAX) NULL,
     IsActive		BIT            NOT NULL,

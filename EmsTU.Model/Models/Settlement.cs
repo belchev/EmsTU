@@ -15,20 +15,11 @@ namespace EmsTU.Model.Models
         public int MunicipalityId { get; set; }
         public int DistrictId { get; set; }
         public string Code { get; set; }
-        public string ManucipalityCode { get; set; }
-        public string DistrictCode { get; set; }
-        public string ManucipalityCode2 { get; set; }
-        public string DistrictCode2 { get; set; }
         public string Name { get; set; }
         public string TypeName { get; set; }
         public string SettlementName { get; set; }
-        public string TypeCode { get; set; }
-        public string MayoraltyCode { get; set; }
-        public string Category { get; set; }
-        public string Altitude { get; set; }
         public string Alias { get; set; }
         public string Description { get; set; }
-        public bool IsDistrict { get; set; }
         public bool IsActive { get; set; }
         public byte[] Version { get; set; }
         public virtual ICollection<Building> Buildings { get; set; }
@@ -48,18 +39,6 @@ namespace EmsTU.Model.Models
                 .IsRequired()
                 .HasMaxLength(10);
 
-            this.Property(t => t.ManucipalityCode)
-                .HasMaxLength(10);
-
-            this.Property(t => t.DistrictCode)
-                .HasMaxLength(10);
-
-            this.Property(t => t.ManucipalityCode2)
-                .HasMaxLength(10);
-
-            this.Property(t => t.DistrictCode2)
-                .HasMaxLength(10);
-
             this.Property(t => t.Name)
                 .IsRequired()
                 .HasMaxLength(200);
@@ -71,18 +50,6 @@ namespace EmsTU.Model.Models
             this.Property(t => t.SettlementName)
                 .IsRequired()
                 .HasMaxLength(200);
-
-            this.Property(t => t.TypeCode)
-                .HasMaxLength(50);
-
-            this.Property(t => t.MayoraltyCode)
-                .HasMaxLength(50);
-
-            this.Property(t => t.Category)
-                .HasMaxLength(50);
-
-            this.Property(t => t.Altitude)
-                .HasMaxLength(50);
 
             this.Property(t => t.Alias)
                 .HasMaxLength(200);
@@ -99,20 +66,11 @@ namespace EmsTU.Model.Models
             this.Property(t => t.MunicipalityId).HasColumnName("MunicipalityId");
             this.Property(t => t.DistrictId).HasColumnName("DistrictId");
             this.Property(t => t.Code).HasColumnName("Code");
-            this.Property(t => t.ManucipalityCode).HasColumnName("ManucipalityCode");
-            this.Property(t => t.DistrictCode).HasColumnName("DistrictCode");
-            this.Property(t => t.ManucipalityCode2).HasColumnName("ManucipalityCode2");
-            this.Property(t => t.DistrictCode2).HasColumnName("DistrictCode2");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.TypeName).HasColumnName("TypeName");
             this.Property(t => t.SettlementName).HasColumnName("SettlementName");
-            this.Property(t => t.TypeCode).HasColumnName("TypeCode");
-            this.Property(t => t.MayoraltyCode).HasColumnName("MayoraltyCode");
-            this.Property(t => t.Category).HasColumnName("Category");
-            this.Property(t => t.Altitude).HasColumnName("Altitude");
             this.Property(t => t.Alias).HasColumnName("Alias");
             this.Property(t => t.Description).HasColumnName("Description");
-            this.Property(t => t.IsDistrict).HasColumnName("IsDistrict");
             this.Property(t => t.IsActive).HasColumnName("IsActive");
             this.Property(t => t.Version).HasColumnName("Version");
 
