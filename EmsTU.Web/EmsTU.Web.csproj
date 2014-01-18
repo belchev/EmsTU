@@ -197,6 +197,7 @@
     <Content Include="App\js\lib\jquery-1.9.1.js" />
     <Content Include="App\js\lib\jquery.fileupload.js" />
     <Content Include="App\js\lib\jquery.iframe-transport.js" />
+    <Content Include="App\js\lib\jquery.lightbox-0.5.js" />
     <Content Include="App\js\lib\jquery.ui.widget.js" />
     <Content Include="App\js\lib\knockout-2.2.1.debug.js" />
     <Content Include="App\js\lib\knockout_plugins\knockout.mapping-2.4.1.debug.js" />

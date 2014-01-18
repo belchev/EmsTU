@@ -25,6 +25,8 @@ require.config({
         crossroads: 'lib/crossroads',
         hasher: 'lib/hasher',
 
+        lightbox: 'lib/jquery.lightbox-0.5',
+
         //knockout plugins
         'knockout.mapping': 'lib/knockout_plugins/knockout.mapping-2.4.1.debug',
 
@@ -42,6 +44,14 @@ require.config({
         'promised_click_handler': 'knockout_binding_handlers/promised_click_handler'
     },
     shim: {
+        'lightbox': {
+            deps: ['jquery'],
+            exports: 'jQuery.fn.lightBox',
+            init: function ($) {
+                'use strict';
+                $('.album-photo a').lightBox();
+            }
+        },
         'bootstrap': {
             deps: ['jquery', 'document'],
             exports: 'jQuery.fn.dropdown',
