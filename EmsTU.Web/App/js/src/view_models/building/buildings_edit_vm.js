@@ -54,7 +54,7 @@
             self._deleteMenuItem = self._deleteMenuItem.bind(self);
             self._addMenuItemImage = self._addMenuItemImage.bind(self);
             self._deleteMenuItemImage = self._deleteMenuItemImage.bind(self);
-            self._deleteAlbumPhoto = self._deleteAlbumPhoto.bind(self);
+            self._delete = self._delete.bind(self);
             self._addAlbumPhoto = self._addAlbumPhoto.bind(self);
             self._addAlbumCat = self._addAlbumCat.bind(self);
             self._deleteAlbumCat = self._deleteAlbumCat.bind(self);
@@ -268,7 +268,7 @@
                 viewModel: uploadFileVM
             });
         },
-        _deleteAlbumPhoto: function (target) {
+        _delete: function (target) {
             target.isDeleted(true);
         },
         _deleteMenuItemImage: function () {

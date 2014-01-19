@@ -396,6 +396,22 @@ namespace EmsTU.Web.Controllers
 
                     #endregion
 
+                    #region Manage Comments
+
+                    foreach (var cm in building.Comments)
+                    {
+                        if (cm.IsDeleted)
+                        {
+                            Comment cD = this.unitOfWork.Repo<Comment>().Find(cm.CommentId);
+                            if (cD != null)
+                            {
+                                this.unitOfWork.Repo<Comment>().Remove(cD);
+                            }
+                        }
+                    }
+
+                    #endregion
+
                     this.unitOfWork.Save();
 
                     transactionScope.Complete();
@@ -435,7 +451,8 @@ namespace EmsTU.Web.Controllers
                     d => d.Noms.Select(e => e.NomType),
                     d => d.MenuCategories.Select(e => e.Menus),
                     d => d.Albums.Select(e => e.AlbumPhotos),
-                    d => d.Events
+                    d => d.Events,
+                    d => d.Comments
                 );
 
             if (query == null)
@@ -614,6 +631,7 @@ namespace EmsTU.Web.Controllers
                .Include(e => e.Settlement)
                .Include(e => e.Users)
                .Include(e => e.Noms.Select(k => k.NomType))
+               .Include(e => e.ModifyUser)
                .ToList()
                .Select(e => new BuildingsListItemDO(e))
                .ToList();

@@ -8,6 +8,7 @@ namespace EmsTU.Model.Models
     {
         public int CommentId { get; set; }
         public int BuildingId { get; set; }
+        public string Name { get; set; }
         public string Comment1 { get; set; }
         public System.DateTime Date { get; set; }
         public byte[] Version { get; set; }
@@ -36,6 +37,7 @@ namespace EmsTU.Model.Models
             this.ToTable("Comments");
             this.Property(t => t.CommentId).HasColumnName("CommentId");
             this.Property(t => t.BuildingId).HasColumnName("BuildingId");
+            this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Comment1).HasColumnName("Comment");
             this.Property(t => t.Date).HasColumnName("Date");
             this.Property(t => t.Version).HasColumnName("Version");

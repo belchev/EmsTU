@@ -111,7 +111,9 @@
             
           </td>
           <td style="text-align: right;">
-            <i class="icon-refresh"></i> <span data-bind="dateWithHourText: modifyDate"></span><br /><br />
+            <i class="icon-refresh"></i> <span data-bind="dateWithHourText: modifyDate"></span><br />
+            от <b><span data-bind="text: modifyUsername"></span></b>
+            <br />
             <span class="bolded" data-bind="text: status, css: { 'text-success': isActive(), 'text-warning': !isActive(), 'text-error': isSoftDeleted() }"></span>
           </td>
         </tr>

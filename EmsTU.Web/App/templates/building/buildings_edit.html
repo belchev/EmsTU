@@ -38,13 +38,16 @@
           <a data-toggle="tab" data-target="#buildingInfo" data-bind="click: function () { $parent._innerNavigation('buildingInfo'); }">Инфо</a>
         </li>
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingMenu' }">
-          <a data-toggle="tab" data-target="#buildingMenu" data-bind="click: function () { $parent._innerNavigation('buildingMenu'); }">Меню (<span data-bind="text: menuItemsNum"></span>)</a>
+          <a data-toggle="tab" data-target="#buildingMenu" data-bind="click: function () { $parent._innerNavigation('buildingMenu'); }">Меню (<span data-bind="  text: menuItemsNum"></span>)</a>
         </li>
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingAlbums' }">
-          <a data-toggle="tab" data-target="#buildingAlbums" data-bind="click: function () { $parent._innerNavigation('buildingAlbums'); }">Снимки (<span data-bind="text: albumPhotosNum"></span>)</a>
+          <a data-toggle="tab" data-target="#buildingAlbums" data-bind="click: function () { $parent._innerNavigation('buildingAlbums'); }">Снимки (<span data-bind="  text: albumPhotosNum"></span>)</a>
         </li>
         <li data-bind="css: { 'active': $parent._currentTab() === 'buildingEvents' }">
-          <a data-toggle="tab" data-target="#buildingEvents" data-bind="click: function () { $parent._innerNavigation('buildingEvents'); }">Събития (<span data-bind="text: eventsNum"></span>)</a>
+          <a data-toggle="tab" data-target="#buildingEvents" data-bind="click: function () { $parent._innerNavigation('buildingEvents'); }">Събития (<span data-bind="  text: eventsNum"></span>)</a>
+        </li>
+        <li data-bind="css: { 'active': $parent._currentTab() === 'buildingComments' }">
+          <a data-toggle="tab" data-target="#buildingComments" data-bind="click: function () { $parent._innerNavigation('buildingComments'); }">Коментари (<span data-bind="  text: commentsNum"></span>)</a>
         </li>
       </ul>
 
@@ -408,7 +411,7 @@
                 <div class="album-photo">
                   <a data-bind="attr: { href: imagePath() }" style="cursor: pointer;">
                     <img data-bind="attr: { src: imageThumbPath() }"></a>
-                  <button class="btn btn-inverse" data-bind="click: $parents[2]._deleteAlbumPhoto, enable: $parents[2]._inEditMode">X</button>
+                  <button class="btn btn-inverse" data-bind="click: $parents[2]._delete, enable: $parents[2]._inEditMode">X</button>
                 </div>
                 <!-- /ko-->
               </div>
@@ -461,7 +464,6 @@
           </div>
 
           <div class="tab-pane" id="buildingEvents" data-bind="css: { 'active': $parent._currentTab() === 'buildingEvents' }">
-
             <!-- ko if: $parent._inEventEditMode() -->
             <div>
               <h3>Редакция</h3>
@@ -561,11 +563,40 @@
 
             <hr />
             <div style="text-align: center;">
-              <button class="btn" data-bind="click: $parent._addEvent"><i class="icon-plus"></i>&nbsp; Добави</button>
+              <button class="btn" data-bind="click: $parent._addEvent, enable: $parent._inEditMode"><i class="icon-plus"></i>&nbsp; Добави</button>
             </div>
             <!-- /ko-->
+          </div>
 
+          <div class="tab-pane" id="buildingComments" data-bind="css: { 'active': $parent._currentTab() === 'buildingComments' }">
+              <table class="table table-list">
+              <thead>
+                <tr>
+                  <th style="width: 500px;"></th>
+                  <th style="width: 20px;"></th>
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: comments">
+                <tr data-bind="css: { 'del': isDeleted() }">
+                  <td>
+                    на <span class="h4c" data-bind="dateWithHourText: date"></span>
+                    от <span class="h4c" data-bind="  text: name"></span>
+                    <h4></h4>
+                    <span data-bind="text: comment"></span>
+                  </td>
+                  <td>
+                    <!-- ko if: !isDeleted() -->
+                    <button class="btn btn-mini" data-bind="click: $parents[1]._delete, enable: $parents[1]._inEditMode()"><i class="icon-remove"></i></button>
+                    <!-- /ko-->
+                    <!-- ko if: isDeleted() -->
+                    <button class="btn btn-mini" data-bind="click: $parents[1]._unDelete, enable: $parents[1]._inEditMode()"><i class="icon-plus"></i></button>
+                    <!-- /ko-->
+                  </td>
+                </tr>
 
+              </tbody>
+
+            </table>
           </div>
 
         </div>

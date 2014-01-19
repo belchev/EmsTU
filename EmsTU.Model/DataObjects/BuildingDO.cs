@@ -21,6 +21,7 @@ namespace EmsTU.Model.DataObjects
             this.MenuCategories = new List<MenuCategoryDO>();
             this.Albums = new List<AlbumDO>();
             this.Events = new List<EventDO>();
+            this.Comments = new List<CommentDO>();
         }
 
         public BuildingDO(Building b, bool isAdmin)
@@ -28,6 +29,11 @@ namespace EmsTU.Model.DataObjects
         {
             if (b != null)
             {
+                if (b.Comments != null && b.Comments.Any())
+                {
+                    this.Comments.AddRange(b.Comments.OrderByDescending(e => e.Date).Select(e => new CommentDO(e)));
+                    this.CommentsNum = b.Comments.Count;
+                }
                 if (b.Events != null && b.Events.Any())
                 {
                     this.Events.AddRange(b.Events.Select(e => new EventDO(e)));
@@ -102,10 +108,12 @@ namespace EmsTU.Model.DataObjects
             }
         }
 
+        public List<CommentDO> Comments { get; set; }
         public List<EventDO> Events { get; set; }
         public List<AlbumDO> Albums { get; set; }
         public List<MenuCategoryDO> MenuCategories { get; set; }
 
+        public int CommentsNum { get; set; }
         public int EventsNum { get; set; }
         public int AlbumPhotosNum { get; set; }
         public int MenuItemsNum { get; set; }

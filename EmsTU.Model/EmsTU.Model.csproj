@@ -68,6 +68,7 @@
     <Compile Include="DataObjects\BuildingDO.cs" />
     <Compile Include="DataObjects\AlbumDO.cs" />
     <Compile Include="DataObjects\AlbumPhotoDO.cs" />
+    <Compile Include="DataObjects\CommentDO.cs" />
     <Compile Include="DataObjects\NomLinkDO.cs" />
     <Compile Include="DataObjects\EventDO.cs" />
     <Compile Include="DataObjects\MenuDO.cs" />

@@ -54,6 +54,11 @@ namespace EmsTU.Model.DataObjects
                 this.IsSoftDeleted = b.IsDeleted;
                 this.ModifyDate = b.ModifyDate;
 
+                if (b.ModifyUser != null)
+                {
+                    this.ModifyUsername = b.ModifyUser.Username;
+                }
+
                 this.Version = b.Version;
             }
         }
@@ -71,6 +76,7 @@ namespace EmsTU.Model.DataObjects
         public string WebSite { get; set; }
         public string Status { get; set; }
         public Nullable<DateTime> ModifyDate { get; set; }
+        public string ModifyUsername { get; set; }
 
         public bool IsActive { get; set; }
         public bool IsSoftDeleted { get; set; }

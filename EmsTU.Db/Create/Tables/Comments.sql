@@ -4,8 +4,9 @@ GO
 CREATE TABLE [dbo].[Comments](
 	[CommentId] [int] IDENTITY(1,1) NOT NULL,
 	[BuildingId] [int] NOT NULL,
-	[Comment] [nvarchar](1000) NOT NULL,
-	[Date] [datetime] NOT NULL,
+	[Name][nvarchar](50) NULL,
+	[Comment] [nvarchar](1000) NULL,
+	[Date] [datetime] NULL,
 	[Version] [timestamp] NOT NULL,
  CONSTRAINT [PK_Comments] PRIMARY KEY CLUSTERED 
 (
