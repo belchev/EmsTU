@@ -100,6 +100,7 @@
     <Content Include="Insert\Tables\AddressData\Settlements.sql" />
     <Content Include="Insert\Tables\ConfigFinalize.sql" />
     <Content Include="Insert\Tables\Buildings.sql" />
+    <Content Include="Insert\Tables\Data.sql" />
     <Content Include="Insert\Tables\NomTypes.sql" />
     <Content Include="Insert\Tables\Noms.sql" />
     <Content Include="Insert\Tables\Roles.sql" />

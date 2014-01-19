@@ -174,12 +174,37 @@
                 <label class="control-label">Тип заведение:</label>
               </div>
               <div class="span5">
-                <label class="control-label">Тип кухня:</label>
+                <label class="control-label">Начин на плащане:</label>
               </div>
             </div>
             <div class="row">
               <div class="span6" style="margin-bottom: 10px;">
                 <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'buildingTypes', value: buildingTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                </div>
+              </div>
+              <div class="span5" style="margin-bottom: 10px;">
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'paymentTypes', value: paymentTypes, idProperty: 'nomId' }">
+                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
+                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="span6">
+                <label class="control-label">Тип музика:</label>
+              </div>
+              <div class="span5">
+                <label class="control-label">Тип кухня:</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span6" style="margin-bottom: 10px;">
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'musicTypes', value: musicTypes, idProperty: 'nomId' }">
                   <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
@@ -194,30 +219,7 @@
 
             <div class="row">
               <div class="span6">
-                <label class="control-label">Тип музика:</label>
-              </div>
-              <div class="span5">
                 <label class="control-label">Повод:</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="span6" style="margin-bottom: 10px;">
-                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'musicTypes', value: musicTypes, idProperty: 'nomId' }">
-                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
-                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
-                </div>
-              </div>
-              <div class="span5" style="margin-bottom: 10px;">
-                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'occasionTypes', value: occasionTypes, idProperty: 'nomId' }">
-                  <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
-                  <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="span6">
-                <label class="control-label">Начин на плащане:</label>
               </div>
               <div class="span5">
                 <label class="control-label">Екстри:</label>
@@ -225,7 +227,7 @@
             </div>
             <div class="row">
               <div class="span6" style="margin-bottom: 10px;">
-                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'paymentTypes', value: paymentTypes, idProperty: 'nomId' }">
+                <div class="dropdown-container" data-bind="multiNomenclatureContext: { nomenclatureKey: 'occasionTypes', value: occasionTypes, idProperty: 'nomId' }">
                   <select style="width: 356px;" multiple="multiple" data-bind="chosen: { disabled: !$parents[1]._inEditMode(), options: nomenclatureContext.options, selectedOptions: nomenclatureContext.value, optionsText: 'name', optionsValue: 'nomId', chosenOptions: { allow_single_deselect: true } }"></select>
                   <div class="app-icon-chosen-loading" data-bind="visible: nomenclatureContext.loading"></div>
                 </div>
@@ -409,7 +411,7 @@
               <div data-bind="foreach: albumPhotos">
                 <!-- ko if: !isDeleted() -->
                 <div class="album-photo">
-                  <a data-bind="attr: { href: imagePath() }" style="cursor: pointer;">
+                  <a data-bind="attr: { href: imagePath() }" target="_blank" style="cursor: pointer;">
                     <img data-bind="attr: { src: imageThumbPath() }"></a>
                   <button class="btn btn-inverse" data-bind="click: $parents[2]._delete, enable: $parents[2]._inEditMode">X</button>
                 </div>
@@ -569,7 +571,7 @@
           </div>
 
           <div class="tab-pane" id="buildingComments" data-bind="css: { 'active': $parent._currentTab() === 'buildingComments' }">
-              <table class="table table-list">
+            <table class="table table-list">
               <thead>
                 <tr>
                   <th style="width: 500px;"></th>
@@ -578,8 +580,7 @@
               </thead>
               <tbody data-bind="foreach: comments">
                 <tr data-bind="css: { 'del': isDeleted() }">
-                  <td>
-                    на <span class="h4c" data-bind="dateWithHourText: date"></span>
+                  <td>на <span class="h4c" data-bind="dateWithHourText: date"></span>
                     от <span class="h4c" data-bind="  text: name"></span>
                     <h4></h4>
                     <span data-bind="text: comment"></span>
