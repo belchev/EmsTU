@@ -46,11 +46,7 @@ require.config({
     shim: {
         'lightbox': {
             deps: ['jquery'],
-            exports: 'jQuery.fn.lightBox',
-            init: function ($) {
-                'use strict';
-                $('.album-photo a').lightBox();
-            }
+            exports: 'jQuery.fn.lightBox'
         },
         'bootstrap': {
             deps: ['jquery', 'document'],
@@ -213,6 +209,9 @@ define([
     //framework
     'framework/corium',
 
+    //third party
+    'lightbox',
+
     //knockout binding handlers
     'converted_binding_handler',
     'read_only_handler',
@@ -246,6 +245,9 @@ define([
 
     //framework
     Corium,
+
+    //third party
+    lightbox,
 
     //knockout binding handlers
     ConvertedBindingHandler,
@@ -584,6 +586,10 @@ define([
     Corium.events.one('navigated.NavigationService', function () {
         //hide initial loader
         $('#initial-loader', document).remove();
+    });
+
+    Corium.events.on('navigated.NavigationService', function () {
+        $('.album-photo a', document).lightBox();
     });
 
     Corium.events.on('error.Corium', function (event, error) {

@@ -108,8 +108,8 @@
     window.ems.rootUrl = "@(Url.Content("~/"))";
   </script>
 
-  <script data-main="@(Url.Content("~/app/build/debug/js/main"))" src="@(Url.Content("~/app/js/lib/require.js"))"></script>
-  @*<script data-main="main" src="@(Url.Content("~/app/build/release/js/app.js?h=" + Model.VersionHash))"></script>*@
+@*  <script data-main="@(Url.Content("~/app/build/debug/js/main"))" src="@(Url.Content("~/app/js/lib/require.js"))"></script>*@
+  <script data-main="main" src="@(Url.Content("~/app/build/release/js/app.js?h=" + Model.VersionHash))"></script>
 
 </body>
 </html>

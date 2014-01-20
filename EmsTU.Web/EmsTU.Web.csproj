@@ -162,6 +162,11 @@
     <Content Include="App\img\glyphicons-halflings-white.png" />
     <Content Include="App\img\glyphicons-halflings.png" />
     <Content Include="App\img\initial-loader.gif" />
+    <Content Include="App\img\lightbox-blank.gif" />
+    <Content Include="App\img\lightbox-btn-close.gif" />
+    <Content Include="App\img\lightbox-btn-next.gif" />
+    <Content Include="App\img\lightbox-btn-prev.gif" />
+    <Content Include="App\img\lightbox-ico-loading.gif" />
     <Content Include="App\img\loading.gif" />
     <Content Include="App\img\nopic.jpg" />
     <Content Include="App\img\nopiclarge.jpg" />

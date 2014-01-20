@@ -411,8 +411,8 @@
               <div data-bind="foreach: albumPhotos">
                 <!-- ko if: !isDeleted() -->
                 <div class="album-photo">
-                  <a data-bind="attr: { href: imagePath() }" target="_blank" style="cursor: pointer;">
-                    <img data-bind="attr: { src: imageThumbPath() }"></a>
+                  <a data-bind="attr: { href: imagePath() }">
+                    <img data-bind="attr: { src: imageThumbPath() }" /></a>
                   <button class="btn btn-inverse" data-bind="click: $parents[2]._delete, enable: $parents[2]._inEditMode">X</button>
                 </div>
                 <!-- /ko-->

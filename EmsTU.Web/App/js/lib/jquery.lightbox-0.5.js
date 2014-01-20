@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  * jQuery lightBox plugin
  * This jQuery plugin was inspired and based on Lightbox 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightbox2/)
  * and adapted to me for use like a plugin from jQuery.
@@ -27,22 +27,22 @@
 			// Configuration related to navigation
 			fixedNavigation:		false,		// (boolean) Boolean that informs if the navigation (next and prev button) will be fixed or not in the interface.
 			// Configuration related to images
-			imageLoading:			'images/lightbox-ico-loading.gif',		// (string) Path and the name of the loading icon
-			imageBtnPrev:			'images/lightbox-btn-prev.gif',			// (string) Path and the name of the prev button image
-			imageBtnNext:			'images/lightbox-btn-next.gif',			// (string) Path and the name of the next button image
-			imageBtnClose:			'images/lightbox-btn-close.gif',		// (string) Path and the name of the close btn
-			imageBlank:				'images/lightbox-blank.gif',			// (string) Path and the name of a blank image (one pixel)
+			imageLoading:			'app/img/lightbox-ico-loading.gif',		// (string) Path and the name of the loading icon
+			imageBtnPrev:			'app/img/lightbox-btn-prev.gif',			// (string) Path and the name of the prev button image
+			imageBtnNext:			'app/img/lightbox-btn-next.gif',			// (string) Path and the name of the next button image
+			imageBtnClose:			'app/img/lightbox-btn-close.gif',		// (string) Path and the name of the close btn
+			imageBlank:				'app/img/lightbox-blank.gif',			// (string) Path and the name of a blank image (one pixel)
 			// Configuration related to container image box
 			containerBorderSize:	10,			// (integer) If you adjust the padding in the CSS for the container, #lightbox-container-image-box, you will need to update this value
 			containerResizeSpeed:	400,		// (integer) Specify the resize duration of container image. These number are miliseconds. 400 is default.
 			// Configuration related to texts in caption. For example: Image 2 of 8. You can alter either "Image" and "of" texts.
-			txtImage:				'Image',	// (string) Specify text "Image"
-			txtOf:					'of',		// (string) Specify text "of"
+			txtImage:				'–°–Ω–∏–º–∫–∞',	// (string) Specify text "Image"
+			txtOf:					'–æ—Ç',		// (string) Specify text "of"
 			// Configuration related to keyboard navigation
 			keyToClose:				'c',		// (string) (c = close) Letter to close the jQuery lightBox interface. Beyond this letter, the letter X and the SCAPE key is used to.
 			keyToPrev:				'p',		// (string) (p = previous) Letter to show the previous image
 			keyToNext:				'n',		// (string) (n = next) Letter to show the next image.
-			// Don¥t alter these variables in any way
+			// Don“ët alter these variables in any way
 			imageArray:				[],
 			activeImage:			0
 		},settings);
@@ -72,7 +72,7 @@
 			settings.imageArray.length = 0;
 			// Unset image active information
 			settings.activeImage = 0;
-			// We have an image set? Or just an image? Let¥s see it.
+			// We have an image set? Or just an image? Let“ës see it.
 			if ( jQueryMatchedObj.length == 1 ) {
 				settings.imageArray.push(new Array(objClicked.getAttribute('href'),objClicked.getAttribute('title')));
 			} else {
@@ -170,7 +170,7 @@
 			});
 		}
 		/**
-		 * Prepares image exibition; doing a image¥s preloader to calculate it¥s size
+		 * Prepares image exibition; doing a image“ës preloader to calculate it“ës size
 		 *
 		 */
 		function _set_image_to_view() { // show the loading
@@ -196,27 +196,27 @@
 		/**
 		 * Perfomance an effect in the image container resizing it
 		 *
-		 * @param integer intImageWidth The image¥s width that will be showed
-		 * @param integer intImageHeight The image¥s height that will be showed
+		 * @param integer intImageWidth The image“ës width that will be showed
+		 * @param integer intImageHeight The image“ës height that will be showed
 		 */
 		function _resize_container_image_box(intImageWidth,intImageHeight) {
 			// Get current width and height
 			var intCurrentWidth = $('#lightbox-container-image-box').width();
 			var intCurrentHeight = $('#lightbox-container-image-box').height();
 			// Get the width and height of the selected image plus the padding
-			var intWidth = (intImageWidth + (settings.containerBorderSize * 2)); // Plus the image¥s width and the left and right padding value
-			var intHeight = (intImageHeight + (settings.containerBorderSize * 2)); // Plus the image¥s height and the left and right padding value
+			var intWidth = (intImageWidth + (settings.containerBorderSize * 2)); // Plus the image“ës width and the left and right padding value
+			var intHeight = (intImageHeight + (settings.containerBorderSize * 2)); // Plus the image“ës height and the left and right padding value
 			// Diferences
 			var intDiffW = intCurrentWidth - intWidth;
 			var intDiffH = intCurrentHeight - intHeight;
 			// Perfomance the effect
 			$('#lightbox-container-image-box').animate({ width: intWidth, height: intHeight },settings.containerResizeSpeed,function() { _show_image(); });
 			if ( ( intDiffW == 0 ) && ( intDiffH == 0 ) ) {
-				if ( $.browser.msie ) {
+				//if ( $.browser.msie ) {
 					___pause(250);
-				} else {
-					___pause(100);	
-				}
+				//} else {
+					//___pause(100);	
+				//}
 			} 
 			$('#lightbox-container-image-data-box').css({ width: intImageWidth });
 			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css({ height: intImageHeight + (settings.containerBorderSize * 2) });
@@ -255,7 +255,7 @@
 		function _set_navigation() {
 			$('#lightbox-nav').show();
 
-			// Instead to define this configuration in CSS file, we define here. And it¥s need to IE. Just.
+			// Instead to define this configuration in CSS file, we define here. And it“ës need to IE. Just.
 			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css({ 'background' : 'transparent url(' + settings.imageBlank + ') no-repeat' });
 			
 			// Show the prev button, if not the first image in set
@@ -346,7 +346,7 @@
 			}
 			// Verify the key to show the previous image
 			if ( ( key == settings.keyToPrev ) || ( keycode == 37 ) ) {
-				// If we¥re not showing the first image, call the previous
+				// If we“ëre not showing the first image, call the previous
 				if ( settings.activeImage != 0 ) {
 					settings.activeImage = settings.activeImage - 1;
 					_set_image_to_view();
@@ -355,7 +355,7 @@
 			}
 			// Verify the key to show the next image
 			if ( ( key == settings.keyToNext ) || ( keycode == 39 ) ) {
-				// If we¥re not showing the last image, call the next
+				// If we“ëre not showing the last image, call the next
 				if ( settings.activeImage != ( settings.imageArray.length - 1 ) ) {
 					settings.activeImage = settings.activeImage + 1;
 					_set_image_to_view();
