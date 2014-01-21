@@ -13,5 +13,4 @@ GO
 exec spDescTable  N'UserRoles', N'Роли на потребител.'
 exec spDescColumn N'UserRoles', N'UserId', N'Потребител.'
 exec spDescColumn N'UserRoles', N'RoleId', N'Роля.'
-
 GO

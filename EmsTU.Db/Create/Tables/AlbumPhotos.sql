@@ -20,4 +20,11 @@ REFERENCES [dbo].[Albums] ([AlbumId])
 GO
 ALTER TABLE [dbo].[AlbumPhotos] CHECK CONSTRAINT [FK_Photos_Albums]
 GO
+
+exec spDescTable  N'AlbumPhotos', N'Снимки.'
+exec spDescColumn N'AlbumPhotos', N'AlbumPhotoId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'AlbumPhotos', N'AlbumId', N'Уникален системно генериран идентификатор на албума.'
+exec spDescColumn N'AlbumPhotos', N'ImagePath', N'Физически път до снимката.'
+exec spDescColumn N'AlbumPhotos', N'ImageThumbPath', N'Физически път до thumbnail на снимката.'
+exec spDescColumn N'AlbumPhotos', N'Version', N'Версия.'
 GO

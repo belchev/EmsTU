@@ -21,4 +21,10 @@ GO
 ALTER TABLE [dbo].[Ratings] CHECK CONSTRAINT [FK_Ratings_Buildings]
 GO
 
+exec spDescTable  N'Ratings', N'Рейтинги.'
+exec spDescColumn N'Ratings', N'RatingId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Ratings', N'BuildingId', N'Уникален системно генериран идентификатор на заведение.'
+exec spDescColumn N'Ratings', N'Rating', N'Рейтинг.'
+exec spDescColumn N'Ratings', N'Ip', N'Ip адрес.'
+exec spDescColumn N'Ratings', N'Version', N'Версия.'
 GO

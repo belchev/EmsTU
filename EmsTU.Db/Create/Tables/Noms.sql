@@ -21,3 +21,12 @@ REFERENCES [dbo].[NomTypes] ([NomTypeId])
 GO
 ALTER TABLE [dbo].[Noms] CHECK CONSTRAINT [FK_Noms_NomTypes]
 GO
+
+exec spDescTable  N'Noms', N'Номенклатури.'
+exec spDescColumn N'Noms', N'NomId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Noms', N'NomTypeId', N'Уникален системно генериран идентификатор на типа номенклатура.'
+exec spDescColumn N'Noms', N'Name', N'Име на номенклатурата.'
+exec spDescColumn N'Noms', N'Alias', N'Псевдоним на номенклатурата.'
+exec spDescColumn N'Noms', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Noms', N'Version', N'Версия.'
+GO

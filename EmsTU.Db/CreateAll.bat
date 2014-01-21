@@ -1,3 +1,3 @@
-sqlcmd -S. -v DatabaseName="EmsTest" -i"Create\Create.sql"
+sqlcmd -S. -v DatabaseName="Ems" -i"Create\Create.sql"
 
-sqlcmd -S. -v DatabaseName="EmsTest" -i"Create\Insert.sql"
+sqlcmd -S. -v DatabaseName="Ems" -i"Create\Insert.sql"

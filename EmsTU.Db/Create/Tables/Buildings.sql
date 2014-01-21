@@ -55,3 +55,28 @@ REFERENCES [dbo].[Users] ([UserId])
 GO
 ALTER TABLE [dbo].[Buildings] CHECK CONSTRAINT [FK_Buildings_Users]
 GO
+
+exec spDescTable  N'Buildings', N'Заведения.'
+exec spDescColumn N'Buildings', N'BuildingId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Buildings', N'Name', N'Име на заведението.'
+exec spDescColumn N'Buildings', N'ImagePath', N'Физически път до снимката на заведението.'
+exec spDescColumn N'Buildings', N'Slogan', N'Мото на заведението.'
+exec spDescColumn N'Buildings', N'WebSite', N'Уеб сайт на заведението.'
+exec spDescColumn N'Buildings', N'ModifyUserId', N'Последен потребител променил заведението.'
+exec spDescColumn N'Buildings', N'ModifyDate', N'Дата на последна модификация на заведението.'
+exec spDescColumn N'Buildings', N'DistrictId', N'Уникален системно генериран идентификатор на област.'
+exec spDescColumn N'Buildings', N'MunicipalityId', N'Уникален системно генериран идентификатор на община.'
+exec spDescColumn N'Buildings', N'SettlementId', N'Уникален системно генериран идентификатор на населено място.'
+exec spDescColumn N'Buildings', N'Address', N'Адрес на заведението.'
+exec spDescColumn N'Buildings', N'ContactName', N'Име за контакт.'
+exec spDescColumn N'Buildings', N'ContactPhone', N'Телефон за контакт.'
+exec spDescColumn N'Buildings', N'Info', N'Допълнителна информация за заведението.'
+exec spDescColumn N'Buildings', N'WorkingTime', N'Работно време.'
+exec spDescColumn N'Buildings', N'BuildingPhone', N'Телефон за контакт на заведенеито.'
+exec spDescColumn N'Buildings', N'Price', N'Ценови клас.'
+exec spDescColumn N'Buildings', N'SeatsInside', N'Места вътре.'
+exec spDescColumn N'Buildings', N'SeatsOutside', N'Места вън.'
+exec spDescColumn N'Buildings', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Buildings', N'IsDeleted', N'Маркер за изтрито заведение.'
+exec spDescColumn N'Buildings', N'Version', N'Версия.'
+GO

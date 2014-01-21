@@ -20,4 +20,9 @@ GO
 ALTER TABLE [dbo].[Visitors] CHECK CONSTRAINT [FK_Visitors_Buildings]
 GO
 
+exec spDescTable  N'Visitors', N'Посетители.'
+exec spDescColumn N'Visitors', N'VisitorId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Visitors', N'BuildingId', N'Уникален системно генериран идентификатор на заведение.'
+exec spDescColumn N'Visitors', N'Ip', N'Ip адрес.'
+exec spDescColumn N'Visitors', N'Version', N'Версия.'
 GO

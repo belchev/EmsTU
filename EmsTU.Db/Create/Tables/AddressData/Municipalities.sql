@@ -16,5 +16,12 @@ CREATE TABLE Municipalities
 )
 GO 
 
-exec spDescTable  N'Municipalities', N'Номенклатура области'
+exec spDescTable  N'Municipalities', N'Номенклатура община'
 exec spDescColumn N'Municipalities', N'MunicipalityId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Municipalities', N'DistrictId', N'Уникален системно генериран идентификатор за област.'
+exec spDescColumn N'Municipalities', N'Code', N'Код на община.'
+exec spDescColumn N'Municipalities', N'Name', N'Име на община.'
+exec spDescColumn N'Municipalities', N'Alias', N'Псевдоним на община.'
+exec spDescColumn N'Municipalities', N'Description', N'Описание на община.'
+exec spDescColumn N'Municipalities', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Municipalities', N'Version', N'Версия.'

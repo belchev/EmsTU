@@ -16,4 +16,10 @@ GO
 
 exec spDescTable  N'Districts', N'Номенклатура области'
 exec spDescColumn N'Districts', N'DistrictId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Districts', N'Code', N'Код на област.'
+exec spDescColumn N'Districts', N'Name', N'Име на област.'
+exec spDescColumn N'Districts', N'Alias', N'Псевдоним на област.'
+exec spDescColumn N'Districts', N'Description', N'Описание на област.'
+exec spDescColumn N'Districts', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Districts', N'Version', N'Версия.'
 

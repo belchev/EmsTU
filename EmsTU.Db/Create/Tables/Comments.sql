@@ -22,4 +22,11 @@ GO
 ALTER TABLE [dbo].[Comments] CHECK CONSTRAINT [FK_Comments_Buildings]
 GO
 
+exec spDescTable  N'Comments', N'Коментари.'
+exec spDescColumn N'Comments', N'CommentId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Comments', N'BuildingId', N'Уникален системно генериран идентификатор на заведение.'
+exec spDescColumn N'Comments', N'Name', N'Име на коментиращия.'
+exec spDescColumn N'Comments', N'Comment', N'Коментар.'
+exec spDescColumn N'Comments', N'Date', N'Дата на коментара.'
+exec spDescColumn N'Comments', N'Version', N'Версия.'
 GO

@@ -20,6 +20,16 @@ CREATE TABLE Settlements
 )
 GO 
 
-exec spDescTable  N'Settlements', N'Номенклатура области'
+exec spDescTable  N'Settlements', N'Номенклатура населени места'
 exec spDescColumn N'Settlements', N'SettlementId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Settlements', N'MunicipalityId', N'Уникален системно генериран идентификатор за община.'
+exec spDescColumn N'Settlements', N'DistrictId', N'Уникален системно генериран идентификатор за област.'
+exec spDescColumn N'Settlements', N'Code', N'Код на населено място.'
+exec spDescColumn N'Settlements', N'Name', N'Пълно име на населено място.'
+exec spDescColumn N'Settlements', N'TypeName', N'Тип на населено място.'
+exec spDescColumn N'Settlements', N'SettlementName', N'Име на населено място.'
+exec spDescColumn N'Settlements', N'Alias', N'Псевдоним на населено място.'
+exec spDescColumn N'Settlements', N'Description', N'Описание на населено място.'
+exec spDescColumn N'Settlements', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Settlements', N'Version', N'Версия.'
 

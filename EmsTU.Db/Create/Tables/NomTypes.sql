@@ -14,3 +14,11 @@ CREATE TABLE [dbo].[NomTypes](
 ) ON [PRIMARY]
 
 GO
+
+exec spDescTable  N'NomTypes', N'Типове номенклатури.'
+exec spDescColumn N'NomTypes', N'NomTypeId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'NomTypes', N'Name', N'Име на типа.'
+exec spDescColumn N'NomTypes', N'Alias', N'Псевдоним на типа.'
+exec spDescColumn N'NomTypes', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'NomTypes', N'Version', N'Версия.'
+GO

@@ -21,4 +21,10 @@ GO
 ALTER TABLE [dbo].[Albums] CHECK CONSTRAINT [FK_Albums_Buildings]
 GO
 
+exec spDescTable  N'Albums', N'Албуми.'
+exec spDescColumn N'Albums', N'AlbumId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Albums', N'BuildingId', N'Уникален системно генериран идентификатор на заведение.'
+exec spDescColumn N'Albums', N'Name', N'Име на албума.'
+exec spDescColumn N'Albums', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Albums', N'Version', N'Версия.'
 GO

@@ -11,7 +11,7 @@ CREATE TABLE [dbo].[Roles] (
 );
 GO
 
-exec spDescTable  N'Roles', N'Роли'
+exec spDescTable  N'Roles', N'Роли.'
 exec spDescColumn N'Roles', N'RoleId', N'Уникален системно генериран идентификатор.'
 exec spDescColumn N'Roles', N'Name', N'Наименование.'
 exec spDescColumn N'Roles', N'Permissions', N'Права.'

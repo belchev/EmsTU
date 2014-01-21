@@ -25,4 +25,14 @@ GO
 ALTER TABLE [dbo].[Menus] CHECK CONSTRAINT [FK_Menus_MenuCategories]
 GO
 
+exec spDescTable  N'Menus', N'Менюта.'
+exec spDescColumn N'Menus', N'MenuId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'Menus', N'MenuCategoryId', N'Уникален системно генериран идентификатор на типа категория.'
+exec spDescColumn N'Menus', N'Name', N'Име на менюто.'
+exec spDescColumn N'Menus', N'Info', N'Допълнителни данни за менюто.'
+exec spDescColumn N'Menus', N'Price', N'Цена за менюто.'
+exec spDescColumn N'Menus', N'Size', N'Грамаж на менюто.'
+exec spDescColumn N'Menus', N'ImagePath', N'Физически път до снимката на менюто.'
+exec spDescColumn N'Menus', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'Menus', N'Version', N'Версия.'
 GO

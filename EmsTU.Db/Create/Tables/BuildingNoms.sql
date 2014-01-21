@@ -9,3 +9,8 @@ CREATE TABLE [dbo].[BuildingNoms] (
     CONSTRAINT [FK_BuildingNoms_Noms] FOREIGN KEY ([NomId]) REFERENCES [dbo].[Noms] ([NomId])
 );
 GO
+
+exec spDescTable  N'BuildingNoms', N'Номенклатури за заведение.'
+exec spDescColumn N'BuildingNoms', N'NomId', N'Номенклатура.'
+exec spDescColumn N'BuildingNoms', N'BuildingId', N'Заведение.'
+GO

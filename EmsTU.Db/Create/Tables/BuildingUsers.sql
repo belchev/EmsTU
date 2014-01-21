@@ -9,3 +9,8 @@ CREATE TABLE [dbo].[BuildingUsers] (
     CONSTRAINT [FK_BuildingUsers_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([UserId])
 );
 GO
+
+exec spDescTable  N'BuildingUsers', N'Заведения на потребител.'
+exec spDescColumn N'BuildingUsers', N'UserId', N'Потребител.'
+exec spDescColumn N'BuildingUsers', N'BuildingId', N'Заведение.'
+GO

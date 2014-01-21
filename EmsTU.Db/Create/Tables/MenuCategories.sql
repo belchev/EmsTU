@@ -21,4 +21,10 @@ GO
 ALTER TABLE [dbo].[MenuCategories] CHECK CONSTRAINT [FK_MenuCategories_Buildings]
 GO
 
+exec spDescTable  N'MenuCategories', N'Меню категории.'
+exec spDescColumn N'MenuCategories', N'MenuCategoryId', N'Уникален системно генериран идентификатор.'
+exec spDescColumn N'MenuCategories', N'BuildingId', N'Уникален системно генериран идентификатор на заведение.'
+exec spDescColumn N'MenuCategories', N'Name', N'Име на меню категорията.'
+exec spDescColumn N'MenuCategories', N'IsActive', N'Маркер за активност.'
+exec spDescColumn N'MenuCategories', N'Version', N'Версия.'
 GO
